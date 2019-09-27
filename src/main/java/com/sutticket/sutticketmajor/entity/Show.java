@@ -20,6 +20,13 @@ public class Show{
     private String organizer;
     private String show_type;
 
+    public Show(){}
+    public Show(String name, String org, String st){
+        this.name = name;
+        this.organizer = org;
+        this.show_type = st;
+    }
+
     @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
     private Collection<TicketBooking> ticketBooking;
 

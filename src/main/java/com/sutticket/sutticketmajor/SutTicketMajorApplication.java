@@ -27,27 +27,28 @@ public class SutTicketMajorApplication {
 	ApplicationRunner init(ShowRepository showRepository, CustomerRepository customerRepository,
 			SeatRepository seatRepository, ShowScheduleRepository showScheduleRepository) {
 		return args -> {
-			//Fake data
-			//Customer
-			Customer c1 = new Customer("Pontep Thaweesup","dinza2541","96321000");
-			Customer c2 = new Customer("Pumarin Peowsongnern","leo1998","00000000");
-			Customer c3 = new Customer("Jiraporn github","ple1234","55554444");
-			Stream.of(c1,c2,c3).forEach(cus -> {
+			// Fake data
+			// Customer
+			Customer c1 = new Customer("Pontep Thaweesup", "dinza2541", "96321000");
+			Customer c2 = new Customer("Pumarin Peowsongnern", "leo1998", "00000000");
+			Customer c3 = new Customer("Jiraporn github", "ple1234", "55554444");
+			Stream.of(c1, c2, c3).forEach(cus -> {
 				customerRepository.save(cus); // บันทึก Objcet ชื่อ Customer
 			});
-			//Seat
+			// Seat
 			Seat seat[] = new Seat[10];
-			for(int i = 0; i < 10 ; i++){
-				seat[i] = new Seat("A"+(i+1),0,false);
+			for (int i = 0; i < 10; i++) {
+				seat[i] = new Seat("A" + (i + 1), 0, false);
 				seatRepository.save(seat[i]);
 			}
-			
-			Stream.of("Note Udom TalkShow 12", "Bodyslam Live in SUT", "SUT Dancing girls",
-					"Sompordee SUT Band Show2019").forEach(name -> {
-						Show show = new Show(); // สร้าง Object Customer
-						show.setName(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
-						showRepository.save(show); // บันทึก Objcet ชื่อ Customer
-					});
+			// Show
+			Show show1 = new Show("Note Udom TalkShow 13 at SUT", "โน๊ตอุดม แต้พานิชย์", "Talk show");
+			Show show2 = new Show("Bodyslam Live in SUT", "Bodyslam", "คอนเสิร์ต");
+			Show show3 = new Show("มทส.แสดท้องคล้องทุ่งนา Season 1", "มหาวิทยาลัยเทคโนโลยีสุรนารี", "ละครเวที");
+			Stream.of(show1, show2, show3).forEach(show -> {
+				showRepository.save(show); // บันทึก Objcet ชื่อ Customer
+			});
+			//ShowSchedule
 			Stream.of("เช้า", "สาย", "บ่าย", "เย็น").forEach(name -> {
 				ShowSchedule schedule = new ShowSchedule(); // สร้าง Object Customer
 				schedule.setSchedule(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
