@@ -1,1 +1,2 @@
-alfjkadlhkfwhbkdgwkHLDFWHABLKG
+ระบบย่อย:จัดการการแสดง
+ผู้รับผิดชอบ:นิว
