@@ -12,7 +12,8 @@ import lombok.Data;
 public class Seat{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="seat_seq",sequenceName="seat_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seat_seq")
     @Column(name = "SEAT_ID")
     private long id;
 
@@ -27,9 +28,6 @@ public class Seat{
         this.name = name;
         this.seat_level = level;
         this.isBook = isBook;
-    }
-
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
-    private Collection<TicketBooking> ticketBooking;
+    };
 
 }

@@ -3,6 +3,8 @@ package com.sutticket.sutticketmajor.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
 @Data
@@ -10,7 +12,8 @@ import lombok.Data;
 @Table(name = "ticketbooking")
 public class TicketBooking{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="ticketbooking_seq",sequenceName="ticketbooking_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ticketbooking_seq")
     @Column(name = "TICKETBOOKING_ID")
     private long id;
 
@@ -19,18 +22,17 @@ public class TicketBooking{
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)
+    @JsonManagedReference
     private Customer customer;
-
-    // @ManyToOne(fetch = FetchType.EAGER, targetEntity = Show.class)
-    // @JoinColumn(name = "SHOW_ID", insertable = true)
-    // private Show show;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowSchedule.class)
     @JoinColumn(name = "SHOWSCHEDULE_ID", insertable = true)
+    @JsonManagedReference
     private ShowSchedule showSchedule;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Seat.class)
     @JoinColumn(name = "SEAT_ID", insertable = true)
+    @JsonManagedReference
     private Seat seat;
     
     public TicketBooking(){}

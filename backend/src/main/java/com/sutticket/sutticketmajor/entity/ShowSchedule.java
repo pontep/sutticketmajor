@@ -14,7 +14,8 @@ import lombok.Data;
 public class ShowSchedule{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="showschedule_seq",sequenceName="showschedule_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="showschedule_seq")
     @Column(name = "SHOWSCHEDULE_ID")
     private long id;
 
@@ -31,8 +32,5 @@ public class ShowSchedule{
         this.show = show;
         this.schedule = schedule;
     }
-
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
-    private Collection<TicketBooking> ticketBooking;
 
 }

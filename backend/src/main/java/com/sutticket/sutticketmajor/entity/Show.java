@@ -27,7 +27,4 @@ public class Show{
         this.show_type = st;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
-    private Collection<TicketBooking> ticketBooking;
-
 }

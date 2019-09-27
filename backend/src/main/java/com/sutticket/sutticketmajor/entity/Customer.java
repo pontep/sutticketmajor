@@ -12,7 +12,8 @@ import lombok.Data;
 public class Customer{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="customer_seq",sequenceName="customer_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="customer_seq")
     @Column(name = "CUSTOMER_ID")
     private long id;
 
@@ -21,9 +22,6 @@ public class Customer{
     private String password;
 
     private String name;
-
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
-    private Collection<TicketBooking> ticketBooking;
 
     public Customer(){}
     public Customer(String name, String username , String password){
