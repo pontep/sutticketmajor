@@ -22,6 +22,13 @@ public class Seat{
 
     private Boolean isBook = false;
 
+    public Seat(){}
+    public Seat(String name , long level, Boolean isBook){
+        this.name = name;
+        this.seat_level = level;
+        this.isBook = isBook;
+    }
+
     @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
     private Collection<TicketBooking> ticketBooking;
 
