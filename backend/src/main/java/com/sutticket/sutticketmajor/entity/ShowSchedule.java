@@ -19,11 +19,18 @@ public class ShowSchedule{
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Show.class)
-    @JoinColumn(name = "show", insertable = true)
+    @JoinColumn(name = "show_id", insertable = true)
     @JsonManagedReference
     private Show show;
     
     private String schedule; //เช้าสายบ่ายเย็น
+    
+    public ShowSchedule(){}
+    
+    public ShowSchedule(Show show, String schedule){
+        this.show = show;
+        this.schedule = schedule;
+    }
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
     private Collection<TicketBooking> ticketBooking;

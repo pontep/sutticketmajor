@@ -27,7 +27,7 @@ public class SutTicketMajorApplication {
 	ApplicationRunner init(ShowRepository showRepository, CustomerRepository customerRepository,
 			SeatRepository seatRepository, ShowScheduleRepository showScheduleRepository) {
 		return args -> {
-			// Fake data
+			// Bootstrap some test data into the in-memory database
 			// Customer
 			Customer c1 = new Customer("Pontep Thaweesup", "dinza2541", "96321000");
 			Customer c2 = new Customer("Pumarin Peowsongnern", "leo1998", "00000000");
@@ -48,15 +48,15 @@ public class SutTicketMajorApplication {
 			Stream.of(show1, show2, show3).forEach(show -> {
 				showRepository.save(show); // บันทึก Objcet ชื่อ Customer
 			});
-			//ShowSchedule
-			Stream.of("เช้า", "สาย", "บ่าย", "เย็น").forEach(name -> {
-				ShowSchedule schedule = new ShowSchedule(); // สร้าง Object Customer
-				schedule.setSchedule(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
-				showScheduleRepository.save(schedule); // บันทึก Objcet ชื่อ Customer
+			// ShowSchedule
+			ShowSchedule ss1 = new ShowSchedule(show1, "เช้า");
+			ShowSchedule ss2 = new ShowSchedule(show2, "บ่าย");
+			ShowSchedule ss3 = new ShowSchedule(show3, "เย็น");
+			Stream.of(ss1, ss2, ss3).forEach(ss -> {
+				showScheduleRepository.save(ss); // บันทึก Objcet ชื่อ Customer
 			});
 
-			customerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน
-																		// Terminal
+			// customerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
 		};
 	}
 
