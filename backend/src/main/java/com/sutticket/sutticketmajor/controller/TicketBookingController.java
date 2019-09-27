@@ -43,12 +43,12 @@ public class TicketBookingController {
     @Autowired
     private SeatRepository seatRepository;
 
-    @GetMapping("/ticketbooking/{id}")
-    public TicketBooking getTicketBookingById(@PathVariable long id) {
-        TicketBooking data = ticketBookingRepository.findById(id);
-        return data;
+    // @GetMapping("/ticketbooking/{id}")
+    // public TicketBooking getTicketBookingById(@PathVariable long id) {
+    //     TicketBooking data = ticketBookingRepository.findById(id);
+    //     return data;
 
-    }
+    // }
 
     @GetMapping("/ticketBookings")
     public Collection<TicketBooking> getAllTicketBooking() {
