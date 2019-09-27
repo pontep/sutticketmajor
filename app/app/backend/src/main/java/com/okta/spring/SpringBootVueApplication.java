@@ -1,5 +1,6 @@
 package com.okta.spring;
 
+import java.sql.Date;
 import java.util.stream.Stream;
 
 import com.okta.spring.entity.Customer;
@@ -39,8 +40,8 @@ public class SpringBootVueApplication {
 			Employee e1 = new Employee("Pontep Thaweesup", "dinza2541", "96321000");
 			Employee e2 = new Employee("Pumarin Peowsongnern", "leo1998", "00000000");
 			Employee e3 = new Employee("Jiraporn github", "ple1234", "55554444");
-			Stream.of(e1, e2, e3).forEach(cus -> {
-				employeerepository.save(cus); // บันทึก Objcet ชื่อ Customer
+			Stream.of(e1, e2, e3).forEach(emp -> {
+				employeerepository.save(emp); // บันทึก Objcet ชื่อ Customer
 			});
 
 			Customer c1 = new Customer("Black", "dinza2541", "96321000");
@@ -50,7 +51,7 @@ public class SpringBootVueApplication {
 				customerRepository.save(cus); // บันทึก Objcet ชื่อ Customer
 			});
 
-			Stream.of("Kbank", "Credit Card", "Airpay").forEach(name -> {
+			Stream.of("Kbank", "Credit Card", "Airpay", "ชำระด้วยเงินสด").forEach(name -> {
 				PaymentType paymentType = new PaymentType(); // สร้าง Object Customer
 				paymentType.setPayment(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
 				paymenttyperepository.save(paymentType); // บันทึก Objcet ชื่อ Customer
@@ -62,17 +63,28 @@ public class SpringBootVueApplication {
 				seatRepository.save(seat[i]);
 			}
 
-			Stream.of("Note Udom TalkShow 12", "Bodyslam Live in SUT", "SUT Dancing girls",
-					"Sompordee SUT Band Show2019").forEach(name -> {
-						Show show = new Show(); // สร้าง Object Customer
-						show.setName(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
-						showRepository.save(show); // บันทึก Objcet ชื่อ Customer
-					});
-			Stream.of("เช้า", "สาย", "บ่าย", "เย็น").forEach(name -> {
-				ShowSchedule schedule = new ShowSchedule(); // สร้าง Object Customer
-				schedule.setSchedule(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
-				showscheduleRepository.save(schedule); // บันทึก Objcet ชื่อ Customer
+			Show show1 = new Show("Note Udom TalkShow 13 at SUT", "โน๊ตอุดม แต้พานิชย์", "Talk show");
+			Show show2 = new Show("Bodyslam Live in SUT", "Bodyslam", "คอนเสิร์ต");
+			Show show3 = new Show("มทส.แสดท้องคล้องทุ่งนา Season 1", "มหาวิทยาลัยเทคโนโลยีสุรนารี", "ละครเวที");
+			Stream.of(show1, show2, show3).forEach(show -> {
+				showRepository.save(show); // บันทึก Objcet ชื่อ Customer
 			});
+
+			ShowSchedule ss1 = new ShowSchedule(show1, "เช้า");
+			ShowSchedule ss2 = new ShowSchedule(show2, "บ่าย");
+			ShowSchedule ss3 = new ShowSchedule(show3, "เย็น");
+			Stream.of(ss1, ss2, ss3).forEach(ss -> {
+				showscheduleRepository.save(ss); // บันทึก Objcet ชื่อ Customer
+			});
+
+			
+			TicketBooking t1 = new TicketBooking(c1, ss1,seat[0]);
+			TicketBooking t2 = new TicketBooking(c2, ss2,seat[1]);
+			TicketBooking t3 = new TicketBooking(c3, ss3,seat[2]);
+			Stream.of(t1, t2, t3).forEach(tb -> {
+				ticketbookingrepository.save(tb); // บันทึก Objcet ชื่อ Customer
+			});
+
 
 		};
 

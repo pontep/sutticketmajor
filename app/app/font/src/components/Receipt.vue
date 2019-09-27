@@ -5,7 +5,7 @@
         <v-card class="pa-2" outlined tile>
           <h1 class="text-center red--text">Receipt</h1>
           <v-form ref="form">
-
+            
             <v-select
               v-model="selectedEmployee"
               :items="employee"
@@ -20,12 +20,12 @@
               item-text="name"
               item-value="id"
               label="เลือกชื่อของลูกค้า"
-            ></v-select>
+            ></v-select>            
             
             <v-select
               v-model="selectedTicketBooking"
               :items="ticketbooking"
-              item-text="showSchedule"
+              item-text="id"
               item-value="id"
               label="เลือกตั๋วการแสดงที่ลูกค้าได้จองไว้"
             ></v-select>
@@ -55,9 +55,15 @@
   <script>
 import api from "../http-common";
 export default {
+  watch: {
+    selectedCustomer: function (val) {
+      this.getAllticketbooking();
+    }
+  },
+    
   mounted() {
     this.getAllemployee();
-    this.getAllticketbooking();
+    // this.getAllticketbooking();
     this.getAllpaymenttype();
     this.getAllCustomers();
   },
@@ -132,7 +138,7 @@ export default {
 
     getAllticketbooking() {
       api
-        .get("/ticket")
+        .get("/ticketbooking/"+this.selectedCustomer)
         .then(response => {
           this.ticketbooking = response.data;
           console.log("show data yet");

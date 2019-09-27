@@ -7,6 +7,12 @@ spring:
    h2:
       console:
          enabled: true
+         path: /h2_console
+   datasource:
+      url: jdbc:h2:mem:testdb
+      username: SA
+      password:
+      driverClassName: org.h2.Driver
 
 server:  
   port: 9000

@@ -1,4 +1,5 @@
 package com.okta.spring.entity;
+
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -13,18 +14,23 @@ import lombok.Data;
 public class ShowSchedule{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="showschedule_seq",sequenceName="showschedule_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="showschedule_seq")
     @Column(name = "SHOWSCHEDULE_ID")
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Show.class)
-    @JoinColumn(name = "show", insertable = true)
+    @JoinColumn(name = "show_id", insertable = true)
     @JsonManagedReference
     private Show show;
     
     private String schedule; //เช้าสายบ่ายเย็น
-
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
-    private Collection<TicketBooking> ticketBooking;
+    
+    public ShowSchedule(){}
+    
+    public ShowSchedule(Show show, String schedule){
+        this.show = show;
+        this.schedule = schedule;
+    }
 
 }

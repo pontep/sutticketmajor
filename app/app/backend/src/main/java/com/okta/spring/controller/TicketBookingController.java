@@ -2,6 +2,7 @@ package com.okta.spring.controller;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,13 @@ public class TicketBookingController {
     @GetMapping("/ticketBookings")
     public Collection<TicketBooking> getAllTicketBooking() {
         return ticketBookingRepository.findAll().stream().collect(Collectors.toList());
+    }
+
+    @GetMapping("/ticketbooking/{customer_id}")
+    public List<TicketBooking> getTicketBookingWhereCustomer(@PathVariable long customer_id){
+        Customer cus = customerRepository.findById(customer_id);
+        List<TicketBooking> ticketBookings = ticketBookingRepository.findByCustomer(cus);
+        return ticketBookings;
     }
 
     @PostMapping("/ticketBooking/{customer_id}/{showschedule_id}/{seat_id}")

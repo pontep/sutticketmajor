@@ -34,5 +34,11 @@ public class TicketBooking{
     private Seat seat;
     
     public TicketBooking(){}
+    public TicketBooking(Customer customer , ShowSchedule showSchedule ,Seat seat){
+        this.bookdate = new Date();
+        this.customer = customer;
+        this.seat = seat;
+        this.showSchedule = showSchedule;
+    }
 
 }
