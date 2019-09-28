@@ -55,7 +55,7 @@ public class TicketBookingController {
         return ticketBookingRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @GetMapping("/ticketbooking/{{customer_id}}")
+    @GetMapping("/ticketbooking/{customer_id}")
     public List<TicketBooking> getTicketBookingWhereCustomer(@PathVariable long customer_id){
         Customer cus = customerRepository.findById(customer_id);
         List<TicketBooking> ticketBookings = ticketBookingRepository.findByCustomer(cus);
