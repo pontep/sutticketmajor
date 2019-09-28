@@ -66,25 +66,28 @@ public class SpringBootVueApplication {
 			Show show1 = new Show("Note Udom TalkShow 13 at SUT", "โน๊ตอุดม แต้พานิชย์", "Talk show");
 			Show show2 = new Show("Bodyslam Live in SUT", "Bodyslam", "คอนเสิร์ต");
 			Show show3 = new Show("มทส.แสดท้องคล้องทุ่งนา Season 1", "มหาวิทยาลัยเทคโนโลยีสุรนารี", "ละครเวที");
-			Stream.of(show1, show2, show3).forEach(show -> {
+			Show show4 = new Show("พี่มาร์ค พระนคร", "มหาวิทยาลัยเทคโนโลยีสุรนารี", "ละครเวที");
+			Stream.of(show1, show2, show3, show4).forEach(show -> {
 				showRepository.save(show); // บันทึก Objcet ชื่อ Customer
 			});
 
 			ShowSchedule ss1 = new ShowSchedule(show1, "เช้า");
 			ShowSchedule ss2 = new ShowSchedule(show2, "บ่าย");
 			ShowSchedule ss3 = new ShowSchedule(show3, "เย็น");
-			Stream.of(ss1, ss2, ss3).forEach(ss -> {
+			ShowSchedule ss4 = new ShowSchedule(show4, "เย็น");
+			Stream.of(ss1, ss2, ss3, ss4).forEach(ss -> {
 				showscheduleRepository.save(ss); // บันทึก Objcet ชื่อ Customer
 			});
 
-			
-			TicketBooking t1 = new TicketBooking(c1, ss1,seat[0]);
-			TicketBooking t2 = new TicketBooking(c2, ss2,seat[1]);
-			TicketBooking t3 = new TicketBooking(c3, ss3,seat[2]);
-			Stream.of(t1, t2, t3).forEach(tb -> {
+			TicketBooking t1 = new TicketBooking(c1, ss1, seat[0]);
+			TicketBooking t2 = new TicketBooking(c2, ss2, seat[1]);
+			TicketBooking t3 = new TicketBooking(c3, ss3, seat[2]);
+			TicketBooking t4 = new TicketBooking(c1, ss4, seat[7]);
+			TicketBooking t5 = new TicketBooking(c2, ss3, seat[4]);
+			TicketBooking t6 = new TicketBooking(c3, ss1, seat[6]);
+			Stream.of(t1, t2, t3, t4, t5, t6).forEach(tb -> {
 				ticketbookingrepository.save(tb); // บันทึก Objcet ชื่อ Customer
 			});
-
 
 		};
 
