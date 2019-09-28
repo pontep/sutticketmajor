@@ -1,13 +1,10 @@
 package com.sutticket.sutticketmajor.controller;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
-import com.sutticket.sutticketmajor.entity.Customer;
-import com.sutticket.sutticketmajor.repository.CustomerRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,39 +12,65 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.sutticket.sutticketmajor.entity.Carrer;
+import com.sutticket.sutticketmajor.entity.Customer;
+import com.sutticket.sutticketmajor.entity.RangeAge;
+import com.sutticket.sutticketmajor.entity.Sex;
+import com.sutticket.sutticketmajor.repository.CarrerRepository;
+import com.sutticket.sutticketmajor.repository.CustomerRepository;
+import com.sutticket.sutticketmajor.repository.RangeAgeRepository;
+import com.sutticket.sutticketmajor.repository.SexRepository;
+
 @CrossOrigin(origins = "http://localhost:8080")
+@RestController
 @RequestMapping("/api")
-public class CustomerController{
-    
+public class CustomerController {
     @Autowired
-    CustomerRepository repository;
+    private CustomerRepository customerRepository;
+    @Autowired
+    private RangeAgeRepository rangeagerepository;
+    @Autowired
+    private CarrerRepository carrerrepository;
+    @Autowired
+    private SexRepository sexrepository;
 
-    @GetMapping("/customers")
-    public Collection<Customer> getAllCustomer(){
-        return repository.findAll().stream().collect(Collectors.toList());
+    @GetMapping("/customer")
+    public Collection<Customer> customer() {
+        return customerRepository.findAll().stream().collect(Collectors.toList());
     }
+
+    @PostMapping("/Customer/{sex_id}/{rangeage_id}/{carrer_id}")
+    public Customer newcustomer(Customer newCustomer,
+    @RequestBody Customer customer,
+    @PathVariable long rangeage_id,
+    @PathVariable long carrer_id,
+    @PathVariable long sex_id) {
     
-    @PostMapping("/customer")
-    public Customer postCustomer(Customer newcustomer, @RequestBody Customer customer){
-        newcustomer.setUsername(customer.getUsername());        
-        newcustomer.setName(customer.getName());
-        newcustomer.setPassword(customer.getPassword());
 
-        return repository.save(newcustomer);
-    }
-    //test send data string using pathvariable
-    @PostMapping("/newcustomer2/{name}/{username}/{password}")
-    public Customer newCustomer2(@PathVariable String name, @PathVariable String username, @PathVariable String password){
-        Customer cus = new Customer(name,username,password);
-        return repository.save(cus);
-    }
-    //using body data
-    @PostMapping("/newcustomer")
-    public Customer newCustomer(@RequestBody Customer customer){
-        Customer _customer = repository.save(new Customer(customer.getName(), customer.getUsername(), customer.getPassword()));
+    RangeAge rangeage = rangeagerepository.findById(rangeage_id);
+    Carrer carrer = carrerrepository.findById(carrer_id);
+    Sex sex = sexrepository.findById(sex_id);
+    
+    newCustomer.setName(customer.getName());
+    newCustomer.setUsername(customer.getUsername());
+    newCustomer.setPassword(customer.getPassword());
+    newCustomer.setSex(sex);
+    newCustomer.setRangeAge(rangeage);
+    newCustomer.setCarrer(carrer);
+    
 
-        return _customer;
-    }
 
+    return customerRepository.save(newCustomer); 
+    
+    }
 }
