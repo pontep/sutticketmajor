@@ -29,11 +29,12 @@
         data(){
             return{
                 headers:[{
-                    text: "Employee",
+                    text: "Show_ID",
                     align: "left",
                     sortable: false,
-                    value: "createBy.employee_name"
+                    value: "id"
                 },
+                {text:"Employee",value:"createBy.employee_name"},
                 {text: "Title",value:"title"},
                 {text: "Type", value:"type.type"},
                 {text: "Rating",value:"rating.rate"}
@@ -45,7 +46,7 @@
 
         methods:{
             back(){
-                this.$router.push("/show");
+                this.$router.push("/");
             },
             getAllShows(){
                 api

@@ -40,7 +40,6 @@
 
             <div class="text-center">
               <v-btn color="warning" class="mr-3" @click="Saveshow">บันทึก</v-btn>
-              <v-btn color="warning" class="mr-3" @click="watchdata">ดูข้อมูล</v-btn>
               <v-btn color="warning" class="mr-3" @click="Resetshow">ยกเลิก</v-btn>
             </div>
           </v-card>
@@ -77,10 +76,6 @@ export default {
     Resetshow() {
       this.$refs.form.reset();
     },
-    watchdata(){
-      this.$router.push("/view");
-    },
-
     Saveshow() {
       //เมือกดปุ่มบันทึก ขณะที่ยังกรอกข้อมูลไม่ครบ ระบบจะแจ้งเตื่อน "กรุณากรอรกข้อมูลให้ครบ"
       if (
@@ -112,6 +107,7 @@ export default {
           alert("บันทึกข้อมูลสำเร็จ!");
           console.log(JSON.parse(JSON.stringify(response.data)));
           this.$refs.form.reset();
+          this.$router.push("/view");
         })
         .catch(e => {
           console.log(e);
