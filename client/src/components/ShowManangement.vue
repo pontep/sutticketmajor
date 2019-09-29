@@ -13,6 +13,8 @@
               item-text="employee_name"
               item-value="id"
               label="เลือกชื่อผู้จัดการ"
+              :rules="[(v) => !!v || 'กรุณาเลือกชื่อผู้จัดการ']"
+              required
             ></v-select>
 
             <v-text-field
@@ -21,6 +23,8 @@
               item-text="name"
               item-value="id"
               label="กรอกชื่อการแสดง"
+              :rules="[(v) => !!v || 'กรุณากรอกชื่อการแสดง']"
+              required
             ></v-text-field>
             <v-select
              v-model="selectedTypeShow"
@@ -28,6 +32,8 @@
               item-text="type"
               item-value="id"
               label="เลือกประเภทการแสดง"
+              :rules="[(v) => !!v || 'กรุณาเลือกประเภทการแสดง']"
+              required
             ></v-select>
 
             <v-select
@@ -35,7 +41,9 @@
               :items="ratings"
               item-text="rate"
               item-value="id"
-              label="เลือก Rating ในการแสดง"
+              label="เลือกเรทของการแสดง"
+              :rules="[(v) => !!v || 'กรุณาเลือกเรทของการแสดง']"
+              required
             ></v-select>
 
             <div class="text-center">
