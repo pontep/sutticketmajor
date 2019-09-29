@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - appApplication",
+            "request": "launch",
+            "mainClass": "com.ap.app.appApplication",
+            "projectName": "backend"
+        }
+    ]
+}
