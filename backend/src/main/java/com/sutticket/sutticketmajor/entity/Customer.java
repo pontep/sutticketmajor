@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -17,9 +19,6 @@ import javax.persistence.FetchType;
 
 @Data
 @Entity
-@Setter
-@Getter
-@NoArgsConstructor
 @Table(name="CUSTOMER")
 public class Customer {
 
@@ -38,29 +37,28 @@ public class Customer {
     @Column(name="password")
     private  String password;
 
-
-
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = RangeAge.class)
     @JoinColumn(name = "RANGEAGE_ID", insertable = true)
-    private RangeAge rangeage;
+    @JsonManagedReference
+    private RangeAge rangeAge;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Carrer.class)
     @JoinColumn(name = "CARRER_ID", insertable = true)
+    @JsonManagedReference
     private Carrer carrer;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Sex.class)
     @JoinColumn(name = "SEX_ID", insertable = true)
+    @JsonManagedReference
     private Sex sex;
 
-	public void setRangeAge(RangeAge rangeage) {
-        this.rangeage = rangeage;
-	}
-
-	public void setCarrer(Carrer carrer) {
+    public Customer(){}
+    public Customer(String name, String username, String pass, RangeAge rangeAge, Carrer carrer, Sex sex){
+        this.name = name;
+        this.username = username;
+        this.password = pass;
+        this.rangeAge = rangeAge;
         this.carrer = carrer;
-    }
-
-	public void setSex(Sex sex) {
         this.sex = sex;
     }
 }

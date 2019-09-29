@@ -17,8 +17,8 @@ public class Employee{
     private long id;
 
     private String name;
-    private String user;
-    private String pass; 
+    private String username;
+    private String password; 
 
     // @ManyToOne(fetch = FetchType.EAGER, targetEntity = Receipt.class)
     // @JoinColumn(name = "RECEIPT_ID", insertable = true)
@@ -31,8 +31,8 @@ public class Employee{
      public Employee(){}
      public Employee(String name,String  user,String pass){
          this.name =name;
-         this.pass=pass;
-         this.user=user;
+         this.password=pass;
+         this.username=user;
 
      }
 }

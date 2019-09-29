@@ -18,7 +18,6 @@ import javax.persistence.GenerationType;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name="CARRER")
 public class Carrer {
     @Id
@@ -29,9 +28,8 @@ public class Carrer {
 
     private @NonNull String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    
-    private Collection<Customer> customer;
+    // @OneToMany(fetch = FetchType.EAGER)
+    // private Collection<Customer> customer;
 
     public Carrer(){}
     public Carrer(String name){

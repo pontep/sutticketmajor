@@ -19,7 +19,6 @@ import javax.persistence.Entity;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name="RANGEAGE")
 public class RangeAge {
 	@Id
@@ -30,9 +29,9 @@ public class RangeAge {
 	private @NonNull String rangeages;
 	
 
-	@OneToMany(fetch = FetchType.EAGER)
-	// mappedBy  = "rentCustomer"
-	private Collection<Customer> customer;
+	// @OneToMany(fetch = FetchType.EAGER)
+	// // mappedBy  = "rentCustomer"
+	// private Collection<Customer> customer;
 
 	public RangeAge(){}
     public RangeAge(String rangeages){
