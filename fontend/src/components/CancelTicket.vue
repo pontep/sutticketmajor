@@ -17,9 +17,19 @@
             <v-select
               v-model="selectedTicketBooking"
               :items="ticketbookings"
-              item-text="showschedule_id"
+              item-text="id"
               item-value="id"
-              label="เลือกตั๋วการแสดงที่จองไว้"
+              label="เลือกตั๋วการแสดงที่ลูกค้าได้จองไว้"
+              ><template slot="item" slot-scope="data">
+                {{data.item.showSchedule.show.name}} - {{data.item.showSchedule.schedule}}
+                - {{data.item.seat.name}}
+              </template>
+              ><template
+                slot="selection"
+                slot-scope="data">
+                  {{data.item.showSchedule.show.name}} - {{data.item.showSchedule.schedule}}
+                - {{data.item.seat.name}}
+              </template>
             ></v-select>
 
             <v-select
@@ -42,15 +52,18 @@
   </v-form>
 </template>
 
-
-
   <script>
 import api from "../http-common";
 
 export default {
+  watch: {
+    selectedCustomer: function (val) {
+      this.getAllTicketBookings();
+    }
+  },
   mounted() {
     this.getAllCustomers();
-    this.getAllTicketBookings();
+   // this.getAllTicketBookings();
     this.getAllReasons();
   },
   data() {
@@ -63,7 +76,7 @@ export default {
       reasons: []
     };
   },
-  methods: {
+   methods: {
     getAllCustomers() {
       api
         .get("/cm")
@@ -76,10 +89,9 @@ export default {
           console.log("Error in getAllCustomer() : " + e);
         });
     },
-
     getAllTicketBookings() {
       api
-        .get("/tb/",this.selectedCustomer)
+        .get("/tb/"+this.selectedCustomer)
         .then(response => {
           this.ticketbookings = response.data;
           console.log("Ticket Booking data have bean loaded.");
@@ -113,6 +125,7 @@ export default {
         alert("Please select all field!");
       } else {
         this.checksave();
+        this.checkdelete();
       }
     },
     checksave() {
@@ -134,7 +147,23 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+    checkdelete(){
+      api
+        .delete(
+          "/tb/"+this.selectedTicketBooking
+        )
+        .then(response => {
+          alert("Delete data successfully..");
+          console.log(JSON.parse(JSON.stringify(response.data)));
+          this.$refs.form.reset(); 
+        
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
+
   }
 };
 </script>
