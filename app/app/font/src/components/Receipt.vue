@@ -28,7 +28,17 @@
               item-text="id"
               item-value="id"
               label="เลือกตั๋วการแสดงที่ลูกค้าได้จองไว้"
-            ></v-select>
+            ><template slot="item" slot-scope="data">
+                {{ data.item.showSchedule.show.name }} - {{ data.item.showSchedule.schedule }}
+                - {{ data.item.seat.name }}
+              </template>
+
+              <template
+                slot="selection"
+                slot-scope="data"
+              >{{ data.item.showSchedule.show.name }} - {{ data.item.showSchedule.schedule }}
+                - {{ data.item.seat.name }}</template>
+            </v-select>
 
             <v-select
               v-model="selectedPaymentType"
