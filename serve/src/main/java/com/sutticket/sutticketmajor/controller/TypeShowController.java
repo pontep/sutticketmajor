@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import com.okta.Show.entity.TypeShow;
-import com.okta.Show.repository.TypeShowRepository;
+import com.sutticket.sutticketmajor.entity.TypeShow;
+import com.sutticket.sutticketmajor.repository.TypeShowRepository;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
