@@ -20,8 +20,8 @@ public class RangeAgeController {
     @Autowired
     private RangeAgeRepository rangeAgeRepository;
 
-    @GetMapping("/rangeage")
-    public Collection<RangeAge> RangeAge() {
+    @GetMapping("/rangeAges")
+    public Collection<RangeAge> getAllRangeAge() {
         return rangeAgeRepository.findAll().stream().collect(Collectors.toList());
     }
 

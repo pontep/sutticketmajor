@@ -44,26 +44,35 @@ public class CustomerController {
     @Autowired
     private SexRepository sexrepository;
 
-    @GetMapping("/customer")
+    @GetMapping("/customers")
     public Collection<Customer> customer() {
         return customerRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/Customer/{sex_id}/{rangeage_id}/{carrer_id}")
+    @GetMapping("/customer/{username}/{password}")
+    public Customer customerfindByUsername(@PathVariable String username, @PathVariable String password){
+        return customerRepository.findByUsernameAndPassword(username, password);
+
+    }
+    
+
+    @PostMapping("/customer/{sex_id}/{rangeAge_id}/{carrer_id}/{name}/{username}/{password}")
     public Customer newcustomer(Customer newCustomer,
-    @RequestBody Customer customer,
-    @PathVariable long rangeage_id,
+    @PathVariable String name,
+    @PathVariable String username,
+    @PathVariable String password,
+    @PathVariable long rangeAge_id,
     @PathVariable long carrer_id,
     @PathVariable long sex_id) {
     
 
-    RangeAge rangeage = rangeagerepository.findById(rangeage_id);
+    RangeAge rangeage = rangeagerepository.findById(rangeAge_id);
     Carrer carrer = carrerrepository.findById(carrer_id);
     Sex sex = sexrepository.findById(sex_id);
     
-    newCustomer.setName(customer.getName());
-    newCustomer.setUsername(customer.getUsername());
-    newCustomer.setPassword(customer.getPassword());
+    newCustomer.setName(name);
+    newCustomer.setUsername(username);
+    newCustomer.setPassword(password);
     newCustomer.setSex(sex);
     newCustomer.setRangeAge(rangeage);
     newCustomer.setCarrer(carrer);

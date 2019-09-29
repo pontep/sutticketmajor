@@ -20,8 +20,8 @@ public class CarrerController {
     @Autowired
     CarrerRepository carrerRepository;
 
-    @GetMapping("/carrer")
-    public Collection<Carrer> Carrer() {
+    @GetMapping("/careers")
+    public Collection<Carrer> getAllCareers() {
         return carrerRepository.findAll().stream().collect(Collectors.toList());
     }
 

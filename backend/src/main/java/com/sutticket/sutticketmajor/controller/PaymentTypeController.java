@@ -21,8 +21,8 @@ public class PaymentTypeController{
     PaymentTypeRepository repository;
     
    
-    @GetMapping("/payment")
-    public Collection<PaymentType> getAllReceipt(){
+    @GetMapping("/payments")
+    public Collection<PaymentType> getAllPayments(){
         return repository.findAll().stream().collect(Collectors.toList());
     }
 }
