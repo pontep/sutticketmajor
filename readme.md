@@ -1,7 +1,11 @@
 === อ่านก่อน ===
 
-1.ให้สร้าง branch เป็นชื่อระบบย่อยของตัวเอง เช่น TicketBooking - Din
+cd client
+npm install
+run command: yarn serve
+on browser: http://localhost:8080/
 
-2.config Application.yml ให้ใช้ H2 บนแรม
-
-3.ให้เมคข้อมูลบน Server ตอนรัน
+cd serve
+run command: gradlew bootRun
+on browser: http://localhost:9000/h2_db
+user: admin

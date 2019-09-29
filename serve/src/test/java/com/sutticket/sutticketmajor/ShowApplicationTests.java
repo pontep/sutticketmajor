@@ -1,4 +1,4 @@
-package com.sutticket.SutTicketMajor;
+package com.sutticket.sutticketmajor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SutTicketMajorApplicationTests {
+public class ShowApplicationTests {
 
 	@Test
 	public void contextLoads() {
