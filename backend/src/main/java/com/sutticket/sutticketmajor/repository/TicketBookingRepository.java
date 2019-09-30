@@ -11,3 +11,4 @@ public interface TicketBookingRepository extends JpaRepository<TicketBooking, Lo
     TicketBooking findById(long id);
 }
 
+

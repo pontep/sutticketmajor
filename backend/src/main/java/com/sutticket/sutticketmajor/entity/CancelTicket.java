@@ -19,7 +19,7 @@ public class CancelTicket{
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
     @JoinColumn(name = "TICKETBOOKING_ID", insertable = true)
-    private TicketBooking ticketbooking; 
+    private TicketBooking ticketBooking; 
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Reason.class)
     @JoinColumn(name = "REASON_ID", insertable = true)
@@ -31,5 +31,13 @@ public class CancelTicket{
     
 
     public CancelTicket(){}
+    public CancelTicket(Customer customer, TicketBooking ticketbooking,  Reason reason){
+        this.cancelDate = new Date();
+        this.customer = customer;
+        this.ticketBooking = ticketbooking;
+        this.reason = reason;
+        
+
+    }
 
 }

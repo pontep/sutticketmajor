@@ -29,36 +29,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-public class CancelTicketController{
+public class CancelTicketController {
 
     @Autowired
     private CancelTicketRepository cancelticketRepository;
     @Autowired
-    private CustomerRepository  customerRepository;
+    private CustomerRepository customerRepository;
     @Autowired
     private TicketBookingRepository ticketBookingRepository;
     @Autowired
     private ReasonRepository reasonRepository;
-    
+
+    @GetMapping("/ct/{customer_id}")
+    public Collection<CancelTicket> getAllCancelTicketsWhereTicketBooking(@PathVariable long customer_id){
+        Customer cus = customerRepository.findById(customer_id);
+        return cancelticketRepository.findByCustomer(cus);
+    }
+
     @GetMapping("/ct")
-    public Collection<CancelTicket> getAllCancelTickets(){
+    public Collection<CancelTicket> getAllCancelTickets() {
         return cancelticketRepository.findAll().stream().collect(Collectors.toList());
     }
 
-     
 
-     @PostMapping("/ct/{customer_id}/{ticketbooking_id}/{reason_id}")
-     public CancelTicket postCancelTicket(CancelTicket newCancelTicket, 
-        @PathVariable long customer_id,
-        @PathVariable long ticketbooking_id, 
-        @PathVariable long reason_id) {
+    @PostMapping("/ct/{customer_id}/{ticketbooking_id}/{reason_id}")
+    public CancelTicket postCancelTicket(CancelTicket newCancelTicket, @PathVariable long customer_id,
+            @PathVariable long ticketbooking_id, @PathVariable long reason_id) {
 
         Customer customer = customerRepository.findById(customer_id);
         TicketBooking ticketbooking = ticketBookingRepository.findById(ticketbooking_id);
         Reason reason = reasonRepository.findById(reason_id);
 
         newCancelTicket.setCustomer(customer);
-        newCancelTicket.setTicketbooking(ticketbooking);
+        newCancelTicket.setTicketBooking(ticketbooking);
         newCancelTicket.setReason(reason);
         newCancelTicket.setCancelDate(new Date());
 
@@ -66,5 +69,4 @@ public class CancelTicketController{
 
     }
 
-    
 }

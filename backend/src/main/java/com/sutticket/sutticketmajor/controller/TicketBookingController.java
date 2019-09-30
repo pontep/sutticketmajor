@@ -7,9 +7,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.Date;
 import com.sutticket.sutticketmajor.entity.TicketBooking;
+import com.sutticket.sutticketmajor.entity.CancelTicket;
 import com.sutticket.sutticketmajor.entity.Customer;
 import com.sutticket.sutticketmajor.entity.Seat;
 import com.sutticket.sutticketmajor.entity.ShowSchedule;
+import com.sutticket.sutticketmajor.repository.CancelTicketRepository;
 import com.sutticket.sutticketmajor.repository.CustomerRepository;
 import com.sutticket.sutticketmajor.repository.SeatRepository;
 import com.sutticket.sutticketmajor.repository.ShowScheduleRepository;
@@ -39,6 +41,8 @@ public class TicketBookingController{
     private ShowScheduleRepository showScheduleRepository;
     @Autowired
     private SeatRepository seatRepository;
+    @Autowired
+    private CancelTicketRepository cancelticketRepository;
 
     
 
@@ -53,6 +57,7 @@ public class TicketBookingController{
         List<TicketBooking> ticketbookings = ticketBookingRepository.findByCustomer(cus);
         return ticketbookings;
     }
+    
 
     @PostMapping("/tb/{customer_id}/{showschedule_id}/{seat_id}")
     public TicketBooking postTicketBooking(TicketBooking newTicketBooking, @PathVariable long customer_id,
@@ -74,10 +79,10 @@ public class TicketBookingController{
 
     }
 
-    @DeleteMapping("/tb/{id}")
-    public ResponseEntity<String> deleteTicketBooking(@PathVariable long id) {
-        ticketBookingRepository.deleteById(id);
-        return new ResponseEntity<>("Ticketbooking" + id + "has been deleted!", HttpStatus.OK);
-    }
+    // @DeleteMapping("/tb/{id}")
+    // public ResponseEntity<String> deleteTicketBooking(@PathVariable long id) {
+    //     ticketBookingRepository.deleteById(id);
+    //     return new ResponseEntity<>("Ticketbooking" + id + "has been deleted!", HttpStatus.OK);
+    // }
 
 }
