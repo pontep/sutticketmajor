@@ -14,7 +14,7 @@
     </v-row>
 
     <div class="text-center">
-      <v-btn color="warning" class="mr-3" @click="back">หน้าหลัก</v-btn>
+      <v-btn color="warning" class="mr-3" @click="back">กลับ</v-btn>
     </div>
   </v-container>
 </template>

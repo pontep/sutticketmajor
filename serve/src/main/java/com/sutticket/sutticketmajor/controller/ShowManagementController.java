@@ -80,25 +80,25 @@ public class ShowManagementController {
     }
 
     //ส่งค่าแบบ PathVariable ของ title ใน show
-   // @PostMapping("/show2/{employee_id}/{ShowType_id}/{ShowRating_id}/{title}")  
-    //public Show newShow2(Show newShow,
-    //@PathVariable String title,
-    //@PathVariable long employee_id,
-    //@PathVariable long ShowType_id,
-    //@PathVariable long ShowRating_id)
+    @PostMapping("/show2/{employee_id}/{ShowType_id}/{ShowRating_id}/{title}")  
+    public Show newShow2(Show newShow,
+    @PathVariable String title,
+    @PathVariable long employee_id,
+    @PathVariable long ShowType_id,
+    @PathVariable long ShowRating_id)
     
     
-     //{
+     {
 
-     //Employee createBy = employeeRepository.findById(employee_id);
-     //ShowType type = showTypeRepository.findById(ShowType_id);
-     //ShowRating rating = showRatingRepository.findById(ShowRating_id);
+     Employee createBy = employeeRepository.findById(employee_id);
+     ShowType type = showTypeRepository.findById(ShowType_id);
+     ShowRating rating = showRatingRepository.findById(ShowRating_id);
     
-    //newShow.setTitle(title);
-    //newShow.setType(type);   
-    //newShow.setRating(rating);
-    //newShow.setCreateBy(createBy);
-    //return showManagementRepository.save(newShow); //บันทึก Objcet ชื่อ Show
+    newShow.setTitle(title);
+    newShow.setType(type);   
+    newShow.setRating(rating);
+    newShow.setCreateBy(createBy);
+    return showManagementRepository.save(newShow); //บันทึก Objcet ชื่อ Show
 
-    //}
+    }
 }
