@@ -36,7 +36,7 @@ public class ShowScheduleController {
         this.showScheduleRepository = showScheduleRepository;
     }
 
-    @GetMapping("/showSchedule")
+    @GetMapping("/showSchedules")
     public Collection<ShowSchedule> VideoRentals() {
         return showScheduleRepository.findAll().stream().collect(Collectors.toList());
     }

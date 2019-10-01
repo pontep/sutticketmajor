@@ -111,7 +111,7 @@ export default {
     },
     showTimeList() {
       http
-        .get("/showtime")
+        .get("/showtimes")
         .then(response => {
           this.times = response.data;
           console.log(JSON.parse(JSON.stringify(response.data)));
@@ -122,7 +122,7 @@ export default {
     },
     showLocationList() {
       http
-        .get("/showlocation")
+        .get("/showlocations")
         .then(response => {
           this.locations = response.data;
           console.log(JSON.parse(JSON.stringify(response.data)));
@@ -133,7 +133,7 @@ export default {
     },
     getShowDate() {
       http
-        .get("/showSchedule")
+        .get("/showSchedules")
         .then(response => {
           this.dates = response.data;
           console.log(JSON.parse(JSON.stringify(response.data)));

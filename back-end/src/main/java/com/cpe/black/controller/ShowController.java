@@ -24,7 +24,7 @@ public class ShowController {
         this.showRepository = showRepository;
     }
 
-    @GetMapping("/show")
+    @GetMapping("/shows")
     public Collection<Show> Shows() {
         return showRepository.findAll().stream().collect(Collectors.toList());
     }

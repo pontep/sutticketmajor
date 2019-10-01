@@ -24,7 +24,7 @@ public class ShowTimeController {
         this.showTimeRepository = showTimeRepository;
     }
 
-    @GetMapping("/showtime")
+    @GetMapping("/showtimes")
     public Collection<ShowTime> ShowTimes() {
         return showTimeRepository.findAll().stream().collect(Collectors.toList());
     }

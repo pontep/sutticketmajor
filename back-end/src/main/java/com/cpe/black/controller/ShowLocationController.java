@@ -24,7 +24,7 @@ public class ShowLocationController {
         this.showLocationRepository = showLocationRepository;
     }
 
-    @GetMapping("/showlocation")
+    @GetMapping("/showlocations")
     public Collection<ShowLocation> ShowLocations() {
         return showLocationRepository.findAll().stream().collect(Collectors.toList());
     }

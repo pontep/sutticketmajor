@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar >
       <v-toolbar-title class="headline text-uppercase">
         <span>System</span>
         <span class="font-weight-light"> Analysis and Design</span>
