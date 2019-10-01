@@ -7,6 +7,7 @@ run command: gradlew bootRun
 on browser: http://localhost:9000/h2_db
 
 user: admin
+
 ---------------------------------------------------------------
 
 รันหน้าบ้าน : cd client
