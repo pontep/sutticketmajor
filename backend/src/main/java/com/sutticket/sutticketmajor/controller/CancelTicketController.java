@@ -51,7 +51,6 @@ public class CancelTicketController {
         return cancelticketRepository.findAll().stream().collect(Collectors.toList());
     }
 
-
     @PostMapping("/ct/{customer_id}/{ticketbooking_id}/{reason_id}")
     public CancelTicket postCancelTicket(CancelTicket newCancelTicket, @PathVariable long customer_id,
             @PathVariable long ticketbooking_id, @PathVariable long reason_id) {

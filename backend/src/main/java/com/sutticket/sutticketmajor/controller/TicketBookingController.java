@@ -51,11 +51,15 @@ public class TicketBookingController{
         return ticketBookingRepository.findAll().stream().collect(Collectors.toList());
     }
 
+
     @GetMapping("/tb/{customer_id}")
     public List<TicketBooking> getTicketBookingWhereCustomer(@PathVariable long customer_id){
         Customer cus = customerRepository.findById(customer_id);
-        List<TicketBooking> ticketbookings = ticketBookingRepository.findByCustomer(cus);
-        return ticketbookings;
+        long chk = cancelticketRepository.getCountById(customer_id);
+        if(chk != 0){
+            return ticketBookingRepository.findByNotCancelTicket(customer_id).stream().collect(Collectors.toList());
+        }
+        return ticketBookingRepository.findByCustomer(cus).stream().collect(Collectors.toList());
     }
     
 

@@ -113,31 +113,31 @@ export default {
         .catch(e => {
           console.log(e);
         });
-      api
-        .get("/ct/" + this.selectedCustomer)
-        .then(res => {
-          this.cancelTickets = res.data;
-          console.log(
-            "CancelTickets where customer_id = " + this.selectedCustomer
-          );
-          console.log(JSON.parse(JSON.stringify(res.data)));
-          for (var i = 0; i < this.ticketbookings.length; i++) {
-            for (var j = 0; j < this.cancelTickets.length; j++) {
-              if (this.ticketbookings[i].id != this.cancelTickets[j].id) {
-                console.log("din");
-                this.temptick += this.ticketbookings;
-                continue;
-              }
-            }
-          }
-          console.log("ticketbooking.length = " + this.ticketbookings.length);
-          console.log("cancelTicket.length = " + this.cancelTickets.length);
-          console.log("temptick:");
-          console.log(this.temptick);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      // api
+      //   .get("/ct/" + this.selectedCustomer)
+      //   .then(res => {
+      //     this.cancelTickets = res.data;
+      //     console.log(
+      //       "CancelTickets where customer_id = " + this.selectedCustomer
+      //     );
+      //     console.log(JSON.parse(JSON.stringify(res.data)));
+      //     for (var i = 0; i < this.ticketbookings.length; i++) {
+      //       for (var j = 0; j < this.cancelTickets.length; j++) {
+      //         if (this.ticketbookings[i].id != this.cancelTickets[j].id) {
+      //           console.log("din");
+      //           this.temptick += this.ticketbookings;
+      //           continue;
+      //         }
+      //       }
+      //     }
+      //     console.log("ticketbooking.length = " + this.ticketbookings.length);
+      //     console.log("cancelTicket.length = " + this.cancelTickets.length);
+      //     console.log("temptick:");
+      //     console.log(this.temptick);
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   });
     },
     getAllReasons() {
       api
