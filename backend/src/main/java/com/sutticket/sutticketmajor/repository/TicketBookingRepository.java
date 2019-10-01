@@ -12,7 +12,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface TicketBookingRepository extends JpaRepository<TicketBooking, Long>{
-    @Query( value = "SELECT a.* FROM TICKETBOOKING as a INNER JOIN  CANCELTICKET  as  p on a.TICKETBOOKING_ID != p.TICKETBOOKING_ID where a.CUSTOMER_ID=p.CUSTOMER_ID and a.CUSTOMER_ID = :customer_id",
+    @Query( value = "SELECT a.* FROM TICKETBOOKING as a INNER JOIN  CANCELTICKET  
+           as  p on a.TICKETBOOKING_ID != p.TICKETBOOKING_ID where a.CUSTOMER_ID=p.CUSTOMER_ID and a.CUSTOMER_ID = :customer_id",
             nativeQuery = true)
     Collection<TicketBooking> findByNotCancelTicket(@Param("customer_id") long customer_id);
 
