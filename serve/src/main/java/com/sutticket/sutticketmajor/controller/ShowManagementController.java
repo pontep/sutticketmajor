@@ -21,14 +21,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Date;
 
-import com.sutticket.sutticketmajor.entity.RatingShow;
+import com.sutticket.sutticketmajor.entity.ShowRating;
 import com.sutticket.sutticketmajor.entity.Show;
-import com.sutticket.sutticketmajor.entity.TypeShow;
+import com.sutticket.sutticketmajor.entity.ShowType;
 import com.sutticket.sutticketmajor.entity.Employee;
 
-import com.sutticket.sutticketmajor.repository.RatingShowRepository;
+import com.sutticket.sutticketmajor.repository.ShowRatingRepository;
 import com.sutticket.sutticketmajor.repository.ShowManagementRepository;
-import com.sutticket.sutticketmajor.repository.TypeShowRepository;
+import com.sutticket.sutticketmajor.repository.ShowTypeRepository;
 import com.sutticket.sutticketmajor.repository.EmployeeRepository;
 
 
@@ -39,9 +39,9 @@ public class ShowManagementController {
     @Autowired
     private final ShowManagementRepository showManagementRepository;
     @Autowired
-    private RatingShowRepository ratingShowRepository;
+    private ShowRatingRepository showRatingRepository;
     @Autowired
-    private TypeShowRepository typeShowRepository;
+    private ShowTypeRepository showTypeRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -50,28 +50,51 @@ public class ShowManagementController {
         this.showManagementRepository= showManagementRepository;
     }
 
-    @GetMapping("/show")
+    @GetMapping("/Shows")
     public Collection<Show> getAllShows() {   //collection ส่งกลับทั้งหมด
         return showManagementRepository.findAll().stream().collect(Collectors.toList()); 
     }
 
     
-
-    @PostMapping("/show/{employee_id}/{typeShow_id}/{ratingShow_id}")  
+    //ส่งค่าแบบ RequestBody ของ show(พกของติดตัวมา title)
+    @PostMapping("/show/{employee_id}/{ShowType_id}/{ShowRating_id}")  
     public Show newShow(Show newShow,
     @RequestBody Show show,
     @PathVariable long employee_id,
-    @PathVariable long typeShow_id,
-    @PathVariable long ratingShow_id)
+    @PathVariable long ShowType_id,
+    @PathVariable long ShowRating_id)
     
     
      {
 
      Employee createBy = employeeRepository.findById(employee_id);
-     TypeShow type = typeShowRepository.findById(typeShow_id);
-     RatingShow rating = ratingShowRepository.findById(ratingShow_id);
+     ShowType type = showTypeRepository.findById(ShowType_id);
+     ShowRating rating = showRatingRepository.findById(ShowRating_id);
     
     newShow.setTitle(show.getTitle());
+    newShow.setType(type);   
+    newShow.setRating(rating);
+    newShow.setCreateBy(createBy);
+    return showManagementRepository.save(newShow); //บันทึก Objcet ชื่อ Show
+
+    }
+
+    //ส่งค่าแบบ PathVariable ของ title ใน show
+    @PostMapping("/show2/{employee_id}/{ShowType_id}/{ShowRating_id}/{title}")  
+    public Show newShow2(Show newShow,
+    @PathVariable String title,
+    @PathVariable long employee_id,
+    @PathVariable long ShowType_id,
+    @PathVariable long ShowRating_id)
+    
+    
+     {
+
+     Employee createBy = employeeRepository.findById(employee_id);
+     ShowType type = showTypeRepository.findById(ShowType_id);
+     ShowRating rating = showRatingRepository.findById(ShowRating_id);
+    
+    newShow.setTitle(title);
     newShow.setType(type);   
     newShow.setRating(rating);
     newShow.setCreateBy(createBy);

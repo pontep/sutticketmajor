@@ -23,7 +23,7 @@ public class Show {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SHOW_seq")
     @Column(name = "SHOW_ID", unique = true, nullable = true)
   
-    private  Long id;
+    private Long id;
 
 
     @Column(name="TITLE")
@@ -33,15 +33,15 @@ public class Show {
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
     private Employee createBy;
     
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TypeShow.class)
-    @JoinColumn(name = "TYPESHOW_ID", insertable = true)
-    private TypeShow type;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowType.class)
+    @JoinColumn(name = "SHOWTYPE_ID", insertable = true)
+    private ShowType type;
 
 
     
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = RatingShow.class)
-    @JoinColumn(name = "RATINGSHOW_ID", insertable = true)
-    private RatingShow rating;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowRating.class)
+    @JoinColumn(name = "SHOWRATING_ID", insertable = true)
+    private ShowRating rating;
 
 
     

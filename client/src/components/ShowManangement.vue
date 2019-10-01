@@ -27,7 +27,7 @@
               required
             ></v-text-field>
             <v-select
-             v-model="selectedTypeShow"
+             v-model="selectedShowType"
               :items="types"
               item-text="type"
               item-value="id"
@@ -37,7 +37,7 @@
             ></v-select>
 
             <v-select
-              v-model="selectedRatingShow"
+              v-model="selectedShowRating"
               :items="ratings"
               item-text="rate"
               item-value="id"
@@ -66,8 +66,8 @@ export default {
     return {
       insertShowName: undefined,
       selectedEmployee: null,
-      selectedTypeShow: null,
-      selectedRatingShow: null,
+      selectedShowType: null,
+      selectedShowRating: null,
       titles: [],
       employees: [],
       types: [],
@@ -77,8 +77,8 @@ export default {
   mounted() {
     //ประกาศฟังก์ชันที่ต้องการดึงข้อมูลจากหลังบ้านมาแสดงใน combobox แต่ละตัว
     this.getAllEmployees();
-    this.getAllTypeShows();
-    this.getAllRatingShows();
+    this.getAllShowTypes();
+    this.getAllShowRatings();
   },
   methods: {
     Resetshow() {
@@ -89,8 +89,8 @@ export default {
       if (
         !this.insertShowName ||
         !this.selectedEmployee ||
-        !this.selectedTypeShow ||
-        !this.selectedRatingShow
+        !this.selectedShowType ||
+        !this.selectedShowRating
       ) {
         alert("กรุณากรอกข้อมูลให้ครบ!");
       } else {
@@ -107,9 +107,9 @@ export default {
           "/show/" +
             this.selectedEmployee +
             "/" +
-            this.selectedTypeShow+
+            this.selectedShowType+
             "/" +
-            this.selectedRatingShow,bag
+            this.selectedShowRating,bag
         )
         .then(response => {
           alert("บันทึกข้อมูลสำเร็จ!");
@@ -127,7 +127,7 @@ export default {
         .get("/Employees")
         .then(response => {
           this.employees = response.data;
-          console.log("ดึงข้อมู Customer");
+          console.log("ดึงข้อมูล Customer");
           console.log(JSON.parse(JSON.stringify(response.data)));
         })
         .catch(e => {
@@ -135,9 +135,9 @@ export default {
         });
     },
 
-    getAllTypeShows() {
+    getAllShowTypes() {
       api
-        .get("/typeShows")
+        .get("/Showtypes")
         .then(response => {
           this.types = response.data;
           console.log("เพิ่มข้อมูล Type แล้ว");
@@ -148,9 +148,9 @@ export default {
         });
     },
 
-    getAllRatingShows() {
+   getAllShowRatings() {
       api
-        .get("/ratingShows")
+        .get("/Showratings")
         .then(response => {
           this.ratings = response.data;
           console.log("ดึงข้อมูล Rating สำเร็จ");

@@ -14,19 +14,19 @@ import javax.persistence.GenerationType;
 import lombok.NonNull;
 @Data
 @Entity
-@Table(name="TYPESHOW")
-public class TypeShow {
+@Table(name="SHOWTYPE")
+public class ShowType {
     @Id
-    @SequenceGenerator(name="TYPESHOW_SEQ",sequenceName="TYPESHOW_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="TYPESHOW_SEQ")
-    @Column(name="TYPESHOW_ID",unique = true, nullable = true)
+    @SequenceGenerator(name="SHOWTYPE_SEQ",sequenceName="SHOWTYPE_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SHOWTYPE_SEQ")
+    @Column(name="SHOWTYPE_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
     private @NonNull String type;
 
     @OneToMany(fetch = FetchType.EAGER)
 
-    private Collection<Show> Show;
+    private Collection<Show> show;
 
-	public TypeShow(){}
+	public ShowType(){}
 }

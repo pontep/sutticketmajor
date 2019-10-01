@@ -23,18 +23,17 @@ public class Employee{
  
     private @NonNull  String employee_name;
 
-    private @NonNull  String employee_sex;
+ 
 
     @OneToMany(fetch = FetchType.EAGER)
 
-    private Collection<Show> Show;
+    private Collection<Show> show;
 
     public Employee(){}
 
-    public Employee(String employee_name,String employee_password,String employee_sex,String employee_username){
+    public Employee(String employee_name,String employee_password,String employee_username){
         this.employee_name=employee_name;
         this.employee_password=employee_password;
-        this.employee_sex=employee_sex;
         this.employee_username=employee_username;
     }
 

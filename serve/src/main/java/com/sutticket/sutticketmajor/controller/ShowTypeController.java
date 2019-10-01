@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import com.sutticket.sutticketmajor.entity.TypeShow;
-import com.sutticket.sutticketmajor.repository.TypeShowRepository;
+import com.sutticket.sutticketmajor.entity.ShowType;
+import com.sutticket.sutticketmajor.repository.ShowTypeRepository;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/api")
-public class TypeShowController {
+public class ShowTypeController {
 
     @Autowired
-    TypeShowRepository typeShowRepository;
+    ShowTypeRepository showTypeRepository;
 
     
 
-    @GetMapping("/typeShows")
-    public Collection<TypeShow> getAllTypeShows() {
-        return typeShowRepository.findAll().stream().collect(Collectors.toList());
+    @GetMapping("/Showtypes")
+    public Collection<ShowType> getAllShowTypes() {
+        return showTypeRepository.findAll().stream().collect(Collectors.toList());
     }
 
 }

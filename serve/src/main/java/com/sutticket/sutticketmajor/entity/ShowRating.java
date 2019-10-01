@@ -14,20 +14,20 @@ import javax.persistence.GenerationType;
 import lombok.NonNull;
 @Data
 @Entity
-@Table(name="RATINGSHOW")
-public class RatingShow {
+@Table(name="SHOWRATING")
+public class ShowRating {
     @Id
-    @SequenceGenerator(name="RATINGSHOW_SEQ",sequenceName="RATINGSHOW_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="RATINGSHOW_SEQ")
-    @Column(name="RATINGSHOW_ID",unique = true, nullable = true)
+    @SequenceGenerator(name="SHOWRATING_SEQ",sequenceName="SHOWRATING_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SHOWRATING_SEQ")
+    @Column(name="SHOWRATING_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
     private @NonNull String rate;
 
     @OneToMany(fetch = FetchType.EAGER)
  
-    private Collection<Show> Show;
+    private Collection<Show> show;
     
-    public RatingShow(){}
+    public ShowRating(){}
 	
 }
