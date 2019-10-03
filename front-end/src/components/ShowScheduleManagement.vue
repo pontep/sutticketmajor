@@ -37,6 +37,16 @@
             required
             ></v-select>
 
+            <v-select
+            v-model="S_seat"
+            :items="seats"
+            item-text="seat"
+            item-value="id"
+            label="เลือกจำนวนที่นั่ง"
+            :rules="[(v) => !!v || 'กรุณาเลือกจำนวนที่นั่ง']"
+            required
+            ></v-select>
+
             <v-dialog
               ref="dialog"
               v-model="menu"
@@ -80,8 +90,10 @@ export default {
     return {
       S_show: undefined,
       S_time: undefined,
+      S_seat: undefined,
       S_location: undefined,
       shows: [],
+      seats: [],
       times: [],
       locations: [],
       dates: [],
@@ -97,16 +109,27 @@ export default {
     this.showTimeList();
     this.showLocationList();
     this.getShowDate();
+    this.showSeat();
   },
 
   methods: {
     showList() {
-      http.get("/show").then(response => {
+      http.get("/shows").then(response => {
         this.shows = response.data;
         console.log(JSON.parse(JSON.stringify(response.data)));
-        console.log(response.data);
+        // console.log(response.data);
         }).catch(e => {
           console.log("Error in showList() :" + e);
+        });
+    },
+    showSeat() {
+      http
+        .get("/seats")
+        .then(response => {
+          this.seats = response.data;
+          console.log(JSON.parse(JSON.stringify(response.data)));
+        }).catch(e => {
+          console.log("Error in showSeat() :" + e);
         });
     },
     showTimeList() {
@@ -115,7 +138,6 @@ export default {
         .then(response => {
           this.times = response.data;
           console.log(JSON.parse(JSON.stringify(response.data)));
-          console.log(response.data);
         }).catch(e => {
           console.log("Error in showTimeList() :" + e);
         });
@@ -126,7 +148,6 @@ export default {
         .then(response => {
           this.locations = response.data;
           console.log(JSON.parse(JSON.stringify(response.data)));
-          console.log(response.data);
         }).catch(e => {
             console.log("Error in showLocationList() :" + e);
         });
@@ -137,7 +158,6 @@ export default {
         .then(response => {
           this.dates = response.data;
           console.log(JSON.parse(JSON.stringify(response.data)));
-          console.log(response.data);
         }).catch(e => {
           console.log("Error in getShowDate() :" + e);
         });
@@ -155,7 +175,10 @@ export default {
             this.S_time + 
             "/" + 
             this.S_location + 
-            "/", box)
+            "/" +
+            this.S_seat +
+            "/"
+            , box)
             .then(response => {
               console.log(response.data);
               location.reload();

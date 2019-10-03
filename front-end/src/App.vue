@@ -13,7 +13,6 @@
     </v-app-bar>
 
     <v-content>
-      <!-- <VideoRental/> -->
       <router-view />
     </v-content>
   </v-app>

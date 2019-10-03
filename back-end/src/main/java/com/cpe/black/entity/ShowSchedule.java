@@ -20,7 +20,6 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name="SHOWSCHEDULE")
 public class ShowSchedule {
-
     @Id
     @SequenceGenerator(name="show_schedule_seq",sequenceName="show_schedule_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="show_schedule_seq")
@@ -41,4 +40,8 @@ public class ShowSchedule {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowLocation.class)
     @JoinColumn(name = "SHOW_LOCATION_ID", insertable = true)
     private ShowLocation location_at;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Seat.class)
+    @JoinColumn(name = "SEAT_ID", insertable = true)
+    private Seat cus_seat;
 }

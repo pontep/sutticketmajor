@@ -3,8 +3,8 @@ package com.cpe.black.controller;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import com.cpe.black.entity.ShowLocation;
-import com.cpe.black.repository.ShowLocationRepository;
+import com.cpe.black.entity.Seat;
+import com.cpe.black.repository.SeatRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
-public class ShowLocationController {
+public class SeatController {
 
     @Autowired
-    private final ShowLocationRepository showLocationRepository;
+    private final SeatRepository seatRepository;
 
-    public ShowLocationController(ShowLocationRepository showLocationRepository) {
-        this.showLocationRepository = showLocationRepository;
+    public SeatController(SeatRepository seatRepository) {
+        this.seatRepository = seatRepository;
     }
 
-    @GetMapping("/showlocations")
-    public Collection<ShowLocation> getShowLocations() {
-        return showLocationRepository.findAll().stream().collect(Collectors.toList());
+    @GetMapping("/seats")
+    public Collection<Seat> setSeats() {
+        return seatRepository.findAll().stream().collect(Collectors.toList());
     }
 }
