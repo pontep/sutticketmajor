@@ -41,7 +41,7 @@ public class ShowSchedule {
     @JoinColumn(name = "SHOW_LOCATION_ID", insertable = true)
     private ShowLocation location_at;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Seat.class)
-    @JoinColumn(name = "SEAT_ID", insertable = true)
-    private Seat cus_seat;
+    // @ManyToOne(fetch = FetchType.EAGER, targetEntity = Seat.class)
+    // @JoinColumn(name = "SEAT_ID", insertable = true)
+    // private Seat cus_seat;
 }

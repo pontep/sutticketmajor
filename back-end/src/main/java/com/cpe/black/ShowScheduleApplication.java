@@ -19,7 +19,7 @@ public class ShowScheduleApplication {
 
 	@Bean
 	ApplicationRunner init(ShowRepository showRepository, ShowTimeRepository 
-	showTimeRepository, ShowLocationRepository showLocationRepository, SeatRepository seatRepository) {
+	showTimeRepository, ShowLocationRepository showLocationRepository/*, SeatRepository seatRepository*/) {
 		return args -> {
 			Stream.of("FOO", "DOOMILK", "DOMTIA", "SOTORN", "PANOM").forEach(title -> {
 				Show show = new Show(); // สร้าง Object Customer
@@ -27,11 +27,11 @@ public class ShowScheduleApplication {
 				showRepository.save(show); // บันทึก Objcet ชื่อ Customer
 			});
 
-			Stream.of(100, 300, 500, 1000).forEach(seat -> {
-				Seat seatShow = new Seat(); // สร้าง Object Customer
-				seatShow.setSeat(seat); // set ชื่อ (name) ให้ Object ชื่อ Customer
-				seatRepository.save(seatShow); // บันทึก Objcet ชื่อ Customer
-			});
+			// Stream.of(100, 300, 500, 1000).forEach(seat -> {
+			// 	Seat seatShow = new Seat(); // สร้าง Object Customer
+			// 	seatShow.setSeat(seat); // set ชื่อ (name) ให้ Object ชื่อ Customer
+			// 	seatRepository.save(seatShow); // บันทึก Objcet ชื่อ Customer
+			// });
 
 			Stream.of("08.00-11.00 น.", "13.00-16.00 น.", "18.00-21.00 น.").forEach(part -> {
 				ShowTime showTime = new ShowTime(); // สร้าง Object Customer

@@ -37,7 +37,7 @@
             required
             ></v-select>
 
-            <v-select
+            <!-- <v-select
             v-model="S_seat"
             :items="seats"
             item-text="seat"
@@ -45,7 +45,7 @@
             label="เลือกจำนวนที่นั่ง"
             :rules="[(v) => !!v || 'กรุณาเลือกจำนวนที่นั่ง']"
             required
-            ></v-select>
+            ></v-select> -->
 
             <v-dialog
               ref="dialog"
@@ -109,7 +109,7 @@ export default {
     this.showTimeList();
     this.showLocationList();
     this.getShowDate();
-    this.showSeat();
+    // this.showSeat();
   },
 
   methods: {
@@ -122,16 +122,16 @@ export default {
           console.log("Error in showList() :" + e);
         });
     },
-    showSeat() {
-      http
-        .get("/seats")
-        .then(response => {
-          this.seats = response.data;
-          console.log(JSON.parse(JSON.stringify(response.data)));
-        }).catch(e => {
-          console.log("Error in showSeat() :" + e);
-        });
-    },
+    // showSeat() {
+    //   http
+    //     .get("/seats")
+    //     .then(response => {
+    //       this.seats = response.data;
+    //       console.log(JSON.parse(JSON.stringify(response.data)));
+    //     }).catch(e => {
+    //       console.log("Error in showSeat() :" + e);
+    //     });
+    // },
     showTimeList() {
       http
         .get("/showtimes")
