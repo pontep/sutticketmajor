@@ -28,9 +28,15 @@
         text router-link to="/register">
         <span class="mr-2">สมัครสมาชิก</span>
       </v-btn>
+      <v-btn
+        text router-link to="/login">
+        <span class="mr-2">เข้าสู่ระบบ</span>
+      </v-btn>
     </v-app-bar>
 
+
     <v-content>
+      
       <router-view></router-view>
     </v-content>
   </v-app>

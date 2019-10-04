@@ -3,11 +3,11 @@
     <v-row justify="center" align="center">
       <v-col cols="12" md="6">
         <h1>จองตั๋วการแสดง</h1>
-        {{ selectedCustomer }}
+        <!-- {{ selectedCustomer }}
         {{ selectedShowSchedule }}
         {{ selectedSeat }}
          (รูปภาพสมมติ)
-        <img src="https://github.com/dincracker/sutticketmajor/blob/ticketbooking/1500seat.png?raw=true" />
+        <img src="https://github.com/dincracker/sutticketmajor/blob/ticketbooking/1500seat.png?raw=true" /> -->
         <v-select
           :items="customers"
           v-model="selectedCustomer"

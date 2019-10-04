@@ -43,13 +43,6 @@ public class TicketBookingController {
     @Autowired
     private SeatRepository seatRepository;
 
-    // @GetMapping("/ticketbooking/{id}")
-    // public TicketBooking getTicketBookingById(@PathVariable long id) {
-    //     TicketBooking data = ticketBookingRepository.findById(id);
-    //     return data;
-
-    // }
-
     @GetMapping("/ticketBookings")
     public Collection<TicketBooking> getAllTicketBooking() {
         return ticketBookingRepository.findAll().stream().collect(Collectors.toList());
@@ -65,20 +58,15 @@ public class TicketBookingController {
     @PostMapping("/ticketBooking/{customer_id}/{showschedule_id}/{seat_id}")
     public TicketBooking postTicketBooking(TicketBooking newTicketBooking, @PathVariable long customer_id,
             @PathVariable long showschedule_id, @PathVariable long seat_id ) {
-        //สร้าง Object TicketBooking newTicketBooking = new TicketBooking();
-        //findById Customer , ShowSchedule , Seat
         Customer customer = customerRepository.findById(customer_id);
         ShowSchedule showschedule = showScheduleRepository.findById(showschedule_id);
         Seat seat = seatRepository.findById(seat_id);
-        //set Bookdate , Customer , ShowSchedule , Seat
+        
         newTicketBooking.setBookdate(new Date());
         newTicketBooking.setCustomer(customer);
         newTicketBooking.setShowSchedule(showschedule);
         seat.setIsBook(true); //seat นี้ถูกจองไปแล้ว
         newTicketBooking.setSeat(seat);
-        
-        
-        //save();
         return ticketBookingRepository.save(newTicketBooking);
 
     }
