@@ -5,15 +5,15 @@
         <v-col cols="12" md="6">
           <v-card class="pa-2" outlined tile>
             
-            <h1 class="text-center pink--text">Show Management</h1>
+            <h1 class="text-center red--text">Show Management</h1>
 
             <v-select
               v-model="selectedEmployee"
               :items="employees"
               item-text="employee_name"
               item-value="id"
-              label="เลือกชื่อผู้จัดการ"
-              :rules="[(v) => !!v || 'กรุณาเลือกชื่อผู้จัดการ']"
+              label="เลือกชื่อพนักงาน"
+              :rules="[(v) => !!v || 'กรุณาเลือกชื่อพนักงาน']"
               required
             ></v-select>
 
@@ -47,8 +47,8 @@
             ></v-select>
 
             <div class="text-center">
-              <v-btn color="warning" class="mr-3" @click="Saveshow">บันทึก</v-btn>
-              <v-btn color="warning" class="mr-3" @click="Resetshow">ยกเลิก</v-btn>
+              <v-btn  class="mr-3" @click="Saveshow">บันทึก</v-btn>
+              <v-btn  class="mr-3" @click="Resetshow">ยกเลิก</v-btn>
             </div>
           </v-card>
         </v-col>
