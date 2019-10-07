@@ -1,5 +1,6 @@
 package com.sutticket.sutticketmajor;
 
+import java.sql.Date;
 import java.util.stream.Stream;
 
 import com.sutticket.sutticketmajor.entity.Carrer;
@@ -10,7 +11,11 @@ import com.sutticket.sutticketmajor.entity.RangeAge;
 import com.sutticket.sutticketmajor.entity.Seat;
 import com.sutticket.sutticketmajor.entity.Sex;
 import com.sutticket.sutticketmajor.entity.Show;
+import com.sutticket.sutticketmajor.entity.ShowLocation;
+import com.sutticket.sutticketmajor.entity.ShowRating;
 import com.sutticket.sutticketmajor.entity.ShowSchedule;
+import com.sutticket.sutticketmajor.entity.ShowTime;
+import com.sutticket.sutticketmajor.entity.ShowType;
 import com.sutticket.sutticketmajor.repository.CarrerRepository;
 import com.sutticket.sutticketmajor.repository.CustomerRepository;
 import com.sutticket.sutticketmajor.repository.EmployeeRepository;
@@ -18,8 +23,12 @@ import com.sutticket.sutticketmajor.repository.PaymentTypeRepository;
 import com.sutticket.sutticketmajor.repository.RangeAgeRepository;
 import com.sutticket.sutticketmajor.repository.SeatRepository;
 import com.sutticket.sutticketmajor.repository.SexRepository;
+import com.sutticket.sutticketmajor.repository.ShowLocationRepository;
+import com.sutticket.sutticketmajor.repository.ShowRatingRepository;
 import com.sutticket.sutticketmajor.repository.ShowRepository;
 import com.sutticket.sutticketmajor.repository.ShowScheduleRepository;
+import com.sutticket.sutticketmajor.repository.ShowTimeRepository;
+import com.sutticket.sutticketmajor.repository.ShowTypeRepository;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,7 +43,9 @@ public class SutTicketMajorApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository, CarrerRepository carrerRepository, RangeAgeRepository rangeAgeRepository, SexRepository sexRepository, ShowRepository showRepository, CustomerRepository customerRepository,
+	ApplicationRunner init(ShowTimeRepository showTimeRepository, ShowLocationRepository showLocationRepository,
+		ShowRatingRepository showRatingRepository,ShowTypeRepository showTypeRepository,
+		EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository, CarrerRepository carrerRepository, RangeAgeRepository rangeAgeRepository, SexRepository sexRepository, ShowRepository showRepository, CustomerRepository customerRepository,
 			SeatRepository seatRepository, ShowScheduleRepository showScheduleRepository) {
 		return args -> {
 			// Bootstrap some test data into the in-memory database
@@ -79,19 +90,50 @@ public class SutTicketMajorApplication {
 				seat[i] = new Seat("A" + (i + 1), 0, false);
 				seatRepository.save(seat[i]);
 			}
-			// Show
-			Show show1 = new Show("Note Udom TalkShow 13 at SUT", "โน๊ตอุดม แต้พานิชย์", "Talk show");
-			Show show2 = new Show("Bodyslam Live in SUT", "Bodyslam", "คอนเสิร์ต");
-			Show show3 = new Show("มทส.แสดท้องคล้องทุ่งนา Season 1", "มหาวิทยาลัยเทคโนโลยีสุรนารี", "ละครเวที");
+			// ShowManagement - New
+			ShowType showType1 = new ShowType("คอนเสิร์ท");
+			ShowType showType2 = new ShowType("ละครเวที");
+			ShowType showType3 = new ShowType("TalkShow");
+			Stream.of(showType1,showType2,showType3).forEach(showType -> {
+				showTypeRepository.save(showType);
+			});
+			ShowRating showRating1 = new ShowRating("ทุกเพศทุกวัย");
+			ShowRating showRating2 = new ShowRating("สำหรับผู้ที่มีอายุ 18 ปีขึ้นไป");
+			ShowRating showRating3 = new ShowRating("สำหรับผู้ที่มีอายุ 15 ปีขึ้นไป");
+			Stream.of(showRating1,showRating2,showRating3).forEach(showRating -> {
+				showRatingRepository.save(showRating); 
+			});
+
+			
+			Show show1 = new Show("Note Udom TalkShow 13 at SUT",emp1,showType3,showRating2);
+			Show show2 = new Show("Bodyslam Live in SUT",emp2,showType1,showRating3);
+			Show show3 = new Show("มทส.แสดท้องคล้องทุ่งนา Season 1",emp3,showType2,showRating1);
 			Stream.of(show1, show2, show3).forEach(show -> {
-				showRepository.save(show); // บันทึก Objcet ชื่อ Customer
+				showRepository.save(show);
 			});
 			// ShowSchedule
-			ShowSchedule ss1 = new ShowSchedule(show1, "เช้า");
-			ShowSchedule ss2 = new ShowSchedule(show2, "บ่าย");
-			ShowSchedule ss3 = new ShowSchedule(show3, "เย็น");
+			ShowTime showTime1 = new ShowTime("08.00-11.00 น.");
+			ShowTime showTime2 = new ShowTime("13.00-16.00 น.");
+			ShowTime showTime3 = new ShowTime("18.00-21.00 น.");
+			Stream.of(showTime1,showTime2,showTime3).forEach(showTime -> {
+				showTimeRepository.save(showTime);
+			});
+			ShowLocation showLocation1 = new ShowLocation("ห้องวิทยานิพนธ์(1500)");
+			ShowLocation showLocation2 = new ShowLocation("ห้อง 600");
+			ShowLocation showLocation3 = new ShowLocation("ลานหมอลำ");
+			Stream.of(showLocation1,showLocation2,showLocation3).forEach(location -> {
+				showLocationRepository.save(location);
+			});
+			//YYYY-MM-DD
+			Date date1 = Date.valueOf("2019-10-07");
+			Date date2 = Date.valueOf("2019-10-08");
+			Date date3 = Date.valueOf("2019-10-09");
+			//date show showtime showlo
+			ShowSchedule ss1 = new ShowSchedule(date1,show1,showTime1,showLocation1);
+			ShowSchedule ss2 = new ShowSchedule(date2,show2,showTime2,showLocation2);
+			ShowSchedule ss3 = new ShowSchedule(date3,show3,showTime3,showLocation3);
 			Stream.of(ss1, ss2, ss3).forEach(ss -> {
-				showScheduleRepository.save(ss); // บันทึก Objcet ชื่อ Customer
+				showScheduleRepository.save(ss);
 			});
 			//PaymentType
 			Stream.of("Kbank", "Credit Card", "Airpay", "ชำระด้วยเงินสด").forEach(name -> {
@@ -99,7 +141,7 @@ public class SutTicketMajorApplication {
 				paymentType.setPayment(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
 				paymentTypeRepository.save(paymentType); // บันทึก Objcet ชื่อ Customer
 			});
-
+			
 			// customerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
 		};
 	}

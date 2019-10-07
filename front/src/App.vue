@@ -24,14 +24,14 @@
         text router-link to="/viewticketbooking">
         <span class="mr-2">(สำหรับพนักงาน)ดูการจองตั๋วการแสดง</span>
       </v-btn>
-      <v-btn
+      <!-- <v-btn
         text router-link to="/register">
         <span class="mr-2">สมัครสมาชิก</span>
-      </v-btn>
-      <v-btn
+      </v-btn> -->
+      <!-- <v-btn
         text router-link to="/login">
         <span class="mr-2">เข้าสู่ระบบ</span>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
 
 

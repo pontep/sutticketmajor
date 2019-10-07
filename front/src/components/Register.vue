@@ -53,7 +53,7 @@ export default {
       };
 
       api
-      .post("/newcustomer" , customer)
+      .post("/customer")
       .then(response =>{
         console.log(JSON.parse(JSON.stringify(response.data)));
       })
