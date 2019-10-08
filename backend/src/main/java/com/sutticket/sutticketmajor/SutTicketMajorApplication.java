@@ -92,7 +92,8 @@ public class SutTicketMajorApplication {
 			Customer c1 = new Customer("Pontep Thaweesup", "dinza2541", "96321000",ra2,cr1,sex1);
 			Customer c2 = new Customer("Pumarin Peowsongnern", "leo1998", "00000000",ra3,cr2,sex1);
 			Customer c3 = new Customer("Chiraphon Worasuk", "ple1234", "55554444",ra1,cr3,sex2);
-			Stream.of(c1, c2, c3).forEach(cus -> {
+			Customer c4 = new Customer("Administrator", "asd", "asd",ra1,cr1,sex1);
+			Stream.of(c1, c2, c3,c4).forEach(cus -> {
 				customerRepository.save(cus); // บันทึก Objcet ชื่อ Customer
 			});
 			// Seat

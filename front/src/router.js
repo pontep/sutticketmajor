@@ -6,7 +6,8 @@ import Register from './components/Register.vue'
 import SeatConfig from './components/SeatConfig.vue'
 import ViewTicketBooking from './components/ViewTicketBooking.vue'
 import Receipt from './components/Receipt.vue'
-import Login from './components/Login.vue'
+import Login from './views/Login.vue'
+import Index from './views/Index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -17,6 +18,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/index',
+      name: 'index',
+      component: Index
     },
     {
       path: '/login',

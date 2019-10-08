@@ -3,52 +3,52 @@
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>sut ticket major</span>
-        <span class="font-weight-light"> - จองตั๋วการแสดง มทส.</span>
+        <span class="font-weight-light">- จองตั๋วการแสดง มทส.</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        router-link to="/"
-      >
-        <span class="mr-2">Home</span>
-      </v-btn>
-      <v-btn
-        text router-link to="/ticketbooking">
-        <span class="mr-2">จองตั๋วการแสดง</span>
-      </v-btn>
-      <v-btn
-        text router-link to="/receipt">
-        <span class="mr-2">(สำหรับพนักงาน)ออกใบเสร็จ</span>
-      </v-btn>
-      <v-btn
-        text router-link to="/viewticketbooking">
-        <span class="mr-2">(สำหรับพนักงาน)ดูการจองตั๋วการแสดง</span>
-      </v-btn>
-      <!-- <v-btn
-        text router-link to="/register">
-        <span class="mr-2">สมัครสมาชิก</span>
-      </v-btn> -->
-      <!-- <v-btn
-        text router-link to="/login">
-        <span class="mr-2">เข้าสู่ระบบ</span>
-      </v-btn> -->
+      <template v-if="!customer.name">
+        <v-btn text router-link to="/login">
+          <span class="mr-2">เข้าสู่ระบบ/สมัครสมาชิก</span>
+        </v-btn>
+      </template>
+      <template v-else>
+        <v-btn text router-link to="/index">
+          <span class="mr-2">{{ customer.name }}</span>
+        </v-btn>
+      </template>
     </v-app-bar>
-
-
-    <v-content>
-      
-      <router-view></router-view>
-    </v-content>
+    <template v-if="!customer.name">
+      <v-content>
+        <Login @login="loginMethod" />
+      </v-content>
+    </template>
+    <template v-else>
+      <v-content>
+        <router-view customer></router-view>
+      </v-content>
+    </template>
   </v-app>
 </template>
 
 <script>
-
+import Login from "./views/Login.vue";
 export default {
-  name: 'App',
-  
+  name: "App",
   data: () => ({
-    //
+    customer: {
+      id: undefined,
+      name: undefined
+    }
   }),
+  methods:{
+    loginMethod(value){
+      console.log("loginMethod : ");
+      console.log(value);
+      this.customer = value;
+    }
+  },
+  components: {
+    Login
+  }
 };
 </script>
