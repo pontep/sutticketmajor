@@ -3,11 +3,14 @@ package com.sutticket.sutticketmajor;
 import java.sql.Date;
 import java.util.stream.Stream;
 
+import com.sutticket.sutticketmajor.entity.CancelTicket;
 import com.sutticket.sutticketmajor.entity.Carrer;
 import com.sutticket.sutticketmajor.entity.Customer;
 import com.sutticket.sutticketmajor.entity.Employee;
 import com.sutticket.sutticketmajor.entity.PaymentType;
 import com.sutticket.sutticketmajor.entity.RangeAge;
+import com.sutticket.sutticketmajor.entity.Reason;
+import com.sutticket.sutticketmajor.entity.Receipt;
 import com.sutticket.sutticketmajor.entity.Seat;
 import com.sutticket.sutticketmajor.entity.Sex;
 import com.sutticket.sutticketmajor.entity.Show;
@@ -16,11 +19,15 @@ import com.sutticket.sutticketmajor.entity.ShowRating;
 import com.sutticket.sutticketmajor.entity.ShowSchedule;
 import com.sutticket.sutticketmajor.entity.ShowTime;
 import com.sutticket.sutticketmajor.entity.ShowType;
+import com.sutticket.sutticketmajor.entity.TicketBooking;
+import com.sutticket.sutticketmajor.repository.CancelTicketRepository;
 import com.sutticket.sutticketmajor.repository.CarrerRepository;
 import com.sutticket.sutticketmajor.repository.CustomerRepository;
 import com.sutticket.sutticketmajor.repository.EmployeeRepository;
 import com.sutticket.sutticketmajor.repository.PaymentTypeRepository;
 import com.sutticket.sutticketmajor.repository.RangeAgeRepository;
+import com.sutticket.sutticketmajor.repository.ReasonRepository;
+import com.sutticket.sutticketmajor.repository.ReceiptRepository;
 import com.sutticket.sutticketmajor.repository.SeatRepository;
 import com.sutticket.sutticketmajor.repository.SexRepository;
 import com.sutticket.sutticketmajor.repository.ShowLocationRepository;
@@ -29,6 +36,7 @@ import com.sutticket.sutticketmajor.repository.ShowRepository;
 import com.sutticket.sutticketmajor.repository.ShowScheduleRepository;
 import com.sutticket.sutticketmajor.repository.ShowTimeRepository;
 import com.sutticket.sutticketmajor.repository.ShowTypeRepository;
+import com.sutticket.sutticketmajor.repository.TicketBookingRepository;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -43,7 +51,10 @@ public class SutTicketMajorApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(ShowTimeRepository showTimeRepository, ShowLocationRepository showLocationRepository,
+	ApplicationRunner init(CancelTicketRepository cancelTicketRepository,ReceiptRepository receiptRepository,
+		TicketBookingRepository ticketBookingRepository,
+		ReasonRepository reasonRepository,
+		ShowTimeRepository showTimeRepository, ShowLocationRepository showLocationRepository,
 		ShowRatingRepository showRatingRepository,ShowTypeRepository showTypeRepository,
 		EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository, CarrerRepository carrerRepository, RangeAgeRepository rangeAgeRepository, SexRepository sexRepository, ShowRepository showRepository, CustomerRepository customerRepository,
 			SeatRepository seatRepository, ShowScheduleRepository showScheduleRepository) {
@@ -135,14 +146,42 @@ public class SutTicketMajorApplication {
 			Stream.of(ss1, ss2, ss3).forEach(ss -> {
 				showScheduleRepository.save(ss);
 			});
-			//PaymentType
-			Stream.of("Kbank", "Credit Card", "Airpay", "ชำระด้วยเงินสด").forEach(name -> {
-				PaymentType paymentType = new PaymentType(); // สร้าง Object Customer
-				paymentType.setPayment(name); // set ชื่อ (name) ให้ Object ชื่อ Customer
-				paymentTypeRepository.save(paymentType); // บันทึก Objcet ชื่อ Customer
+			//tb1,2 for cancel , 3,4 for receipt 
+			TicketBooking tb1 = new TicketBooking(new java.util.Date(),c1,ss1,seat[0] );
+			TicketBooking tb2 = new TicketBooking(new java.util.Date(),c2,ss2,seat[1] );
+			TicketBooking tb3 = new TicketBooking(new java.util.Date(),c3,ss1,seat[2] );
+			TicketBooking tb4 = new TicketBooking(new java.util.Date(),c1,ss2,seat[3] );
+			Stream.of(tb1,tb2,tb3,tb4).forEach(tb -> {
+				ticketBookingRepository.save(tb);
 			});
-			
-			// customerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
+			//Receipt-LEO
+			PaymentType paymentType1 = new PaymentType("Kbank");
+			PaymentType paymentType2 = new PaymentType("Credit Card");
+			PaymentType paymentType3 = new PaymentType("Airpay");
+			PaymentType paymentType4 = new PaymentType("ชำระด้วยเงินสด");
+			Stream.of(paymentType1,paymentType2,paymentType3,paymentType4).forEach(paymentType -> {
+				paymentTypeRepository.save(paymentType);
+			});
+			//CancelTicket-Ple
+			Reason r1 = new Reason("ไม่สะดวกในการเข้ารับชม");
+			Reason r2 = new Reason("ต้องการเปลี่ยนรอบการแสดงหรือที่นั่ง");
+			Reason r3 = new Reason("ต้องการรับชมการแสดงอื่น");
+			Reason r4 = new Reason("อื่นๆ");
+			Stream.of(r1,r2,r3,r4).forEach(rea -> {
+				reasonRepository.save(rea); 
+			});
+			CancelTicket cancelTicket1 = new CancelTicket(c1,tb1,r1);
+			CancelTicket cancelTicket2 = new CancelTicket(c2,tb2,r4);
+			Stream.of(cancelTicket1,cancelTicket2).forEach(ct -> {
+				cancelTicketRepository.save(ct);
+			});
+
+			Receipt receipt1 = new Receipt(tb3,paymentType4,emp1);
+			Receipt receipt2 = new Receipt(tb4,paymentType2,emp2);
+			Stream.of(receipt1,receipt2).forEach(receipt -> {
+				receiptRepository.save(receipt);
+			});
+			//customerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
 		};
 	}
 

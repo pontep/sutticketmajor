@@ -3,6 +3,7 @@ package com.sutticket.sutticketmajor.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -35,6 +36,16 @@ public class TicketBooking{
     @JsonManagedReference
     private Seat seat;
     
-    public TicketBooking(){}
+    // @OneToOne(mappedBy = "ticketBooking")
+	// // @JoinColumn(name = "voteId")
+	// @JsonIgnore
+	// private Receipt receipt;
 
+    public TicketBooking(){}
+    public TicketBooking(Date date, Customer cus, ShowSchedule ss, Seat seat){
+        this.bookdate = date;
+        this.customer = cus;
+        this.showSchedule = ss;
+        this.seat = seat;
+    }
 }

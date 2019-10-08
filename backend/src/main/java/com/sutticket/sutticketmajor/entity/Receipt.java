@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -17,18 +19,24 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "receipt")
 public class Receipt
  {    
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="receipt_seq",sequenceName="receipt_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="receipt_seq")
     @Column(name = "RECEIPT_ID", unique = true, nullable = true,insertable = true)    
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ticketBooking")
+    // @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "ticketBooking")
+    // @JsonManagedReference
+    // private TicketBooking ticketBooking;
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
+    @JoinColumn(name = "TICKETBOOKING_ID", insertable = true)
     @JsonManagedReference
-	private TicketBooking ticketBooking;
+    private TicketBooking ticketBooking; 
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PaymentType.class)
     @JoinColumn(name = "PaymentType_ID", insertable = true)
@@ -41,5 +49,9 @@ public class Receipt
 	private  Employee employee;
 
     public Receipt(){}
-        
+    public Receipt(TicketBooking tb, PaymentType pt, Employee emp){
+        this.ticketBooking = tb;
+        this.paymentType = pt;
+        this.employee = emp;
+    }
 }

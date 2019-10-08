@@ -4,12 +4,10 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
 
@@ -18,12 +16,15 @@ import lombok.Data;
 public class PaymentType{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="paymentType_seq",sequenceName="paymentType_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "paymentType_seq")
     @Column(name = "PaymentType_ID")
     private long id;    
-    private String payment;
-
     
-
+    private String payment;
+    
     public PaymentType(){}
+    public PaymentType(String payment){
+        this.payment = payment;
+    }
 }
