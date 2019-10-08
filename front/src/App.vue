@@ -12,8 +12,11 @@
         </v-btn>
       </template>
       <template v-else>
-        <v-btn text router-link to="/index">
+        <v-btn>
           <span class="mr-2">{{ customer.name }}</span>
+        </v-btn>
+        <v-btn @click="goToTicketBooking">
+          <span class="mr-2">จองตั๋วการแสดง</span>
         </v-btn>
       </template>
     </v-app-bar>
@@ -24,7 +27,8 @@
     </template>
     <template v-else>
       <v-content>
-        <router-view customer></router-view>
+        <!-- <Home :customer="customer" /> -->
+        <router-view></router-view>
       </v-content>
     </template>
   </v-app>
@@ -32,6 +36,7 @@
 
 <script>
 import Login from "./views/Login.vue";
+import Home from './views/Home.vue'
 export default {
   name: "App",
   data: () => ({
@@ -45,10 +50,15 @@ export default {
       console.log("loginMethod : ");
       console.log(value);
       this.customer = value;
+      this.$router.push("/home/"+this.customer.id);
+    },
+    goToTicketBooking(){
+      this.$router.push("/ticketbooking/"+this.customer.id);
     }
   },
   components: {
-    Login
+    Login,
+    Home
   }
 };
 </script>

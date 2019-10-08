@@ -1,8 +1,8 @@
 <template>
     <v-row justify="center" align="center">
-      <v-col cols="12" md="9">
+      <v-col cols="12" md="10">
         <h1>ดูประวัติการจองตั๋วการแสดง</h1>
-              <v-data-table :headers="headers" :items="ticketbookings" :items-per-page="10" class="elevation-1"></v-data-table>
+        <v-data-table :headers="headers" :items="ticketbookings" :items-per-page="10" class="elevation-1"></v-data-table>
       </v-col>
     </v-row>
 </template>
@@ -24,7 +24,10 @@ export default {
           { text: 'TicketBookingID', value: 'id' },
           { text: 'BookDate', value: 'bookdate' },
           { text: 'CustomerName', value: 'customer.name' },
-          { text: 'ShowSchedule', value: 'showSchedule.show.name' },
+          { text: 'Show', value: 'showSchedule.show.title' },
+          { text: 'ShowSchedule', value: 'showSchedule.time.part' },
+          { text: 'ShowDate', value: 'showSchedule.showDate' },
+          
           { text: 'SeatID', value: 'seat.id' }
       ]
       

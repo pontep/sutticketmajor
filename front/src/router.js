@@ -15,7 +15,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home/:customer_id',
       name: 'home',
       component: Home
     },
@@ -45,7 +45,7 @@ export default new Router({
       component: Register
     },
     {
-      path: '/ticketbooking',
+      path: '/ticketbooking/:customer_id',
       name: 'ticketbooking',
       component: TicketBooking
     },

@@ -3,11 +3,7 @@
     <v-row justify="center" align="center">
       <v-col cols="12" md="6">
         <h1>จองตั๋วการแสดง</h1>
-        <!-- {{ selectedCustomer }}
-        {{ selectedShowSchedule }}
-        {{ selectedSeat }}
-         (รูปภาพสมมติ)
-        <img src="https://github.com/dincracker/sutticketmajor/blob/ticketbooking/1500seat.png?raw=true" /> -->
+        <h3> customer_id = {{ $route.params.customer_id }} </h3>
         <v-select
           :items="customers"
           v-model="selectedCustomer"
@@ -21,7 +17,7 @@
     <v-row justify="center" align="center">
       <v-col cols="12" md="6">
         <v-select
-          :items="showschedules"
+          :items="showSchedules"
           v-model="selectedShowSchedule"
           item-value="id"
           item-text="show.name"
@@ -30,9 +26,9 @@
           <template
             slot="selection"
             slot-scope="data"
-          >{{ data.item.show.name }} - {{ data.item.schedule }}</template>
+          >การแสดง {{ data.item.show.title }} รอบ {{ data.item.time.part }} วันที่ {{ data.item.showDate }}</template>
           <template slot="item" slot-scope="data">
-            {{ data.item.show.name }} - {{ data.item.schedule }}
+            การแสดง {{ data.item.show.title }} รอบ {{ data.item.time.part }} วันที่ {{ data.item.showDate }}
           </template>
         </v-select>
       </v-col>
@@ -63,20 +59,17 @@ import api from "../http-common";
 export default {
   mounted() {
     this.getAllShowSchedules();
-    this.getAllCustomers();
+    this.getCustomers();
     this.getAllSeats();
   },
   data() {
     return {
-      tests:[
-        "din","jay","big"
-      ],
-      showschedules: [],
-      selectedShowSchedule: undefined,
+      showSchedules: [],
+      selectedShowSchedule: null,
       seats: [],
-      selectedSeat: undefined,
+      selectedSeat: null,
       customers: [],
-      selectedCustomer: undefined
+      selectedCustomer: null
     };
   },
   methods: {
@@ -98,9 +91,9 @@ export default {
     },
     getAllShowSchedules() {
       api
-        .get("/ShowSchedules")
+        .get("/showSchedules")
         .then(response => {
-          this.showschedules = response.data;
+          this.showSchedules = response.data;
           console.log("Showschedules โหลดสำเร็จ!");
           console.log(JSON.parse(JSON.stringify(response.data)));
         })
@@ -108,9 +101,9 @@ export default {
           console.log(e);
         });
     },
-    getAllCustomers() {
+    getCustomers() {
       api
-        .get("/customers")
+        .get("/customer/"+this.$route.params.customer_id)
         .then(response => {
           this.customers = response.data;
           console.log("Customers โหลดสำเร็จ!");

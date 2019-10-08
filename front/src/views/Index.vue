@@ -1,13 +1,13 @@
 <template>
     <div>
-        Welcome : {{ username }}
+        <p> ยินดีต้อนรับ... {{ app.customer.name }} </p>
     </div>
 </template>
 <script>
 export default {
     data(){
         return{
-            username: undefined
+            d
         }
     }
 }
