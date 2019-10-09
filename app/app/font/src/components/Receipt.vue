@@ -49,7 +49,7 @@
             ></v-select>
 
             <div class="text-Right">
-              <v-btn @click="Print">Prirnt</v-btn>
+              <v-btn @click="Print">Print</v-btn>
 
               <v-btn @click="back">Back</v-btn>
             </div>
@@ -140,6 +140,7 @@ export default {
         .post("/receipts/"+this.selectedEmployee+"/"+this.selectedPaymentType+"/"+this.selectedTicketBooking)
         .then(din => {
           alert("SUCCESS!!!!");
+          this.$refs.form.reset();
         })
         .catch(e =>{
           console.log(e);
