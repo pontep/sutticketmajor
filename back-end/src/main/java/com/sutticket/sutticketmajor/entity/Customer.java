@@ -41,7 +41,7 @@ public class Customer {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Career.class)
     @JoinColumn(name = "CAREER_ID", insertable = true)
-    private Career carrer;
+    private Career career;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Sex.class)
     @JoinColumn(name = "SEX_ID", insertable = true)
@@ -51,8 +51,8 @@ public class Customer {
         this.rangeage = rangeage;
 	}
 
-	public void setCarrer(Career carrer) {
-        this.carrer = carrer;
+	public void setCareer(Career career) {
+        this.career = career;
     }
 
 	public void setSex(Sex sex) {

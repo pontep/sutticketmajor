@@ -42,8 +42,8 @@ public class FranceApplication {
 			Career career1 = new Career("นักศึกษา");
 			Career career2 = new Career("พนักงานออฟฟิศ");
 			Career career3 = new Career("อาจาร์ย");
-			Stream.of(career1,career2,career3).forEach(carrer -> {
-				careerRepository.save(carrer); // บันทึก Objcet ชื่อ Customer
+			Stream.of(career1,career2,career3).forEach(career -> {
+				careerRepository.save(career); // บันทึก Objcet ชื่อ Customer
 			});
 
 			// Stream.of("aa", "bb", "cc", "dd").forEach(name -> {

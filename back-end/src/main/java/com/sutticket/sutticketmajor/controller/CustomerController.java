@@ -49,7 +49,7 @@ public class CustomerController {
         return customerRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/Customer/{sex_id}/{rangeage_id}/{carrer_id}")
+    @PostMapping("/Customer/{sex_id}/{rangeage_id}/{career_id}")
     public Customer newcustomer(Customer newCustomer,
     @RequestBody Customer customer,
     @PathVariable long rangeage_id,
@@ -67,7 +67,7 @@ public class CustomerController {
     newCustomer.setPassword(customer.getPassword());
     newCustomer.setSex(sex);
     newCustomer.setRangeAge(rangeage);
-    newCustomer.setCarrer(career);
+    newCustomer.setCareer(career);
     
     return customerRepository.save(newCustomer); 
     
