@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 import com.sutticket.sutticketmajor.entity.*;
 import com.sutticket.sutticketmajor.repository.*;
 
@@ -35,7 +34,7 @@ public class CustomerController {
     @Autowired
     private RangeAgeRepository rangeageRepository;
     @Autowired
-    private CarrerRepository carrerRepository;
+    private CareerRepository careerRepository;
     @Autowired
     private SexRepository sexRepository;
     
@@ -54,12 +53,13 @@ public class CustomerController {
     public Customer newcustomer(Customer newCustomer,
     @RequestBody Customer customer,
     @PathVariable long rangeage_id,
-    @PathVariable long carrer_id,
+    @PathVariable long career_id,
     @PathVariable long sex_id) {
+        
     
 
     RangeAge rangeage = rangeageRepository.findById(rangeage_id);
-    Carrer carrer = carrerRepository.findById(carrer_id);
+    Career career = careerRepository.findById(career_id);
     Sex sex = sexRepository.findById(sex_id);
     
     newCustomer.setName(customer.getName());
@@ -67,10 +67,8 @@ public class CustomerController {
     newCustomer.setPassword(customer.getPassword());
     newCustomer.setSex(sex);
     newCustomer.setRangeAge(rangeage);
-    newCustomer.setCarrer(carrer);
+    newCustomer.setCarrer(career);
     
-
-
     return customerRepository.save(newCustomer); 
     
     }

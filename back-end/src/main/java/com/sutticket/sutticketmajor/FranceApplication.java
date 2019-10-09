@@ -2,10 +2,10 @@ package com.sutticket.sutticketmajor;
 
 import java.util.stream.Stream;
 
-import com.sutticket.sutticketmajor.entity.Carrer;
+import com.sutticket.sutticketmajor.entity.Career;
 import com.sutticket.sutticketmajor.entity.RangeAge;
 import com.sutticket.sutticketmajor.entity.Sex;
-import com.sutticket.sutticketmajor.repository.CarrerRepository;
+import com.sutticket.sutticketmajor.repository.CareerRepository;
 import com.sutticket.sutticketmajor.repository.RangeAgeRepository;
 import com.sutticket.sutticketmajor.repository.SexRepository;
 
@@ -21,7 +21,7 @@ public class FranceApplication {
 		SpringApplication.run(FranceApplication.class, args);
 	}
 	@Bean
-	ApplicationRunner init(SexRepository sexRepository, RangeAgeRepository rangeageRepository, CarrerRepository carrerRepository) {
+	ApplicationRunner init(SexRepository sexRepository, RangeAgeRepository rangeageRepository, CareerRepository careerRepository) {
 		return args -> {
 			
 			Sex sex1 = new Sex("ชาย");
@@ -39,11 +39,11 @@ public class FranceApplication {
 				rangeageRepository.save(range); // บันทึก Objcet ชื่อ Customer
 			});
 
-			Carrer carrer1 = new Carrer("นักศึกษา");
-			Carrer carrer2 = new Carrer("พนักงานออฟฟิศ");
-			Carrer carrer3 = new Carrer("อาจาร์ย");
-			Stream.of(carrer1,carrer2,carrer3).forEach(carrer -> {
-				carrerRepository.save(carrer); // บันทึก Objcet ชื่อ Customer
+			Career career1 = new Career("นักศึกษา");
+			Career career2 = new Career("พนักงานออฟฟิศ");
+			Career career3 = new Career("อาจาร์ย");
+			Stream.of(career1,career2,career3).forEach(carrer -> {
+				careerRepository.save(carrer); // บันทึก Objcet ชื่อ Customer
 			});
 
 			// Stream.of("aa", "bb", "cc", "dd").forEach(name -> {
@@ -61,7 +61,7 @@ public class FranceApplication {
 
 			sexRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
 			rangeageRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Employee บน Terminal
-			carrerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity RentalType บน Terminal
+			careerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity RentalType บน Terminal
 			
 		};
 	}

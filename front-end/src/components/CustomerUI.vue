@@ -19,7 +19,7 @@
             :items="name"
             item-text="name"
             item-value="id"
-            label="Fill out the name"
+            label="Fill out the Name"
           ></v-text-field>
 
           <v-text-field
@@ -27,7 +27,7 @@
             :items="username"
             item-text="username"
             item-value="id"
-            label="Fill out the Usename"
+            label="Fill out the UserName"
           ></v-text-field>
 
           <v-text-field
@@ -56,15 +56,15 @@
           ></v-select>
 
           <v-select
-            v-model="selectedCarrer"
-            :items="Carrer"
+            v-model="selectedCareer"
+            :items="Career"
             item-text="name"
             item-value="id"
-            label="select Carrer"
+            label="select Career"
           ></v-select>
 
           <div class="text-center">
-            <v-btn @click="Save">Save</v-btn>
+            <v-btn @click="Save">Register</v-btn>
 
             <v-btn @click="Cancel">Cancel</v-btn>
           </div>
@@ -84,7 +84,7 @@ export default {
   mounted() {
     this.getAllSex();
     this.getAllRangeAge();
-    this.getAllCarrer();
+    this.getAllCareer();
   },
   data() {
     return {
@@ -98,13 +98,13 @@ export default {
       EnterPassword: null,
       selectedRangeAge: null,
       selectedsex: null,
-      selectedCarrer: null,
+      selectedCareer: null,
       name: [],
       username: [],
       password: [],
       Sex: [],
       RangeAge: [],
-      Carrer: []
+      Career: []
     };
   },
   methods: {
@@ -132,11 +132,11 @@ export default {
           console.log(e);
         });
     },
-    getAllCarrer() {
+    getAllCareer() {
       api
-        .get("/carrer")
+        .get("/career")
         .then(res => {
-          this.Carrer = res.data;
+          this.Career = res.data;
           console.log("ok");
           console.log(JSON.parse(JSON.stringify(res.data)));
         })
@@ -151,7 +151,7 @@ export default {
         !this.EnterPassword ||
         !this.selectedRangeAge ||
         !this.selectedsex ||
-        !this.selectedCarrer
+        !this.selectedCareer
       ) {
         alert("Please fill out all information !");
       } else {
@@ -172,7 +172,7 @@ export default {
             "/" +
             this.selectedRangeAge +
             "/" +
-            this.selectedCarrer,
+            this.selectedCareer,
           box
         )
         .then(res => {
