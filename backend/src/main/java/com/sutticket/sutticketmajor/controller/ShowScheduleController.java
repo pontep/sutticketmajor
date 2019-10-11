@@ -49,7 +49,7 @@ public class ShowScheduleController {
         return showScheduleRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/showSchedule/{show_id}/{showtime_id}/{showlocation_id}/{seat_id}")
+    @PostMapping("/showSchedule/{show_id}/{showtime_id}/{showlocation_id}")
     public ShowSchedule newShowSchedule(ShowSchedule newShowSchedule, @RequestBody ShowSchedule showdate,
     @PathVariable long show_id,
     // @PathVariable long seat_id,

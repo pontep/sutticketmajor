@@ -54,7 +54,7 @@ public class CustomerController {
         return customerRepository.findById(id);
     }
     @GetMapping("/customer/{username}/{password}")
-    public Customer customerfindByUsername(@PathVariable String username, @PathVariable String password){
+    public Customer Login(@PathVariable String username, @PathVariable String password){
         return customerRepository.findByUsernameAndPassword(username, password);
 
     }

@@ -64,7 +64,8 @@ public class SutTicketMajorApplication {
 			Employee emp1 = new Employee("Nutthawut S.", "nutts", "12345678");
 			Employee emp2 = new Employee("Phatcharaphon Thaicharoen", "newza", "00000000");
 			Employee emp3 = new Employee("Pakorn Harnnirojrum", "somtuy", "55555555");
-			Stream.of(emp1, emp2, emp3).forEach(emp -> {
+			Employee emp4 = new Employee("System Administrator", "admin", "admin");
+			Stream.of(emp1, emp2, emp3,emp4).forEach(emp -> {
 				employeeRepository.save(emp); // บันทึก Objcet ชื่อ Customer
 			});
 			// Customer

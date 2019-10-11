@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import TicketBooking from './components/TicketBooking.vue'
-import Register from './components/Register.vue'
-import SeatConfig from './components/SeatConfig.vue'
-import ViewTicketBooking from './components/ViewTicketBooking.vue'
-import Receipt from './components/Receipt.vue'
-import Login from './views/Login.vue'
-import Index from './views/Index.vue'
+import CustomerLogin from './components/CustomerLogin'
+import Register from './components/Register'
+import CustomerHome from './components/CustomerHome'
+import TicketBooking from './components/TicketBooking'
+import EmployeeLogin from './components/EmployeeLogin'
+import EmployeeHome from './components/EmployeeHome'
 Vue.use(Router)
 
 export default new Router({
@@ -15,29 +13,19 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/home/:customer_id',
-      name: 'home',
-      component: Home
+      path: '/',
+      name: 'CustomerLogin',
+      component: CustomerLogin
     },
     {
-      path: '/index',
-      name: 'index',
-      component: Index
+      path: '/employeelogin',
+      name: 'EmployeeLogin',
+      component: EmployeeLogin
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/receipt',
-      name: 'receipt',
-      component: Receipt
-    },
-    {
-      path: '/seatconfig',
-      name: 'seatconfig',
-      component: SeatConfig
+      path: '/employeehome/:employeeId',
+      name: 'EmployeeHome',
+      component: EmployeeHome
     },
     {
       path: '/register',
@@ -45,22 +33,14 @@ export default new Router({
       component: Register
     },
     {
-      path: '/ticketbooking/:customer_id',
-      name: 'ticketbooking',
+      path: '/customerhome/:customerId',
+      name: 'CustomerHome',
+      component: CustomerHome
+    },
+    {
+      path: '/ticketbooking/:customerId',
+      name: 'TicketBooking',
       component: TicketBooking
-    },
-    {
-      path: '/viewticketbooking',
-      name: 'viewticketbooking',
-      component: ViewTicketBooking
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     }
   ]
 })
