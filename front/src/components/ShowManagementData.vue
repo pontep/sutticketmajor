@@ -1,26 +1,25 @@
 <template>
-  <v-container>
-    <v-layout text-center wrap>
-      <v-flex mb-4>
-        <br />
-        <h1 class="display-2 font-weight-bold mb-3">ShowManagement Information</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-row justify="center">
-      <v-col cols="8">
-        <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1"></v-data-table>
-      </v-col>
-    </v-row>
-
-    <div class="text-center">
-      <v-btn color="warning" class="mr-3" @click="back">กลับ</v-btn>
-    </div>
-  </v-container>
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="8" md="9">
+      <v-card class="elevation-12">
+        <v-toolbar color="amber" light flat>
+          <v-icon>mdi-eye</v-icon>&nbsp;&nbsp;
+          <v-toolbar-title>การแสดงทั้งหมด</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          :items-per-page="10"
+          class="elevation-1"
+        ></v-data-table>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-import api from "../api.js";
+import api from "../http-common";
 export default {
   name: "ShowManagementData",
   data() {
@@ -32,7 +31,7 @@ export default {
           sortable: false,
           value: "id"
         },
-        { text: "Employee", value: "createBy.employee_name" },
+        { text: "Employee", value: "createBy.name" },
         { text: "Title", value: "title" },
         { text: "Type", value: "type.type" },
         { text: "Rating", value: "rating.rate" }

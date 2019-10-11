@@ -1,6 +1,7 @@
 package com.sutticket.sutticketmajor.controller;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collector;
@@ -56,13 +57,10 @@ public class ReceiptController{
         Employee employee = employeerepository.findById(EMPLOYEE_ID);
         TicketBooking ticketBooking = ticketbookingrepository.findById(TICKETBOOKING_ID);
         PaymentType paymentType = paymenttyperepository.findById(PAYMENT_TYPE_ID);
-        // System.out.println(ticketBooking);
-        // System.out.println(paymentType);
-        // System.out.println(employee);
+        newReceipt.setReceiptdate(new Date());
         newReceipt.setEmployee(employee);
         newReceipt.setTicketBooking(ticketBooking);
         newReceipt.setPaymentType(paymentType);
-        // System.out.println(newReceipt);
         return receiptrepository.save(newReceipt);
     };
 }

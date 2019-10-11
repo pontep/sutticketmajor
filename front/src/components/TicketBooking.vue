@@ -53,7 +53,6 @@
       </v-row>
     </v-container>
   </v-content>
-  
 </template>
 
 <script>
@@ -104,9 +103,6 @@ export default {
             this.selectedShowSchedule = null;
             this.selectedSeat = null;
             this.selectedCustomer = null;
-            
-            
-
           })
           .catch(e => {
             console.log(e);

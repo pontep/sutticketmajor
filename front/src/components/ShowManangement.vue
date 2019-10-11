@@ -1,60 +1,63 @@
 <template>
-  <v-form ref="form">
-    <v-container class="grey lighten-5">
-      <v-row no-gutters align="center" justify="center">
-        <v-col cols="12" md="6">
-          <v-card class="pa-2" outlined tile>
-            
-            <h1 class="text-center red--text">Show Management</h1>
+  <v-content>
+    <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="9">
+          <v-card class="elevation-12">
+            <v-toolbar color="amber" light flat>
+              <v-icon>mdi-wrench</v-icon>&nbsp;&nbsp;
+              <v-toolbar-title>จัดการการแสดง</v-toolbar-title>
+              <div class="flex-grow-1"></div>
+            </v-toolbar>
+            <v-card-text>
+              <v-select
+                v-model="selectedEmployee"
+                :items="employees"
+                item-text="name"
+                item-value="id"
+                label="เลือกชื่อพนักงาน"
+                :rules="[(v) => !!v || 'กรุณาเลือกชื่อพนักงาน']"
+                required
+              ></v-select>
 
-            <v-select
-              v-model="selectedEmployee"
-              :items="employees"
-              item-text="name"
-              item-value="id"
-              label="เลือกชื่อพนักงาน"
-              :rules="[(v) => !!v || 'กรุณาเลือกชื่อพนักงาน']"
-              required
-            ></v-select>
+              <v-text-field
+                v-model="insertShowName"
+                :items="titles"
+                item-text="name"
+                item-value="id"
+                label="กรอกชื่อการแสดง"
+                :rules="[(v) => !!v || 'กรุณากรอกชื่อการแสดง']"
+                required
+              ></v-text-field>
+              <v-select
+                v-model="selectedShowType"
+                :items="types"
+                item-text="type"
+                item-value="id"
+                label="เลือกประเภทการแสดง"
+                :rules="[(v) => !!v || 'กรุณาเลือกประเภทการแสดง']"
+                required
+              ></v-select>
 
-            <v-text-field
-              v-model="insertShowName"
-              :items="titles"
-              item-text="name"
-              item-value="id"
-              label="กรอกชื่อการแสดง"
-              :rules="[(v) => !!v || 'กรุณากรอกชื่อการแสดง']"
-              required
-            ></v-text-field>
-            <v-select
-             v-model="selectedShowType"
-              :items="types"
-              item-text="type"
-              item-value="id"
-              label="เลือกประเภทการแสดง"
-              :rules="[(v) => !!v || 'กรุณาเลือกประเภทการแสดง']"
-              required
-            ></v-select>
+              <v-select
+                v-model="selectedShowRating"
+                :items="ratings"
+                item-text="rate"
+                item-value="id"
+                label="เลือกเรทของการแสดง"
+                :rules="[(v) => !!v || 'กรุณาเลือกเรทของการแสดง']"
+                required
+              ></v-select>
 
-            <v-select
-              v-model="selectedShowRating"
-              :items="ratings"
-              item-text="rate"
-              item-value="id"
-              label="เลือกเรทของการแสดง"
-              :rules="[(v) => !!v || 'กรุณาเลือกเรทของการแสดง']"
-              required
-            ></v-select>
-
-            <div class="text-center">
-              <v-btn  class="mr-3" @click="Saveshow">บันทึก</v-btn>
-              <v-btn  class="mr-3" @click="Resetshow">ยกเลิก</v-btn>
-            </div>
+              <div class="text-center">
+                <v-btn class="mr-3" color="warning" @click="Saveshow">บันทึก</v-btn>
+              </div>
+            </v-card-text>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
-  </v-form>
+  </v-content>
 </template>
 
 
@@ -62,9 +65,9 @@
   <script>
 import api from "../http-common.js";
 export default {
-  props:{
-        employee:{}
-    },
+  props: {
+    employee: {}
+  },
   data() {
     return {
       insertShowName: undefined,
@@ -74,7 +77,7 @@ export default {
       titles: [],
       employees: [],
       types: [],
-      ratings: [],
+      ratings: []
     };
   },
   mounted() {
@@ -110,9 +113,11 @@ export default {
           "/show2/" +
             this.selectedEmployee +
             "/" +
-            this.selectedShowType+
+            this.selectedShowType +
             "/" +
-            this.selectedShowRating+"/"+this.insertShowName
+            this.selectedShowRating +
+            "/" +
+            this.insertShowName
         )
         .then(response => {
           alert("บันทึกข้อมูลสำเร็จ!");
@@ -127,7 +132,7 @@ export default {
 
     getAllEmployees() {
       api
-        .get("/employee/"+this.employee.id)
+        .get("/employee/" + this.employee.id)
         .then(response => {
           this.employees = response.data;
           console.log("ดึงข้อมูล Employee สำเร็จ");
@@ -151,7 +156,7 @@ export default {
         });
     },
 
-   getAllShowRatings() {
+    getAllShowRatings() {
       api
         .get("/Showratings")
         .then(response => {
@@ -163,7 +168,6 @@ export default {
           console.log(e);
         });
     }
-  },
-
+  }
 };
 </script>

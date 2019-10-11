@@ -1,10 +1,15 @@
 <template>
-  <v-container class="grey lighten-5">
-    <v-row no-gutters align="center" justify="center">
-      <v-col cols="10">
-        <v-card class="pa-2" outlined tile>
-          <h1 class="text-center red--text">Receipt</h1>
-          <v-form ref="form">
+  <v-content>
+    <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="7">
+          <v-card class="elevation-12">
+            <v-toolbar color="amber" light flat>
+              <v-icon>mdi-paper-roll</v-icon>&nbsp;&nbsp;
+              <v-toolbar-title>พิมพ์ใบเสร็จ</v-toolbar-title>
+              <div class="flex-grow-1"></div>
+            </v-toolbar>
+            <v-card-text>
             <v-select
               v-model="selectedEmployee"
               :items="employee"
@@ -33,15 +38,14 @@
                 slot-scope="data"
               >{{ data.item.show.name }} - {{ data.item.schedule }} - {{ data.item.seat.name }}</template>-->
               <template slot="item" slot-scope="data">
-                {{ data.item.showSchedule.show.name }} - {{ data.item.showSchedule.schedule }}
+                {{ data.item.showSchedule.show.title }} - {{ data.item.showSchedule.time.part }}
                 - {{ data.item.seat.name }}
               </template>
 
-              <template
-                slot="selection"
-                slot-scope="data"
-              >{{ data.item.showSchedule.show.name }} - {{ data.item.showSchedule.schedule }}
-                - {{ data.item.seat.name }}</template>
+              <template slot="selection" slot-scope="data">
+                {{ data.item.showSchedule.show.title }} - {{ data.item.showSchedule.time.part }}
+                - {{ data.item.seat.name }}
+              </template>
             </v-select>
 
             <v-select
@@ -53,15 +57,14 @@
             ></v-select>
 
             <div class="text-Right">
-              <v-btn @click="Print">Prirnt</v-btn>
-
-              <v-btn @click="back">Back</v-btn>
+              <v-btn color="warning" @click="Print">Print</v-btn>
             </div>
-          </v-form>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-content>
 </template>
 
 
@@ -69,6 +72,9 @@
   <script>
 import api from "../http-common";
 export default {
+  props: {
+    employee: {}
+  },
   watch: {
     selectedCustomer: function(val) {
       this.getAllticketbooking();
@@ -115,20 +121,15 @@ export default {
         !this.selectedTicketBooking ||
         !this.selectedCustomer
       ) {
-        alert("Please select again");
-        this.$refs.form.reset();
+        alert("กรุณาเลือกข้อมูลให้ครบ!");
       } else {
         this.SavaData();
       }
     },
 
-    back() {
-      this.$refs.form.reset();
-    },
-
     getAllemployee() {
       api
-        .get("/employee")
+        .get("/employee" + this.employee.id)
         .then(response => {
           this.employee = response.data;
 
@@ -151,7 +152,11 @@ export default {
             this.selectedTicketBooking
         )
         .then(din => {
-          alert("SUCCESS!!!!");
+          alert("บันทึกใบเสร็จสำเร็จ!");
+          this.selectedCustomer = null;
+          this.selectedEmployee = null;
+          this.selectedTicketBooking = null;
+          this.selectedPaymentType = null;
         })
         .catch(e => {
           console.log(e);
@@ -176,7 +181,7 @@ export default {
 
     getAllpaymenttype() {
       api
-        .get("/payment")
+        .get("/payments")
         .then(response => {
           this.paymenttype = response.data;
           console.log("show data yet");

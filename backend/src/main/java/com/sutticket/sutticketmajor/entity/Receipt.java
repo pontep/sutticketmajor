@@ -1,5 +1,7 @@
 package com.sutticket.sutticketmajor.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,10 +50,13 @@ public class Receipt
     @JsonManagedReference
 	private  Employee employee;
 
+    private Date receiptdate;
+
     public Receipt(){}
     public Receipt(TicketBooking tb, PaymentType pt, Employee emp){
         this.ticketBooking = tb;
         this.paymentType = pt;
         this.employee = emp;
+        this.receiptdate = new Date();
     }
 }
