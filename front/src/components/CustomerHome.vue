@@ -10,9 +10,11 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider inset></v-divider>
+
         <v-list-item @click="goTicketBooking">
           <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
+            <v-icon>mdi-ticket</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>จองตั๋วการแสดง</v-list-item-title>
@@ -20,19 +22,35 @@
         </v-list-item>
         <v-list-item @click="goCancelTicket">
           <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
+            <v-icon>mdi-close-circle</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>ยกเลิกตั๋วการแสดง</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider inset></v-divider>
+
+        <v-list-item @click="logout">
+          <v-list-item-action>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ออกจากระบบ</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
-      <v-btn @click="logout">ออกจากระบบ</v-btn>
     </v-navigation-drawer>
 
-    <v-app-bar app color="indigo" dark>
+    <v-app-bar app color="blue darken-3" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{ customer.name }}</v-toolbar-title>
+
+      <v-toolbar-title>
+        <v-icon dark>mdi-account</v-icon>
+        <span class="title ml-3 mr-5">
+          Customer&nbsp;
+          <span class="font-weight-light">: {{ customer.name }}</span>
+        </span>
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-content>
@@ -43,16 +61,16 @@
               <CustomerHomeContent :customer="customer" />
             </template>
             <template v-else-if="content === 'ticketbooking'">
-              <TicketBooking />
+              <TicketBooking :customer="customer" />
             </template>
             <template v-else-if="content === 'cancelticket'">
-              <CancelTicket />
+              <CancelTicket :customer="customer" />
             </template>
           </v-col>
         </v-row>
       </v-container>
     </v-content>
-    <v-footer color="indigo" app>
+    <v-footer color="blue darken-3" app>
       <span class="white--text">&copy; 2019</span>
     </v-footer>
   </v-app>
@@ -86,19 +104,21 @@ export default {
       if (confirm("Are you sure want to logout?")) {
         this.$router.push("/");
       } else {
-        
       }
     },
     goTicketBooking() {
       // this.$router.push("/ticketbooking/"+this.customer.id);
       this.content = "ticketbooking";
+      this.drawer = false;
     },
     goCancelTicket() {
       // this.$router.push("/ticketbooking/"+this.customer.id);
       this.content = "cancelticket";
+      this.drawer = false;
     },
     goCustomerHome() {
       this.content = "customerhome";
+      this.drawer = false;
     },
     getCustomer() {
       api

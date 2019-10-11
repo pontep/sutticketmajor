@@ -68,6 +68,9 @@ export default {
     // this.getAllTicketBookings();
     this.getAllReasons();
   },
+  props:{
+    customer:{}
+  },
   data() {
     return {
       selectedCustomer: null,
@@ -75,7 +78,7 @@ export default {
       selectedReason: null,
       selectedCancelTicket: null,
       customers: [],
-      customer: {},
+      
       ticketbookings: [],
       reasons: [],
       cancelTickets: [],
@@ -85,7 +88,7 @@ export default {
   methods: {
     getAllCustomers() {
       api
-        .get("/customer/" + this.$route.params.customer_id)
+        .get("/customer/" + this.customer.id)
         .then(response => {
           this.customers = response.data;
           this.customer = response.data;

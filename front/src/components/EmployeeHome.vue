@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="keep">
     <v-navigation-drawer v-model="drawer" app>
       <v-list dense>
         <v-list-item @click="goEmployeeHome">
@@ -10,9 +10,10 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider inset></v-divider>
         <v-list-item @click="goShowManagement">
           <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
+            <v-icon light>mdi-wrench</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>จัดการการแสดง</v-list-item-title>
@@ -20,19 +21,32 @@
         </v-list-item>
         <v-list-item @click="goShowScheduleManagement">
           <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
+            <v-icon light>mdi-wrench</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>จัดการรอบการแสดง</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider inset></v-divider>
+
+        <v-list-item @click="logout">
+          <v-list-item-action>
+            <v-icon light>mdi-logout</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ออกจากระบบ</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
-      <v-btn @click="logout">ออกจากระบบ</v-btn>
     </v-navigation-drawer>
 
-    <v-app-bar app color="indigo" dark>
+    <v-app-bar app color="amber" light>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{ employee.name }}</v-toolbar-title>
+      <v-toolbar-title>
+        <v-icon light>mdi-account</v-icon>
+        <span class="title ml-3 mr-5">Employee&nbsp;<span class="font-weight-light">: {{ employee.name }}</span></span>
+        
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-content>
@@ -52,7 +66,7 @@
         </v-row>
       </v-container>
     </v-content>
-    <v-footer color="indigo" app>
+    <v-footer color="amber" app>
       <span class="white--text">&copy; 2019</span>
     </v-footer>
   </v-app>
@@ -86,7 +100,6 @@ export default {
       if (confirm("Are you sure want to logout?")) {
         this.$router.push("/");
       } else {
-        
       }
     },
     goShowManagement() {

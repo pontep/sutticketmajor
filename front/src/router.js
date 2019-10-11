@@ -38,7 +38,7 @@ export default new Router({
       component: CustomerHome
     },
     {
-      path: '/ticketbooking/:customerId',
+      path: '/ticketbooking',
       name: 'TicketBooking',
       component: TicketBooking
     }

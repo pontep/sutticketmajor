@@ -1,5 +1,4 @@
 <template>
-  <v-app id="inspire">
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
@@ -52,7 +51,6 @@
         </v-row>
       </v-container>
     </v-content>
-  </v-app>
 </template>
 
 <script>
@@ -64,7 +62,8 @@ export default {
     this.getAllSeats();
   },
   props: {
-    source: String
+    source: String,
+    customer: {}
   },
   data: () => ({
     drawer: null,
@@ -73,7 +72,6 @@ export default {
     seats: [],
     selectedSeat: null,
     customers: [],
-    customer: {},
     selectedCustomer: null
   }),
   methods: {
@@ -121,7 +119,7 @@ export default {
     },
     getCustomers() {
       api
-        .get("/customer/" + this.$route.params.customer_id)
+        .get("/customer/" + this.customer.id)
         .then(response => {
           this.customers = response.data;
           this.customer = this.customers;
