@@ -1,56 +1,59 @@
 <template>
-    <v-content>
-      <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="4">
-            <v-card class="elevation-12">
-              <v-toolbar color="primary" dark flat>
-                <v-toolbar-title>จองตั๋วการแสดง</v-toolbar-title>
-                <div class="flex-grow-1"></div>
-              </v-toolbar>
-              <v-card-text>
-                <v-select
-                  :items="customers"
-                  v-model="selectedCustomer"
-                  item-value="id"
-                  item-text="name"
-                  label="เลือกชื่อของตัวคุณเอง"
-                ></v-select>
-                <v-select
-                  :items="showSchedules"
-                  v-model="selectedShowSchedule"
-                  item-value="id"
-                  item-text="show.name"
-                  label="เลือกการแสดง"
-                >
-                  <template
-                    slot="selection"
-                    slot-scope="data"
-                  >การแสดง {{ data.item.show.title }} รอบ {{ data.item.time.part }} วันที่ {{ data.item.showDate }}</template>
-                  <template
-                    slot="item"
-                    slot-scope="data"
-                  >การแสดง {{ data.item.show.title }} รอบ {{ data.item.time.part }} วันที่ {{ data.item.showDate }}</template>
-                </v-select>
-                <v-select
-                  v-model="selectedSeat"
-                  :items="seats"
-                  item-text="name"
-                  item-value="id"
-                  label="เลือกที่นั่ง"
-                ></v-select>
-              </v-card-text>
+  <v-content>
+    <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="6">
+          <v-card class="elevation-12">
+            <v-toolbar color="primary" dark flat>
+              <v-icon>mdi-ticket</v-icon>&nbsp;&nbsp;
+              <v-toolbar-title>จองตั๋วการแสดง</v-toolbar-title>
+              <div class="flex-grow-1"></div>
+            </v-toolbar>
+            <v-card-text>
+              <v-select
+                :items="customers"
+                v-model="selectedCustomer"
+                item-value="id"
+                item-text="name"
+                label="เลือกชื่อของตัวคุณเอง"
+              ></v-select>
+              <v-select
+                :items="showSchedules"
+                v-model="selectedShowSchedule"
+                item-value="id"
+                item-text="show.name"
+                label="เลือกการแสดง"
+              >
+                <template
+                  slot="selection"
+                  slot-scope="data"
+                >การแสดง {{ data.item.show.title }} รอบ {{ data.item.time.part }} วันที่ {{ data.item.showDate }}</template>
+                <template
+                  slot="item"
+                  slot-scope="data"
+                >การแสดง {{ data.item.show.title }} รอบ {{ data.item.time.part }} วันที่ {{ data.item.showDate }}</template>
+              </v-select>
+              <v-select
+                v-model="selectedSeat"
+                :items="seats"
+                item-text="name"
+                item-value="id"
+                label="เลือกที่นั่ง"
+              ></v-select>
+            </v-card-text>
+            <v-row align="center" justify="center">
               <v-card-actions>
                 <div class="flex-grow-1"></div>
-
                 <v-btn color="success" @click="bookATicket">จองตั๋วการแสดง</v-btn>
                 <!-- <v-btn color="error" @click="back">Back</v-btn> -->
               </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-content>
+  
 </template>
 
 <script>
@@ -98,11 +101,16 @@ export default {
           .then(response => {
             console.log(JSON.parse(JSON.stringify(response.data)));
             alert("บันทึกข้อมูลการจองของคุณแล้ว!");
+            this.selectedShowSchedule = null;
+            this.selectedSeat = null;
+            this.selectedCustomer = null;
+            
+            
+
           })
           .catch(e => {
             console.log(e);
           });
-        this.$router.push("/viewticketbooking");
       }
     },
     getAllShowSchedules() {

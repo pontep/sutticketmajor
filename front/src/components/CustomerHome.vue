@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app temporary>
       <v-list dense>
         <v-list-item @click="goCustomerHome">
           <v-list-item-action>
@@ -28,8 +28,17 @@
             <v-list-item-title>ยกเลิกตั๋วการแสดง</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item @click="goBasket">
+          <v-list-item-action>
+            <v-icon>mdi-basket</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ตระกร้าของฉัน</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-divider inset></v-divider>
-
+      </v-list>
+      <template v-slot:append>
         <v-list-item @click="logout">
           <v-list-item-action>
             <v-icon>mdi-logout</v-icon>
@@ -38,10 +47,10 @@
             <v-list-item-title>ออกจากระบบ</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-      </v-list>
+      </template>
     </v-navigation-drawer>
 
-    <v-app-bar app color="blue darken-3" dark>
+    <v-app-bar app color="blue darken-3" dark clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
@@ -66,6 +75,9 @@
             <template v-else-if="content === 'cancelticket'">
               <CancelTicket :customer="customer" />
             </template>
+            <template v-else-if="content === 'basket'">
+              <Basket :customer="customer" />
+            </template>
           </v-col>
         </v-row>
       </v-container>
@@ -81,11 +93,16 @@ import api from "../http-common";
 import CustomerHomeContent from "./CustomerHomeContent";
 import TicketBooking from "./TicketBooking";
 import CancelTicket from "./CancelTicket";
+import Basket from "./Basket";
 export default {
+  // created() {
+  //   this.$vuetify.theme.dark = true;
+  // },
   components: {
     CustomerHomeContent,
     TicketBooking,
-    CancelTicket
+    CancelTicket,
+    Basket
   },
   mounted() {
     this.customer.id = this.$route.params.customerId;
@@ -101,7 +118,7 @@ export default {
   }),
   methods: {
     logout() {
-      if (confirm("Are you sure want to logout?")) {
+      if (confirm("แน่ใจหรือไม่ว่าต้องการออกจากระบบ?")) {
         this.$router.push("/");
       } else {
       }
@@ -118,6 +135,10 @@ export default {
     },
     goCustomerHome() {
       this.content = "customerhome";
+      this.drawer = false;
+    },
+    goBasket() {
+      this.content = "basket";
       this.drawer = false;
     },
     getCustomer() {

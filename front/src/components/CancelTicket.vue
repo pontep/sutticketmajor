@@ -1,54 +1,61 @@
 <template>
-  <v-form ref="form">
+  <v-content>
     <v-container class="grey lighten-5">
-      <v-row no-gutters align="center" justify="center">
-        <v-col cols="5">
-          <v-card class="pa-2" outlined tile>
-            <h1 class="text-center red--text">Cancel Ticket</h1>
-            <h3>เลือกชื่อ {{ customer.name }} เพื่อเป็นการยืนยันตัวตน</h3>
-            <v-select
-              v-model="selectedCustomer"
-              :items="customers"
-              item-text="name"
-              item-value="id"
-              label="เลือกชื่อของตัวคุณเอง"
-            ></v-select>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="6">
+          <v-card class="elevation-12" tile>
+            <v-toolbar color="primary" dark flat>
+              <v-icon>mdi-close-circle</v-icon>&nbsp;&nbsp;
+              <v-toolbar-title>ยกเลิกตั๋วการแสดง</v-toolbar-title>
+              <div class="flex-grow-1"></div>
+            </v-toolbar>
+            <v-card-text>
+              <v-select
+                v-model="selectedCustomer"
+                :items="customers"
+                item-text="name"
+                item-value="id"
+                label="เลือกชื่อของตัวคุณเอง"
+              ></v-select>
 
-            <v-select
-              v-model="selectedTicketBooking"
-              :items="ticketbookings"
-              item-text="id"
-              item-value="id"
-              label="เลือกตั๋วการแสดงที่ต้องการยกเลิก"
-            >
-              <template
-                slot="selection"
-                slot-scope="data"
-              >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }}</template>
-              <template
-                slot="item"
-                slot-scope="data"
-              >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }}</template>
+              <v-select
+                v-model="selectedTicketBooking"
+                :items="ticketbookings"
+                item-text="id"
+                item-value="id"
+                label="เลือกตั๋วการแสดงที่ต้องการยกเลิก"
               >
-            </v-select>
+                <template
+                  slot="selection"
+                  slot-scope="data"
+                >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }}</template>
+                <template
+                  slot="item"
+                  slot-scope="data"
+                >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }}</template>
+                >
+              </v-select>
 
-            <v-select
-              v-model="selectedReason"
-              :items="reasons"
-              item-text="sentence"
-              item-value="id"
-              label="เหตุผลในการยกเลิก"
-            ></v-select>
-
-            <div class="text-center">
-              <v-btn @click="save">Confirm</v-btn>
-              <v-btn @click="cancle">Back</v-btn>
-            </div>
+              <v-select
+                v-model="selectedReason"
+                :items="reasons"
+                item-text="sentence"
+                item-value="id"
+                label="เหตุผลในการยกเลิก"
+              ></v-select>
+            </v-card-text>
+            <v-row align="center" justify="center">
+              <v-card-actions>
+                <div class="text-center">
+                  <v-btn color="error" @click="save">Confirm</v-btn>
+                </div>
+              </v-card-actions>
+            </v-row>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
-  </v-form>
+  </v-content>
 </template>
 
   <script>
@@ -68,8 +75,8 @@ export default {
     // this.getAllTicketBookings();
     this.getAllReasons();
   },
-  props:{
-    customer:{}
+  props: {
+    customer: {}
   },
   data() {
     return {
@@ -78,7 +85,7 @@ export default {
       selectedReason: null,
       selectedCancelTicket: null,
       customers: [],
-      
+
       ticketbookings: [],
       reasons: [],
       cancelTickets: [],

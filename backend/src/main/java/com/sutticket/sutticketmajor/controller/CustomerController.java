@@ -58,7 +58,11 @@ public class CustomerController {
         return customerRepository.findByUsernameAndPassword(username, password);
 
     }
-    
+    @GetMapping("/customer/check/{username}")
+    public Customer checkRegister(@PathVariable String username){
+        return customerRepository.findByUsername(username);
+
+    }
 
     @PostMapping("/customer/{sex_id}/{rangeAge_id}/{carrer_id}/{name}/{username}/{password}")
     public Customer newcustomer(Customer newCustomer,

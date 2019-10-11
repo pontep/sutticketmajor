@@ -6,7 +6,8 @@
           <v-col cols="12" sm="8" md="4">
             <v-card class="elevation-12">
               <v-toolbar color="primary" dark flat>
-                <v-toolbar-title >เข้าสู่ระบบในฐานะลูกค้า</v-toolbar-title>
+                <v-icon>mdi-login-variant</v-icon>&nbsp;&nbsp;
+                <v-toolbar-title>เข้าสู่ระบบในฐานะลูกค้า</v-toolbar-title>
                 <div class="flex-grow-1"></div>
               </v-toolbar>
               <v-card-text>
@@ -31,10 +32,15 @@
               </v-card-text>
               <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn color="primary" @click="customerLogin">Login</v-btn>
-                <v-btn color="success" router-link to="/register">Register</v-btn>
-
-                <v-btn color="warning" router-link to="/employeelogin">พนักงาน?</v-btn>
+                <v-btn color="primary" @click="customerLogin">เข้าสู่ระบบ</v-btn>
+                <v-btn color="success" router-link to="/register">
+                <v-icon>mdi-account-plus</v-icon>
+                  สมัครสมาชิก
+                  
+                </v-btn>
+                <v-btn color="warning" router-link to="/employeelogin">
+                  <v-icon>mdi-hard-hat</v-icon>พนักงาน?
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
