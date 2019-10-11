@@ -46,6 +46,12 @@ public class CancelTicketController {
         return cancelticketRepository.findByCustomer(cus);
     }
 
+    @GetMapping("/cancelticket/{ticketbooking_id}")
+    public CancelTicket checkTicket(@PathVariable long ticketbooking_id){
+        TicketBooking tmp = ticketBookingRepository.findById(ticketbooking_id);
+        return cancelticketRepository.findByTicketBooking(tmp);
+    }
+
     @GetMapping("/ct")
     public Collection<CancelTicket> getAllCancelTickets() {
         return cancelticketRepository.findAll().stream().collect(Collectors.toList());

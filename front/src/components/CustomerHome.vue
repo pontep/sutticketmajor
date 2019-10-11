@@ -107,6 +107,7 @@ export default {
   mounted() {
     this.customer.id = this.$route.params.customerId;
     this.getCustomer();
+    
   },
   props: {
     source: String

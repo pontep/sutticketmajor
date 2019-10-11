@@ -20,7 +20,7 @@
 
               <v-select
                 v-model="selectedTicketBooking"
-                :items="ticketbookings"
+                :items="newTicketBookings"
                 item-text="id"
                 item-value="id"
                 label="เลือกตั๋วการแสดงที่ต้องการยกเลิก"
@@ -48,6 +48,8 @@
               <v-card-actions>
                 <div class="text-center">
                   <v-btn color="error" @click="save">Confirm</v-btn>
+                  <!-- <v-btn color="error" @click="test">Test</v-btn> -->
+                  
                 </div>
               </v-card-actions>
             </v-row>
@@ -62,18 +64,10 @@
 import api from "../http-common";
 
 export default {
-  watch: {
-    selectedCustomer: function(val) {
-      this.getAllTicketBookings();
-    },
-    selectedCancelTicket: function(val) {
-      this.getAllTicketBookings();
-    }
-  },
   mounted() {
     this.getAllCustomers();
-    // this.getAllTicketBookings();
     this.getAllReasons();
+    this.getAllTicketBookings();
   },
   props: {
     customer: {}
@@ -85,11 +79,10 @@ export default {
       selectedReason: null,
       selectedCancelTicket: null,
       customers: [],
-
       ticketbookings: [],
+      newTicketBookings: [],
       reasons: [],
-      cancelTickets: [],
-      temptick: []
+      
     };
   },
   methods: {
@@ -106,49 +99,46 @@ export default {
           console.log("Error in getAllCustomer() : " + e);
         });
     },
-    getAllTicketBookings() {
-      //where customer = this.customer
+    test(){
+      console.log(this.newTicketBookings);    
+    },
+    checkCancel(i){
       api
-        .get("/ticketbooking/" + this.selectedCustomer)
+        .get("/cancelticket/"+this.ticketbookings[i].id)
+        .then(res =>{
+          if(!res.data){
+            console.log("ตั๋วยังไม่ถูกยกเลิก");
+            this.newTicketBookings.push(this.ticketbookings[i]);
+            console.log(this.ticketbookings[i]);
+          }else{
+            console.log("ตั๋วถูกยกเลิกไปแล้ว");
+            console.log(res.data);
+          }
+        })
+        .catch(e=>{
+          console.log(e);
+        })
+
+    },
+    checkTicketWhereCanceled(){
+      for(var i = 0 ; i < this.ticketbookings.length ; i++){
+        this.checkCancel(i);
+      }
+    }
+    ,
+    getAllTicketBookings() {
+      api
+        .get("/ticketbooking/" + this.customer.id)
         .then(response => {
           this.ticketbookings = response.data;
           console.log("Ticket Booking data have bean loaded.");
           console.log(JSON.parse(JSON.stringify(response.data)));
+          this.checkTicketWhereCanceled();
         })
-        // .get("/ct/"+this.selectedTicketBooking)
-        // .then(response => {
-        //   this.ticketbookings = response.data;
-        //   console.log("Ticket Booking data have bean cancel.");
-        //   console.log(JSON.parse(JSON.stringify(response.data)));
-        // })
         .catch(e => {
           console.log(e);
         });
-      // api
-      //   .get("/ct/" + this.selectedCustomer)
-      //   .then(res => {
-      //     this.cancelTickets = res.data;
-      //     console.log(
-      //       "CancelTickets where customer_id = " + this.selectedCustomer
-      //     );
-      //     console.log(JSON.parse(JSON.stringify(res.data)));
-      //     for (var i = 0; i < this.ticketbookings.length; i++) {
-      //       for (var j = 0; j < this.cancelTickets.length; j++) {
-      //         if (this.ticketbookings[i].id != this.cancelTickets[j].id) {
-      //           console.log("din");
-      //           this.temptick += this.ticketbookings;
-      //           continue;
-      //         }
-      //       }
-      //     }
-      //     console.log("ticketbooking.length = " + this.ticketbookings.length);
-      //     console.log("cancelTicket.length = " + this.cancelTickets.length);
-      //     console.log("temptick:");
-      //     console.log(this.temptick);
-      //   })
-      //   .catch(e => {
-      //     console.log(e);
-      //   });
+        
     },
     getAllReasons() {
       api
@@ -189,7 +179,9 @@ export default {
         .then(response => {
           alert("successfully..");
           console.log(JSON.parse(JSON.stringify(response.data)));
-          this.$refs.form.reset();
+          this.selectedCustomer = null;
+          this.selectedTicketBooking = null;
+          this.selectedReason = null;
         })
         .catch(e => {
           console.log(e);
