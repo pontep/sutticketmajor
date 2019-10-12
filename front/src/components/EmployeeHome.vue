@@ -29,7 +29,7 @@
             <v-list-item-title>จัดการการแสดง</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="goShowScheduleManagement">
+        <v-list-item @click="goManageShowSchedule">
           <v-list-item-action>
             <v-icon light>mdi-wrench</v-icon>
           </v-list-item-action>
