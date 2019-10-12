@@ -83,7 +83,7 @@
       </v-container>
     </v-content>
     <v-footer color="blue darken-3" app>
-      <span class="white--text">&copy; 2019</span>
+      <span class="white--text">523331 SYSTEM ANALYSIS AND DESIGN 1/2562 Sec3 Group 25 ระบบจองตั๋วการแสดง &copy; 2019 </span>
     </v-footer>
   </v-app>
 </template>

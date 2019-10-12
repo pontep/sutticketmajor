@@ -28,11 +28,11 @@
                 <template
                   slot="selection"
                   slot-scope="data"
-                >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }}</template>
+                >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }} ที่นั่ง {{ data.item.seat.name }} </template>
                 <template
                   slot="item"
                   slot-scope="data"
-                >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }}</template>
+                >การแสดง {{ data.item.showSchedule.show.title }} รอบ {{ data.item.showSchedule.time.part }} วันที่ {{ data.item.showSchedule.showDate }} ที่นั่ง {{ data.item.seat.name }}</template>
                 >
               </v-select>
 
@@ -182,6 +182,8 @@ export default {
           this.selectedCustomer = null;
           this.selectedTicketBooking = null;
           this.selectedReason = null;
+          this.newTicketBookings = [];
+          this.getAllTicketBookings();
         })
         .catch(e => {
           console.log(e);

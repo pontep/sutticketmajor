@@ -1,9 +1,6 @@
 package com.sutticket.sutticketmajor.entity;
-
 import java.util.Date;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;

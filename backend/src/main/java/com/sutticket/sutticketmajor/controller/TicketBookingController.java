@@ -1,5 +1,6 @@
 package com.sutticket.sutticketmajor.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,7 @@ public class TicketBookingController {
     }
 
     @GetMapping("/ticketbooking/{customer_id}")
-    public List<TicketBooking> getTicketBookingWhereCustomer(@PathVariable long customer_id){
+    public List<TicketBooking> getTicketBookingWhereCustomer(@PathVariable long customer_id) {
         Customer cus = customerRepository.findById(customer_id);
         List<TicketBooking> ticketBookings = ticketBookingRepository.findByCustomer(cus);
         return ticketBookings;
@@ -57,15 +58,16 @@ public class TicketBookingController {
 
     @PostMapping("/ticketBooking/{customer_id}/{showschedule_id}/{seat_id}")
     public TicketBooking postTicketBooking(TicketBooking newTicketBooking, @PathVariable long customer_id,
-            @PathVariable long showschedule_id, @PathVariable long seat_id ) {
+            @PathVariable long showschedule_id, @PathVariable long seat_id) {
         Customer customer = customerRepository.findById(customer_id);
         ShowSchedule showschedule = showScheduleRepository.findById(showschedule_id);
         Seat seat = seatRepository.findById(seat_id);
-        
+
         newTicketBooking.setBookdate(new Date());
+
         newTicketBooking.setCustomer(customer);
         newTicketBooking.setShowSchedule(showschedule);
-        seat.setIsBook(true); //seat นี้ถูกจองไปแล้ว
+        seat.setIsBook(true); // seat นี้ถูกจองไปแล้ว
         newTicketBooking.setSeat(seat);
         return ticketBookingRepository.save(newTicketBooking);
 

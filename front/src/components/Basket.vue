@@ -42,7 +42,7 @@ export default {
         { text: "Show", value: "showSchedule.show.title" },
         { text: "ShowSchedule", value: "showSchedule.time.part" },
         { text: "ShowDate", value: "showSchedule.showDate" },
-        { text: "SeatID", value: "seat.id" }
+        { text: "Seat", value: "seat.name" }
       ]
     };
   },

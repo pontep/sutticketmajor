@@ -2,7 +2,7 @@
   <v-content>
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="7">
+        <v-col cols="12" sm="8" md="6">
           <v-card class="elevation-12">
             <v-toolbar color="amber" light flat>
               <v-icon>mdi-paper-roll</v-icon>&nbsp;&nbsp;
@@ -113,7 +113,29 @@ export default {
           console.log(e);
         });
     },
+    checkPrinted(i){
+      api
+        .get("/cancelticket/"+this.ticketbookings[i].id)
+        .then(res =>{
+          if(!res.data){
+            console.log("ตั๋วยังไม่ถูกยกเลิก");
+            this.newTicketBookings.push(this.ticketbookings[i]);
+            console.log(this.ticketbookings[i]);
+          }else{
+            console.log("ตั๋วถูกยกเลิกไปแล้ว");
+            console.log(res.data);
+          }
+        })
+        .catch(e=>{
+          console.log(e);
+        })
 
+    },
+    checkTicketWherePrinted(){
+      for(var i = 0 ; i < this.ticketbookings.length ; i++){
+        this.checkPrinted(i);
+      }
+    },
     Print() {
       if (
         !this.selectedEmployee ||
@@ -173,6 +195,7 @@ export default {
               this.selectedCustomer
           );
           console.log(JSON.parse(JSON.stringify(response.data)));
+          this.checkTicketWherePrinted();
         })
         .catch(e => {
           console.log(e);
