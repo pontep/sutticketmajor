@@ -25,7 +25,7 @@
             <v-icon>mdi-close-circle</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>ยกเลิกตั๋วการแสดง</v-list-item-title>
+            <v-list-item-title>ยกเลิกการจอง</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="goBasket">

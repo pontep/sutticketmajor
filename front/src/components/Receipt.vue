@@ -10,55 +10,55 @@
               <div class="flex-grow-1"></div>
             </v-toolbar>
             <v-card-text>
-            <v-select
-              v-model="selectedEmployee"
-              :items="employee"
-              item-text="name"
-              item-value="id"
-              label="เลือกชื่อพนักงาน"
-            ></v-select>
+              <v-select
+                v-model="selectedEmployee"
+                :items="employee"
+                item-text="name"
+                item-value="id"
+                label="เลือกชื่อพนักงาน"
+              ></v-select>
 
-            <v-select
-              v-model="selectedCustomer"
-              :items="customer"
-              item-text="name"
-              item-value="id"
-              label="เลือกชื่อของลูกค้า"
-            ></v-select>
+              <v-select
+                v-model="selectedCustomer"
+                :items="customer"
+                item-text="name"
+                item-value="id"
+                label="เลือกชื่อของลูกค้า"
+              ></v-select>
 
-            <v-select
-              v-model="selectedTicketBooking"
-              :items="ticketbooking"
-              item-text="bookdate"
-              item-value="id"
-              label="เลือกตั๋วการแสดงที่ลูกค้าได้จองไว้"
-            >
-              <!-- <template
+              <v-select
+                v-model="selectedTicketBooking"
+                :items="OKTicketBookings"
+                item-text="bookdate"
+                item-value="id"
+                label="เลือกตั๋วการแสดงที่ลูกค้าได้จองไว้"
+              >
+                <!-- <template
                 slot="selection"
                 slot-scope="data"
-              >{{ data.item.show.name }} - {{ data.item.schedule }} - {{ data.item.seat.name }}</template>-->
-              <template slot="item" slot-scope="data">
-                {{ data.item.showSchedule.show.title }} - {{ data.item.showSchedule.time.part }}
-                - {{ data.item.seat.name }}
-              </template>
+                >{{ data.item.show.name }} - {{ data.item.schedule }} - {{ data.item.seat.name }}</template>-->
+                <template slot="item" slot-scope="data">
+                  {{ data.item.showSchedule.show.title }} - {{ data.item.showSchedule.time.part }}
+                  - {{ data.item.seat.name }}
+                </template>
 
-              <template slot="selection" slot-scope="data">
-                {{ data.item.showSchedule.show.title }} - {{ data.item.showSchedule.time.part }}
-                - {{ data.item.seat.name }}
-              </template>
-            </v-select>
+                <template slot="selection" slot-scope="data">
+                  {{ data.item.showSchedule.show.title }} - {{ data.item.showSchedule.time.part }}
+                  - {{ data.item.seat.name }}
+                </template>
+              </v-select>
 
-            <v-select
-              v-model="selectedPaymentType"
-              :items="paymenttype"
-              item-text="payment"
-              item-value="id"
-              label="่ช่องทางการชำระเงิน"
-            ></v-select>
+              <v-select
+                v-model="selectedPaymentType"
+                :items="paymenttype"
+                item-text="payment"
+                item-value="id"
+                label="่ช่องทางการชำระเงิน"
+              ></v-select>
 
-            <div class="text-Right">
-              <v-btn color="warning" @click="Print">Print</v-btn>
-            </div>
+              <div class="text-Right">
+                <v-btn color="warning" @click="Print">Print</v-btn>
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -78,11 +78,14 @@ export default {
   watch: {
     selectedCustomer: function(val) {
       this.getAllticketbooking();
+    },
+    newTicketBookings: function(val) {
+      this.checkTicketWherePrinted();
     }
+    
   },
   mounted() {
     this.getAllemployee();
-    this.getAllticketbooking();
     this.getAllpaymenttype();
     this.getAllCustomers();
   },
@@ -91,7 +94,9 @@ export default {
       employee: [],
       selectedEmployee: null,
 
-      ticketbooking: [],
+      ticketbookings: [],
+      newTicketBookings: [],
+      OKTicketBookings: [],
       selectedTicketBooking: null,
 
       customer: [],
@@ -113,29 +118,7 @@ export default {
           console.log(e);
         });
     },
-    checkPrinted(i){
-      api
-        .get("/cancelticket/"+this.ticketbookings[i].id)
-        .then(res =>{
-          if(!res.data){
-            console.log("ตั๋วยังไม่ถูกยกเลิก");
-            this.newTicketBookings.push(this.ticketbookings[i]);
-            console.log(this.ticketbookings[i]);
-          }else{
-            console.log("ตั๋วถูกยกเลิกไปแล้ว");
-            console.log(res.data);
-          }
-        })
-        .catch(e=>{
-          console.log(e);
-        })
-
-    },
-    checkTicketWherePrinted(){
-      for(var i = 0 ; i < this.ticketbookings.length ; i++){
-        this.checkPrinted(i);
-      }
-    },
+    
     Print() {
       if (
         !this.selectedEmployee ||
@@ -184,22 +167,71 @@ export default {
           console.log(e);
         });
     },
+    //Axios ต้องรอ!
+    checkPrinted(i){
+      console.log("checkPrinted");
+      
+      api
+        .get("/receipt/"+this.newTicketBookings[i].id)
+        .then(res =>{
+          if(!res.data){
+            console.log("ตั๋วยังไม่ถูกพิมพ์ใบเสร็จ");
+            this.OKTicketBookings.push(this.newTicketBookings[i]);
+            console.log(this.newTicketBookings[i]);
+          }else{
+            console.log("ตั๋วถูกพิมพ์ใบเสร็จไปแล้ว");
+            console.log(res.data);
+          }
+        })
+        .catch(e=>{
+          console.log(e);
+        })
 
+    },
+    checkTicketWherePrinted(){
+      console.log("checkTicketWherePrinted");
+      this.OKTicketBookings = [];
+      for(var i = 0 ; i < this.newTicketBookings.length ; i++){
+        this.checkPrinted(i);
+      }
+    },
+    checkCancel(i){
+      api
+        .get("/cancelticket/"+this.ticketbookings[i].id)
+        .then(res =>{
+          if(!res.data){
+            console.log("ตั๋วยังไม่ถูกยกเลิก");
+            this.newTicketBookings.push(this.ticketbookings[i]);
+            console.log(this.ticketbookings[i]);
+          }else{
+            console.log("ตั๋วถูกยกเลิกไปแล้ว");
+            console.log(res.data);
+          }
+        })
+        .catch(e=>{
+          console.log(e);
+        })
+
+    },
+    checkTicketWhereCanceled(){
+      for(var i = 0 ; i < this.ticketbookings.length ; i++){
+        this.checkCancel(i);
+      }
+
+    },
     getAllticketbooking() {
       api
         .get("/ticketbooking/" + this.selectedCustomer)
         .then(response => {
-          this.ticketbooking = response.data;
-          console.log(
-            "Select * from TicketBooking where Customer_ID = " +
-              this.selectedCustomer
-          );
+          this.ticketbookings = response.data;
+          console.log("get ticetBookings where customer = this.customer");
           console.log(JSON.parse(JSON.stringify(response.data)));
-          this.checkTicketWherePrinted();
+          this.checkTicketWhereCanceled();
         })
         .catch(e => {
           console.log(e);
         });
+
     },
 
     getAllpaymenttype() {

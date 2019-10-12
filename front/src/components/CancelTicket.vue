@@ -6,7 +6,7 @@
           <v-card class="elevation-12" tile>
             <v-toolbar color="primary" dark flat>
               <v-icon>mdi-close-circle</v-icon>&nbsp;&nbsp;
-              <v-toolbar-title>ยกเลิกตั๋วการแสดง</v-toolbar-title>
+              <v-toolbar-title>ยกเลิกการจอง</v-toolbar-title>
               <div class="flex-grow-1"></div>
             </v-toolbar>
             <v-card-text>

@@ -42,6 +42,11 @@ public class ReceiptController{
     public Collection<Receipt> getAllReceipt(){
         return receiptrepository.findAll().stream().collect(Collectors.toList());
     }
+    @GetMapping("/receipt/{ticketbooking_id}")
+    public Receipt checkTicket(@PathVariable long ticketbooking_id){
+        TicketBooking tmp = ticketbookingrepository.findById(ticketbooking_id);
+        return receiptrepository.findByTicketBooking(tmp);
+    }
 
     
     

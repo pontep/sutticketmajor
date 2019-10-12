@@ -15,14 +15,14 @@
                 v-model="selectedCustomer"
                 item-value="id"
                 item-text="name"
-                label="เลือกชื่อของตัวคุณเอง"
+                label="เลือกลูกค้า"
               ></v-select>
               <v-select
                 :items="showSchedules"
                 v-model="selectedShowSchedule"
                 item-value="id"
                 item-text="show.name"
-                label="เลือกการแสดง"
+                label="เลือกรอบการแสดง"
               >
                 <template
                   slot="selection"
@@ -44,7 +44,7 @@
             <v-row align="center" justify="center">
               <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn color="success" @click="bookATicket">จองตั๋วการแสดง</v-btn>
+                <v-btn color="success" @click="bookATicket">จองตั๋ว</v-btn>
                 <!-- <v-btn color="error" @click="back">Back</v-btn> -->
               </v-card-actions>
             </v-row>
