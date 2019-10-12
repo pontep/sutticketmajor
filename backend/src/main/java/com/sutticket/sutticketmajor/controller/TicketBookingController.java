@@ -62,7 +62,7 @@ public class TicketBookingController {
         Customer customer = customerRepository.findById(customer_id);
         ShowSchedule showschedule = showScheduleRepository.findById(showschedule_id);
         Seat seat = seatRepository.findById(seat_id);
-
+                
         newTicketBooking.setBookdate(new Date());
 
         newTicketBooking.setCustomer(customer);

@@ -31,14 +31,14 @@
                   :items="name"
                   item-text="name"
                   item-value="id"
-                  label="Fill out the name"
+                  label="ชื่อ"
                 ></v-text-field>
                 <v-select
                   v-model="selectedsex"
                   :items="Sex"
                   item-text="sex"
                   item-value="id"
-                  label="Select Sex"
+                  label="เลือกเพศ"
                 ></v-select>
 
                 <v-select
@@ -46,7 +46,7 @@
                   :items="RangeAge"
                   item-text="rangeages"
                   item-value="id"
-                  label="Select Range Age"
+                  label="เลือกช่วงอายุ"
                 ></v-select>
 
                 <v-select
@@ -54,14 +54,14 @@
                   :items="Carrer"
                   item-text="name"
                   item-value="id"
-                  label="select Carrer"
+                  label="เลือกอาชีพ"
                 ></v-select>
               </v-card-text>
               <v-card-actions>
                 <div class="flex-grow-1"></div>
 
-                <v-btn color="success" @click="Save">สมัครสมาชิก</v-btn>
-                <v-btn color="secondary" router-link to="/">กลับ</v-btn>
+                <v-btn color="success" @click="Save">Register</v-btn>
+                <v-btn color="secondary" router-link to="/">back</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -188,7 +188,7 @@ export default {
             this.EnterPassword
         )
         .then(res => {
-          alert("Success");
+          alert("สมัครสมาชิกสำเร็จ!");
           console.log(JSON.parse(JSON.stringify(res.data)));
           this.$router.push("/");
         })
