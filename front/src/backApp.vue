@@ -86,7 +86,7 @@ export default {
       menu_lists_of_Emp: [
         { text: "Show", router: "/ShowManagement" },
         { text: "Receipt", router: "/Receipt" },
-        { text: "Show Schedule", router: "/ShowScheduleManagement" }
+        { text: "Show Schedule", router: "/ManageShowSchedule" }
       ],
       menu_lists_of_Cus: [
         { text: "Ticket Booking", router: "/ticketbooking/1" },

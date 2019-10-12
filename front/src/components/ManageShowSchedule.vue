@@ -52,7 +52,7 @@
                   <v-text-field v-model="pickDate" label="เลือกวันที่ทำการแสดง" readonly v-on="on"></v-text-field>
                 </template>
 
-                <v-date-picker color="red lighten-3" v-model="pickDate" scrollable>
+                <v-date-picker color="black" v-model="pickDate" scrollable>
                   <div class="flex-grow-1"></div>
                   <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
                   <v-btn text color="primary" @click="$refs.dialog.save(pickDate)">OK</v-btn>

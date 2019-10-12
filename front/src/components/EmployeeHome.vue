@@ -29,7 +29,7 @@
             <v-list-item-title>จัดการการแสดง</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="goShowScheduleManagement">
+        <v-list-item @click="goManageShowSchedule">
           <v-list-item-action>
             <v-icon light>mdi-wrench</v-icon>
           </v-list-item-action>
@@ -90,8 +90,8 @@
             <template v-else-if="content === 'showManagement'">
               <ShowManangement :employee="employee" />
             </template>
-            <template v-else-if="content === 'showScheduleManagement'">
-              <ShowScheduleManagement :employee="employee" />
+            <template v-else-if="content === 'manageShowSchedule'">
+              <ManageShowSchedule :employee="employee" />
             </template>
             <template v-else-if="content === 'receipt'">
               <Receipt :employee="employee" />
@@ -117,7 +117,7 @@
 <script>
 import api from "../http-common";
 import EmployeeHomeContent from "./EmployeeHomeContent";
-import ShowScheduleManagement from "./ShowScheduleManagement";
+import ManageShowSchedule from "./ManageShowSchedule";
 import ShowManangement from "./ShowManangement";
 import ShowScheduleData from "./ShowScheduleData";
 import ShowManagementData from "./ShowManagementData";
@@ -130,7 +130,7 @@ export default {
     Receipt,
     EmployeeHomeContent,
     ShowManangement,
-    ShowScheduleManagement
+    ManageShowSchedule
   },
   mounted() {
     this.employee.id = this.$route.params.employeeId;
@@ -169,9 +169,9 @@ export default {
       this.content = "showManagementData";
       this.drawer = false;
     },
-    goShowScheduleManagement() {
+    goManageShowSchedule() {
       // this.$router.push("/ticketbooking/"+this.customer.id);
-      this.content = "showScheduleManagement";
+      this.content = "manageShowSchedule";
       this.drawer = false;
     },
     goEmployeeHome() {
