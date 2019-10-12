@@ -169,9 +169,9 @@ export default {
       this.content = "showManagementData";
       this.drawer = false;
     },
-    goShowScheduleManagement() {
+    goManageShowSchedule() {
       // this.$router.push("/ticketbooking/"+this.customer.id);
-      this.content = "showScheduleManagement";
+      this.content = "manageShowSchedule";
       this.drawer = false;
     },
     goEmployeeHome() {
