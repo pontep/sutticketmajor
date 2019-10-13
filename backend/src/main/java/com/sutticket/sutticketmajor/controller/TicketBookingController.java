@@ -57,26 +57,19 @@ public class TicketBookingController {
     }
 
     @PostMapping("/ticketBooking/{customer_id}/{showschedule_id}/{seat_id}")
-    public TicketBooking postTicketBooking(TicketBooking newTicketBooking, @PathVariable long customer_id,
+    public TicketBooking bookATicket(TicketBooking newTicketBooking, @PathVariable long customer_id,
             @PathVariable long showschedule_id, @PathVariable long seat_id) {
-        Customer customer = customerRepository.findById(customer_id);
+        //TicketBooking newTicketBookning = new TicketBooking();
         ShowSchedule showschedule = showScheduleRepository.findById(showschedule_id);
+        Customer customer = customerRepository.findById(customer_id);
         Seat seat = seatRepository.findById(seat_id);
-                
-        newTicketBooking.setBookdate(new Date());
 
-        newTicketBooking.setCustomer(customer);
         newTicketBooking.setShowSchedule(showschedule);
-        seat.setIsBook(true); // seat นี้ถูกจองไปแล้ว
+        newTicketBooking.setCustomer(customer);
         newTicketBooking.setSeat(seat);
+        newTicketBooking.setBookDate(new Date());
+
         return ticketBookingRepository.save(newTicketBooking);
-
-    }
-
-    @DeleteMapping("/ticketbooking/{id}")
-    public ResponseEntity<String> deleteTicketBooking(@PathVariable long id) {
-        ticketBookingRepository.deleteById(id);
-        return new ResponseEntity<>("Ticketbooking" + id + "has been deleted!", HttpStatus.OK);
     }
 
 }

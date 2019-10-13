@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 @Entity
@@ -29,7 +30,7 @@ public class Receipt
     @SequenceGenerator(name="receipt_seq",sequenceName="receipt_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="receipt_seq")
     @Column(name = "RECEIPT_ID", unique = true, nullable = true,insertable = true)    
-    private long id;
+    private @NonNull long id;
 
     // @OneToOne(cascade = CascadeType.ALL)
     // @JoinColumn(name = "ticketBooking")
@@ -38,19 +39,19 @@ public class Receipt
     @OneToOne(fetch = FetchType.EAGER, targetEntity = TicketBooking.class)
     @JoinColumn(name = "TICKETBOOKING_ID", insertable = true)
     @JsonManagedReference
-    private TicketBooking ticketBooking; 
+    private @NonNull TicketBooking ticketBooking; 
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PaymentType.class)
     @JoinColumn(name = "PaymentType_ID", insertable = true)
     @JsonManagedReference
-    private PaymentType paymentType;
+    private @NonNull PaymentType paymentType;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
     @JsonManagedReference
-	private  Employee employee;
+	private @NonNull Employee employee;
 
-    private Date receiptdate;
+    private @NonNull Date receiptdate;
 
     public Receipt(){}
     public Receipt(TicketBooking tb, PaymentType pt, Employee emp){

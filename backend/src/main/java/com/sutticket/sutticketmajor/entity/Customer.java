@@ -26,31 +26,31 @@ public class Customer {
     @SequenceGenerator(name="CUSTOMER_seq",sequenceName="CUSTOMER_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CUSTOMER_seq")
     @Column(name = "CUSTOMER_ID", unique = true, nullable = true)
-    private  Long id;
+    private @NonNull Long id;
 
     @Column(name="name")
-    private  String name;
+    private @NonNull String name;
 
     @Column(name="username")
-    private  String username;
+    private @NonNull String username;
 
     @Column(name="password")
-    private  String password;
+    private @NonNull String password;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = RangeAge.class)
     @JoinColumn(name = "RANGEAGE_ID", insertable = true)
     @JsonManagedReference
-    private RangeAge rangeAge;
+    private @NonNull RangeAge rangeAge;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Carrer.class)
     @JoinColumn(name = "CARRER_ID", insertable = true)
     @JsonManagedReference
-    private Carrer carrer;
+    private @NonNull Carrer carrer;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Sex.class)
     @JoinColumn(name = "SEX_ID", insertable = true)
     @JsonManagedReference
-    private Sex sex;
+    private @NonNull Sex sex;
 
     public Customer(){}
     public Customer(String name, String username, String pass, RangeAge rangeAge, Carrer carrer, Sex sex){

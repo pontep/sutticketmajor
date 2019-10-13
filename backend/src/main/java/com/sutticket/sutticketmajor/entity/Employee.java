@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 @Entity
@@ -14,11 +15,11 @@ public class Employee{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Employee_ID",insertable = true)
-    private long id;
+    private @NonNull long id;
 
-    private String name;
-    private String username;
-    private String password; 
+    private @NonNull String name;
+    private @NonNull String username;
+    private @NonNull String password; 
 
     // @ManyToOne(fetch = FetchType.EAGER, targetEntity = Receipt.class)
     // @JoinColumn(name = "RECEIPT_ID", insertable = true)

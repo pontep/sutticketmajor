@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 @Entity
@@ -15,9 +16,9 @@ public class Reason{
     @SequenceGenerator(name="reason_seq",sequenceName="reason_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "reason_seq")
     @Column(name = "REASON_ID")
-    private long id;
+    private @NonNull long id;
 
-    private String sentence;
+    private @NonNull String sentence;
 
     // @OneToMany(fetch = FetchType.EAGER, targetEntity = CancelTicket.class)
     // private Collection<CancelTicket> cancelticket;

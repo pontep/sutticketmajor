@@ -33,17 +33,17 @@ public class ShowSchedule {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Show.class)
     @JoinColumn(name = "SHOW_ID", insertable = true)
     @JsonManagedReference
-    private Show show;
+    private @NonNull Show show;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowTime.class)
     @JoinColumn(name = "SHOW_TIME_ID", insertable = true)
     @JsonManagedReference
-    private ShowTime time;
+    private @NonNull ShowTime time;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowLocation.class)
     @JoinColumn(name = "SHOW_LOCATION_ID", insertable = true)
     @JsonManagedReference
-    private ShowLocation location_at;
+    private @NonNull ShowLocation location_at;
 
     public ShowSchedule(){}
     public ShowSchedule(Date date, Show show, ShowTime time, ShowLocation location){
@@ -52,7 +52,4 @@ public class ShowSchedule {
         this.time = time;
         this.location_at = location;
     }
-    // @ManyToOne(fetch = FetchType.EAGER, targetEntity = Seat.class)
-    // @JoinColumn(name = "SEAT_ID", insertable = true)
-    // private Seat cus_seat;
 }

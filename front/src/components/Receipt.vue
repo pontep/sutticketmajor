@@ -82,7 +82,6 @@ export default {
     newTicketBookings: function(val) {
       this.checkTicketWherePrinted();
     }
-    
   },
   mounted() {
     this.getAllemployee();
@@ -118,7 +117,7 @@ export default {
           console.log(e);
         });
     },
-    
+
     Print() {
       if (
         !this.selectedEmployee ||
@@ -168,56 +167,53 @@ export default {
         });
     },
     //Axios ต้องรอ!
-    checkPrinted(i){
+    checkPrinted(i) {
       console.log("checkPrinted");
-      
+
       api
-        .get("/receipt/"+this.newTicketBookings[i].id)
-        .then(res =>{
-          if(!res.data){
+        .get("/receipt/" + this.newTicketBookings[i].id)
+        .then(res => {
+          if (!res.data) {
             console.log("ตั๋วยังไม่ถูกพิมพ์ใบเสร็จ");
             this.OKTicketBookings.push(this.newTicketBookings[i]);
             console.log(this.newTicketBookings[i]);
-          }else{
+          } else {
             console.log("ตั๋วถูกพิมพ์ใบเสร็จไปแล้ว");
             console.log(res.data);
           }
         })
-        .catch(e=>{
+        .catch(e => {
           console.log(e);
-        })
-
+        });
     },
-    checkTicketWherePrinted(){
+    checkTicketWherePrinted() {
       console.log("checkTicketWherePrinted");
       this.OKTicketBookings = [];
-      for(var i = 0 ; i < this.newTicketBookings.length ; i++){
+      for (var i = 0; i < this.newTicketBookings.length; i++) {
         this.checkPrinted(i);
       }
     },
-    checkCancel(i){
+    checkCancel(i) {
       api
-        .get("/cancelticket/"+this.ticketbookings[i].id)
-        .then(res =>{
-          if(!res.data){
+        .get("/cancelticket/" + this.ticketbookings[i].id)
+        .then(res => {
+          if (!res.data) {
             console.log("ตั๋วยังไม่ถูกยกเลิก");
             this.newTicketBookings.push(this.ticketbookings[i]);
             console.log(this.ticketbookings[i]);
-          }else{
+          } else {
             console.log("ตั๋วถูกยกเลิกไปแล้ว");
             console.log(res.data);
           }
         })
-        .catch(e=>{
+        .catch(e => {
           console.log(e);
-        })
-
+        });
     },
-    checkTicketWhereCanceled(){
-      for(var i = 0 ; i < this.ticketbookings.length ; i++){
+    checkTicketWhereCanceled() {
+      for (var i = 0; i < this.ticketbookings.length; i++) {
         this.checkCancel(i);
       }
-
     },
     getAllticketbooking() {
       api
@@ -231,7 +227,6 @@ export default {
         .catch(e => {
           console.log(e);
         });
-
     },
 
     getAllpaymenttype() {

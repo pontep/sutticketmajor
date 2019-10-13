@@ -24,24 +24,24 @@ public class Show {
     @SequenceGenerator(name="SHOW_seq",sequenceName="SHOW_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SHOW_seq")
     @Column(name = "SHOW_ID", unique = true, nullable = true)
-    private Long id;
+    private @NonNull Long id;
 
     @Column(name="TITLE")
-    private  String title;
+    private @NonNull String title;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity =  Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
-    private Employee createBy;
+    private @NonNull Employee createBy;
     
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowType.class)
     @JoinColumn(name = "SHOWTYPE_ID", insertable = true)
     @JsonManagedReference
-    private ShowType type;
+    private @NonNull ShowType type;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShowRating.class)
     @JoinColumn(name = "SHOWRATING_ID", insertable = true)
     @JsonManagedReference
-    private ShowRating rating;
+    private @NonNull ShowRating rating;
 
     public Show(){}
 

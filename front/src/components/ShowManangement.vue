@@ -122,8 +122,10 @@ export default {
         .then(response => {
           alert("บันทึกข้อมูลสำเร็จ!");
           console.log(JSON.parse(JSON.stringify(response.data)));
-          this.$refs.form.reset();
-          // this.$router.push("/view");
+          this.insertShowName = null;
+          this.selectedEmployee = null;
+          this.selectedShowType = null;
+          this.selectedShowRating = null;
         })
         .catch(e => {
           console.log(e);

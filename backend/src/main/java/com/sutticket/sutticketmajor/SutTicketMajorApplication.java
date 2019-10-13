@@ -100,7 +100,7 @@ public class SutTicketMajorApplication {
 			// Seat
 			Seat seat[] = new Seat[10];
 			for (int i = 0; i < 10; i++) {
-				seat[i] = new Seat("A" + (i + 1), 0, false);
+				seat[i] = new Seat("A" + (i + 1));
 				seatRepository.save(seat[i]);
 			}
 			// ShowManagement - New
@@ -183,6 +183,8 @@ public class SutTicketMajorApplication {
 			Stream.of(receipt1,receipt2).forEach(receipt -> {
 				receiptRepository.save(receipt);
 			});
+
+			
 			//customerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
 		};
 	}

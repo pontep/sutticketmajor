@@ -10,7 +10,7 @@
         <v-data-table
           :headers="headers"
           :items="OKTicketBookings"
-          :items-per-page="10"
+          :items-per-page="perPage"
           class="elevation-1"
         ></v-data-table>
       </v-card>
@@ -24,18 +24,18 @@
 import api from "../http-common";
 
 export default {
-  watch:{
-    newTicketBookings: function(val) {
-      this.checkTicketWherePrinted();
+  watch: {
+    OKTicketBookings: function(val) {
+      
     }
-    
   },
   props: {
     customer: {}
   },
   data() {
     return {
-      OKTicketBookings:[] ,
+      perPage: 5,
+      OKTicketBookings: [],
       newTicketBookings: [],
       ticketbookings: [],
       count: 0,
@@ -57,52 +57,60 @@ export default {
     };
   },
   methods: {
-    test(){
-      var x = {};
-      x = this.newTicketBookings[0];
-      x.fuck = "ddd"
-      console.log(JSON.parse(JSON.stringify(x)))
+    test() {
+      // var x = {};
+      // x = this.newTicketBookings[0];
+      // x.fuck = "ddd"
+      // console.log(JSON.parse(JSON.stringify(x)))
+      console.log("ตระกร้าของฉัน : ");
+      console.log(JSON.parse(JSON.stringify(this.OKTicketBookings)));
     },
-    checkPrinted(i){
-      console.log("checkPrinted");
+    checkPrinted(i) {
+      console.log("checkPrinted : " + this.ticketbookings[i].id);
       api
-        .get("/receipt/"+this.newTicketBookings[i].id)
-        .then(res =>{
-          if(!res.data){
-            console.log("ตั๋วยังไม่ถูกพิมพ์ใบเสร็จ");
-            this.newTicketBookings[i].status = "ยังไม่ชำระเงิน";
-            this.OKTicketBookings.push(this.newTicketBookings[i]);
-            
-          }else{
+        .get("/receipt/" + this.ticketbookings[i].id)
+        .then(res => {
+          if (!res.data) {
+            console.log(
+              "ตั๋ว id : " + this.ticketbookings[i].id + "ยังไม่ถูกพิมพ์ใบเสร็จ"
+            );
+            this.ticketbookings[i].status = "ยังไม่ชำระเงิน";
+            this.OKTicketBookings.push(this.ticketbookings[i]);
+          } else {
             console.log("ตั๋วถูกพิมพ์ใบเสร็จไปแล้ว");
-            this.newTicketBookings[i].status = "ชำระเงินแล้ว"
-            this.OKTicketBookings.push(this.newTicketBookings[i]);
+            this.ticketbookings[i].status = "ชำระเงินแล้ว";
+            this.OKTicketBookings.push(this.ticketbookings[i]);
           }
+          console.log(JSON.parse(JSON.stringify(this.OKTicketBookings)));
+          
         })
-        .catch(e=>{
+        .catch(e => {
           console.log(e);
-        })
-
+        });
     },
-    checkTicketWherePrinted(){
-      console.log("checkTicketWherePrinted");
-      this.OKTicketBookings = [];
-      for(var i = 0 ; i < this.newTicketBookings.length ; i++){
-        this.checkPrinted(i);
-      }
-    },
+    // checkTicketWherePrinted() {
+    //   console.log("checkTicketWherePrinted");
+    //   //   this.OKTicketBookings = [];
+    //   console.log(JSON.parse(JSON.stringify(this.OKTicketBookings)));
+    //   for (var i = 0; i < this.newTicketBookings.length; i++) {
+    //     this.checkPrinted(i);
+    //   }
+    // },
     checkCancel(i) {
       api
         .get("/cancelticket/" + this.ticketbookings[i].id)
         .then(res => {
           if (!res.data) {
             console.log("ตั๋วยังไม่ถูกยกเลิก");
-            this.newTicketBookings.push(this.ticketbookings[i]);
-            console.log(this.ticketbookings[i]);
+            // this.newTicketBookings.push(this.ticketbookings[i]);
+            console.log(JSON.parse(JSON.stringify(this.ticketbookings[i])));
+            this.checkPrinted(i);
           } else {
             console.log("ตั๋วถูกยกเลิกไปแล้ว");
-            console.log(res.data);
+            console.log(JSON.parse(JSON.stringify(res.data)));
           }
+          console.log("newTicketBookings :");
+          console.log(JSON.parse(JSON.stringify(this.newTicketBookings)));
         })
         .catch(e => {
           console.log(e);
@@ -118,9 +126,9 @@ export default {
         .get("/ticketbooking/" + this.customer.id)
         .then(res => {
           this.ticketbookings = res.data;
-          console.log("ticketbooking loaded!");
+          console.log("TicketBookings loaded!");
           console.log(JSON.parse(JSON.stringify(res.data)));
-           this.checkTicketWhereCanceled();
+          this.checkTicketWhereCanceled();
         })
         .catch(e => {
           console.log(e);
