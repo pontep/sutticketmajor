@@ -78,6 +78,9 @@ export default {
   watch: {
     selectedCustomer: function(val) {
       this.getAllticketbooking();
+      this.ticketbookings = [];
+      this.OKTicketBookings = [];
+      this.newTicketBookings = [];
     },
     newTicketBookings: function(val) {
       this.checkTicketWherePrinted();
