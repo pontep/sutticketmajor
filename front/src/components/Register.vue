@@ -12,12 +12,21 @@
               </v-toolbar>
               <v-card-text>
                 <v-text-field
+                  v-model="EnterName"
+                  :items="name"
+                  item-text="name"
+                  item-value="id"
+                  label="ชื่อ"
+                ></v-text-field>
+
+                <v-text-field
                   v-model="EnterUsename"
                   label="Username"
                   name="login"
                   prepend-icon="person"
                   type="text"
                 ></v-text-field>
+
                 <v-text-field
                   v-model="EnterPassword"
                   id="password"
@@ -26,13 +35,7 @@
                   prepend-icon="lock"
                   type="password"
                 ></v-text-field>
-                <v-text-field
-                  v-model="EnterName"
-                  :items="name"
-                  item-text="name"
-                  item-value="id"
-                  label="ชื่อ"
-                ></v-text-field>
+                
                 <v-select
                   v-model="selectedsex"
                   :items="Sex"
@@ -50,8 +53,8 @@
                 ></v-select>
 
                 <v-select
-                  v-model="selectedCarrer"
-                  :items="Carrer"
+                  v-model="selectedCareer"
+                  :items="Career"
                   item-text="name"
                   item-value="id"
                   label="เลือกอาชีพ"
@@ -80,7 +83,7 @@ export default {
   mounted() {
     this.getAllSex();
     this.getAllRangeAge();
-    this.getAllCarrer();
+    this.getAllCareer();
   },
   data() {
     return {
@@ -95,13 +98,13 @@ export default {
       EnterPassword: null,
       selectedRangeAge: null,
       selectedsex: null,
-      selectedCarrer: null,
+      selectedCareer: null,
       name: [],
       username: [],
       password: [],
       Sex: [],
       RangeAge: [],
-      Carrer: []
+      Career: []
     };
   },
   methods: {
@@ -129,11 +132,11 @@ export default {
           console.log(e);
         });
     },
-    getAllCarrer() {
+    getAllCareer() {
       api
         .get("/careers")
         .then(res => {
-          this.Carrer = res.data;
+          this.Career = res.data;
           console.log("loading careers");
           console.log(JSON.parse(JSON.stringify(res.data)));
         })
@@ -148,7 +151,7 @@ export default {
         !this.EnterPassword ||
         !this.selectedRangeAge ||
         !this.selectedsex ||
-        !this.selectedCarrer
+        !this.selectedCareer
       ) {
         alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
       } else {
@@ -179,7 +182,7 @@ export default {
             "/" +
             this.selectedRangeAge +
             "/" +
-            this.selectedCarrer +
+            this.selectedCareer +
             "/" +
             this.EnterName +
             "/" +
