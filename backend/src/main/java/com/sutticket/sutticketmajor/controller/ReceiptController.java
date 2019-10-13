@@ -51,7 +51,7 @@ public class ReceiptController{
     
     
     @PostMapping("/receipts/{EMPLOYEE_ID}/{PAYMENT_TYPE_ID}/{TICKETBOOKING_ID}")
-    public Receipt newReceipt (Receipt newReceipt,
+    public Receipt Print (Receipt newReceipt,
     
     @PathVariable long EMPLOYEE_ID,
     @PathVariable long PAYMENT_TYPE_ID,
