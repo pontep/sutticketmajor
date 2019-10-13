@@ -20,7 +20,7 @@
 
               <v-select
                 v-model="selectedTicketBooking"
-                :items="newTicketBookings"
+                :items="OKTicketBookings"
                 item-text="id"
                 item-value="id"
                 label="เลือกตั๋วการแสดงที่ต้องการยกเลิก"
@@ -69,6 +69,11 @@ export default {
     this.getAllReasons();
     this.getAllTicketBookings();
   },
+  watch:{
+    newTicketBookings: function(val) {
+      this.checkTicketWherePrinted();
+    }
+  },
   props: {
     customer: {}
   },
@@ -81,11 +86,38 @@ export default {
       customers: [],
       ticketbookings: [],
       newTicketBookings: [],
+      OKTicketBookings: [],
       reasons: [],
       
     };
   },
   methods: {
+    checkPrinted(i) {
+      console.log("checkPrinted");
+
+      api
+        .get("/receipt/" + this.newTicketBookings[i].id)
+        .then(res => {
+          if (!res.data) {
+            console.log("ตั๋วยังไม่ถูกพิมพ์ใบเสร็จ");
+            this.OKTicketBookings.push(this.newTicketBookings[i]);
+            console.log(this.newTicketBookings[i]);
+          } else {
+            console.log("ตั๋วถูกพิมพ์ใบเสร็จไปแล้ว");
+            console.log(res.data);
+          }
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    checkTicketWherePrinted() {
+      console.log("checkTicketWherePrinted");
+      this.OKTicketBookings = [];
+      for (var i = 0; i < this.newTicketBookings.length; i++) {
+        this.checkPrinted(i);
+      }
+    },
     getAllCustomers() {
       api
         .get("/customer/" + this.customer.id)

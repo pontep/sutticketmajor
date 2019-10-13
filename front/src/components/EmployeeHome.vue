@@ -39,7 +39,7 @@
         </v-list-item>
         
         <v-divider inset></v-divider>
-        <v-list-item @click="goShowManagementData">
+        <!-- <v-list-item @click="goShowManagementData">
           <v-list-item-action>
             <v-icon light>mdi-eye</v-icon>
           </v-list-item-action>
@@ -54,7 +54,7 @@
           <v-list-item-content>
             <v-list-item-title>รอบการแสดงทั้งหมด</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
 
         <v-divider inset></v-divider>
 

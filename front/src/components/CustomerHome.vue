@@ -28,14 +28,14 @@
             <v-list-item-title>ยกเลิกการจอง</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="goBasket">
+        <!-- <v-list-item @click="goBasket">
           <v-list-item-action>
             <v-icon>mdi-basket</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>ตระกร้าของฉัน</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
         <v-divider inset></v-divider>
       </v-list>
       <template v-slot:append>
