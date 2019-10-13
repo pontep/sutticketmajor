@@ -22,11 +22,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.sutticket.sutticketmajor.entity.Carrer;
+import com.sutticket.sutticketmajor.entity.Career;
 import com.sutticket.sutticketmajor.entity.Customer;
 import com.sutticket.sutticketmajor.entity.RangeAge;
 import com.sutticket.sutticketmajor.entity.Sex;
-import com.sutticket.sutticketmajor.repository.CarrerRepository;
+import com.sutticket.sutticketmajor.repository.CareerRepository;
 import com.sutticket.sutticketmajor.repository.CustomerRepository;
 import com.sutticket.sutticketmajor.repository.RangeAgeRepository;
 import com.sutticket.sutticketmajor.repository.SexRepository;
@@ -40,7 +40,7 @@ public class CustomerController {
     @Autowired
     private RangeAgeRepository rangeagerepository;
     @Autowired
-    private CarrerRepository carrerrepository;
+    private CareerRepository careerrepository;
     @Autowired
     private SexRepository sexrepository;
 
@@ -64,18 +64,18 @@ public class CustomerController {
 
     }
 
-    @PostMapping("/customer/{sex_id}/{rangeAge_id}/{carrer_id}/{name}/{username}/{password}")
+    @PostMapping("/customer/{sex_id}/{rangeAge_id}/{career_id}/{name}/{username}/{password}")
     public Customer newcustomer(Customer newCustomer,
     @PathVariable String name,
     @PathVariable String username,
     @PathVariable String password,
     @PathVariable long rangeAge_id,
-    @PathVariable long carrer_id,
+    @PathVariable long career_id,
     @PathVariable long sex_id) {
     
 
     RangeAge rangeage = rangeagerepository.findById(rangeAge_id);
-    Carrer carrer = carrerrepository.findById(carrer_id);
+    Career career = careerrepository.findById(career_id);
     Sex sex = sexrepository.findById(sex_id);
     
     newCustomer.setName(name);
@@ -83,7 +83,7 @@ public class CustomerController {
     newCustomer.setPassword(password);
     newCustomer.setSex(sex);
     newCustomer.setRangeAge(rangeage);
-    newCustomer.setCarrer(carrer);
+    newCustomer.setCareer(career);
     
 
 

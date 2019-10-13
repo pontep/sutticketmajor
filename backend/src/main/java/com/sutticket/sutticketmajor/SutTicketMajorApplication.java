@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.stream.Stream;
 
 import com.sutticket.sutticketmajor.entity.CancelTicket;
-import com.sutticket.sutticketmajor.entity.Carrer;
+import com.sutticket.sutticketmajor.entity.Career;
 import com.sutticket.sutticketmajor.entity.Customer;
 import com.sutticket.sutticketmajor.entity.Employee;
 import com.sutticket.sutticketmajor.entity.PaymentType;
@@ -21,7 +21,7 @@ import com.sutticket.sutticketmajor.entity.ShowTime;
 import com.sutticket.sutticketmajor.entity.ShowType;
 import com.sutticket.sutticketmajor.entity.TicketBooking;
 import com.sutticket.sutticketmajor.repository.CancelTicketRepository;
-import com.sutticket.sutticketmajor.repository.CarrerRepository;
+import com.sutticket.sutticketmajor.repository.CareerRepository;
 import com.sutticket.sutticketmajor.repository.CustomerRepository;
 import com.sutticket.sutticketmajor.repository.EmployeeRepository;
 import com.sutticket.sutticketmajor.repository.PaymentTypeRepository;
@@ -56,7 +56,7 @@ public class SutTicketMajorApplication {
 		ReasonRepository reasonRepository,
 		ShowTimeRepository showTimeRepository, ShowLocationRepository showLocationRepository,
 		ShowRatingRepository showRatingRepository,ShowTypeRepository showTypeRepository,
-		EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository, CarrerRepository carrerRepository, RangeAgeRepository rangeAgeRepository, SexRepository sexRepository, ShowRepository showRepository, CustomerRepository customerRepository,
+		EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository, CareerRepository careerRepository, RangeAgeRepository rangeAgeRepository, SexRepository sexRepository, ShowRepository showRepository, CustomerRepository customerRepository,
 			SeatRepository seatRepository, ShowScheduleRepository showScheduleRepository) {
 		return args -> {
 			// Bootstrap some test data into the in-memory database
@@ -83,11 +83,11 @@ public class SutTicketMajorApplication {
 				rangeAgeRepository.save(range); 
 			});
 
-			Carrer cr1 = new Carrer("นักศึกษา");
-			Carrer cr2 = new Carrer("พนักงานออฟฟิศ");
-			Carrer cr3 = new Carrer("อาจารย์");
-			Stream.of(cr1,cr2,cr3).forEach(carrer -> {
-				carrerRepository.save(carrer); 
+			Career cr1 = new Career("นักศึกษา");
+			Career cr2 = new Career("พนักงานออฟฟิศ");
+			Career cr3 = new Career("อาจารย์");
+			Stream.of(cr1,cr2,cr3).forEach(career -> {
+				careerRepository.save(career); 
 			});
 
 			Customer c1 = new Customer("Chanwit Kaewkasi", "chanwit", "123456",ra2,cr1,sex1);

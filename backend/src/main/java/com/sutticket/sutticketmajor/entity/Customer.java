@@ -42,10 +42,10 @@ public class Customer {
     @JsonManagedReference
     private @NonNull RangeAge rangeAge;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Carrer.class)
-    @JoinColumn(name = "CARRER_ID", insertable = true)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Career.class)
+    @JoinColumn(name = "CAREER_ID", insertable = true)
     @JsonManagedReference
-    private @NonNull Carrer carrer;
+    private @NonNull Career career;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Sex.class)
     @JoinColumn(name = "SEX_ID", insertable = true)
@@ -53,12 +53,12 @@ public class Customer {
     private @NonNull Sex sex;
 
     public Customer(){}
-    public Customer(String name, String username, String pass, RangeAge rangeAge, Carrer carrer, Sex sex){
+    public Customer(String name, String username, String pass, RangeAge rangeAge, Career career, Sex sex){
         this.name = name;
         this.username = username;
         this.password = pass;
         this.rangeAge = rangeAge;
-        this.carrer = carrer;
+        this.career = career;
         this.sex = sex;
     }
 }
