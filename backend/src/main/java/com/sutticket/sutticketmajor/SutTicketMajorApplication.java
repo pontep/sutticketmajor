@@ -172,17 +172,17 @@ public class SutTicketMajorApplication {
 			Stream.of(r1,r2,r3,r4).forEach(rea -> {
 				reasonRepository.save(rea); 
 			});
-			CancelTicket cancelTicket1 = new CancelTicket(c1,tb1,r1);
-			CancelTicket cancelTicket2 = new CancelTicket(c2,tb2,r4);
-			Stream.of(cancelTicket1,cancelTicket2).forEach(ct -> {
-				cancelTicketRepository.save(ct);
-			});
+			// CancelTicket cancelTicket1 = new CancelTicket(c1,tb1,r1);
+			// CancelTicket cancelTicket2 = new CancelTicket(c2,tb2,r4);
+			// Stream.of(cancelTicket1,cancelTicket2).forEach(ct -> {
+			// 	cancelTicketRepository.save(ct);
+			// });
 
-			Receipt receipt1 = new Receipt(tb3,paymentType4,emp1);
-			Receipt receipt2 = new Receipt(tb4,paymentType2,emp2);
-			Stream.of(receipt1,receipt2).forEach(receipt -> {
-				receiptRepository.save(receipt);
-			});
+			// Receipt receipt1 = new Receipt(tb3,paymentType4,emp1);
+			// Receipt receipt2 = new Receipt(tb4,paymentType2,emp2);
+			// Stream.of(receipt1,receipt2).forEach(receipt -> {
+			// 	receiptRepository.save(receipt);
+			// });
 
 			
 			//customerRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
