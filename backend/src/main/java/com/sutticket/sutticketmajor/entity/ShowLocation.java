@@ -30,6 +30,6 @@ public class ShowLocation {
     public ShowLocation(String location){
         this.location = location;
     }
-    // @OneToMany(fetch = FetchType.EAGER)
-    // private Collection<ShowSchedule> schedule;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<ShowSchedule> schedule;
 }

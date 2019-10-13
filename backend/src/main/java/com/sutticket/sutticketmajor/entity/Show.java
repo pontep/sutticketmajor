@@ -5,10 +5,13 @@ import lombok.*;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +46,8 @@ public class Show {
     @JsonManagedReference
     private @NonNull ShowRating rating;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<ShowSchedule> schedule;
     public Show(){}
 
     public Show(String title, Employee emp, ShowType st, ShowRating sr ){

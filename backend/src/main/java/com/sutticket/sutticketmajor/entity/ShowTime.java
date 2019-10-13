@@ -32,6 +32,6 @@ public class ShowTime {
     public ShowTime(String part){
         this.part = part;
     }
-    // @OneToMany(fetch = FetchType.EAGER)
-    // private Collection<ShowSchedule> schedule;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<ShowSchedule> schedule;
 }
