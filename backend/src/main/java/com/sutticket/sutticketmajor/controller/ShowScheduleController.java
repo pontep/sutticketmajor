@@ -33,8 +33,6 @@ public class ShowScheduleController {
     private final ShowScheduleRepository showScheduleRepository;
     @Autowired
     private ShowRepository showRepository;
-    // @Autowired
-    // private SeatRepository seatRepository;
     @Autowired
     private ShowTimeRepository showTimeRepository;
     @Autowired
@@ -51,40 +49,18 @@ public class ShowScheduleController {
     @PostMapping("/showSchedule/{show_id}/{showtime_id}/{showlocation_id}/{showDate}")
     public ShowSchedule newShowSchedule(ShowSchedule newShowSchedule,
     @PathVariable long show_id,
-    // @PathVariable long seat_id,
     @PathVariable long showtime_id,
     @PathVariable long showlocation_id,
     @PathVariable java.sql.Date showDate) {
         
-        // Seat cus_seat = seatRepository.findById(seat_id);
         Show showname = showRepository.findById(show_id);
         ShowTime time = showTimeRepository.findById(showtime_id);
         ShowLocation location_at = showLocationRepository.findById(showlocation_id);
         
-        // newShowSchedule.setCus_seat(cus_seat);
         newShowSchedule.setShow(showname);
         newShowSchedule.setTime(time);
         newShowSchedule.setLocation_at(location_at);
         newShowSchedule.setShowDate(showDate);
         return showScheduleRepository.save(newShowSchedule);
     }
-    // @PostMapping("/showSchedule/{show_id}/{showtime_id}/{showlocation_id}")
-    // public ShowSchedule newShowSchedule(ShowSchedule newShowSchedule, @RequestBody ShowSchedule showdate,
-    // @PathVariable long show_id,
-    // // @PathVariable long seat_id,
-    // @PathVariable long showtime_id,
-    // @PathVariable long showlocation_id) {
-        
-    //     // Seat cus_seat = seatRepository.findById(seat_id);
-    //     Show showname = showRepository.findById(show_id);
-    //     ShowTime time = showTimeRepository.findById(showtime_id);
-    //     ShowLocation location_at = showLocationRepository.findById(showlocation_id);
-        
-    //     // newShowSchedule.setCus_seat(cus_seat);
-    //     newShowSchedule.setShow(showname);
-    //     newShowSchedule.setTime(time);
-    //     newShowSchedule.setLocation_at(location_at);
-    //     newShowSchedule.setShowDate(showdate.getShowDate());
-    //     return showScheduleRepository.save(newShowSchedule);
-    // }
 }

@@ -100,7 +100,6 @@ export default {
     this.showTimeList();
     this.showLocationList();
     this.getShowDate();
-    // this.showSeat();
   },
 
   methods: {
@@ -116,16 +115,6 @@ export default {
           console.log("Error in showList() :" + e);
         });
     },
-    // showSeat() {
-    //   http
-    //     .get("/seats")
-    //     .then(response => {
-    //       this.seats = response.data;
-    //       console.log(JSON.parse(JSON.stringify(response.data)));
-    //     }).catch(e => {
-    //       console.log("Error in showSeat() :" + e);
-    //     });
-    // },
     showTimeList() {
       http
         .get("/showtimes")
@@ -160,9 +149,6 @@ export default {
         });
     },
     saveShowSchedule() {
-      const box = {
-        showDate: this.pickDate
-      };
       if (this.valid) {
         http
           .post(
@@ -185,25 +171,6 @@ export default {
           });
       }
     },
-    // saveShowSchedule() {
-    //   const box = {
-    //     showDate: this.pickDate
-    //   };
-    //   if (this.valid) {
-    //     http
-    //       .post(
-    //         "/showSchedule/" + this.S_show +  "/" +this.S_time +"/" +this.S_location,box
-    //       )
-    //       .then(response => {
-    //         console.log(response.data);
-    //         location.reload();
-    //         alert("SAVED");
-    //       })
-    //       .catch(e => {
-    //         console.log(e);
-    //       });
-    //   }
-    // },
     checkDate: function() {
       var count_1 = 0;
       for (var i = 0; i < this.dates.length; i++) {
@@ -211,8 +178,8 @@ export default {
       }
       if (count_1 > 0) {
         count_1 = 0;
-        return alert("Please choose a new day.");
         this.valid = false;
+        return alert("Please choose a new day.");
       } else {
         this.valid = true;
         return alert("You can use the date you selected.");
