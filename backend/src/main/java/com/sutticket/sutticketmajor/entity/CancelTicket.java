@@ -14,10 +14,10 @@ import lombok.NonNull;
 @Table(name = "cancelticket")
 public class CancelTicket{
     @Id
-    @SequenceGenerator(name="calcelTicket_seq",sequenceName="calcelTicket_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="calcelTicket_seq")
+    @SequenceGenerator(name="cancelTicket_seq",sequenceName="cancelTicket_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="cancelTicket_seq")
     @Column(name = "CANCELTICKET_ID", unique = true, nullable = true,insertable = true)
-    private @NonNull long id;
+    private long id;
 
     @Column(name="CANCEL_DATE")
     private @NonNull Date cancelDate;
