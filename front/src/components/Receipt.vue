@@ -77,10 +77,11 @@ export default {
   },
   watch: {
     selectedCustomer: function(val) {
-      this.getAllticketbooking();
+      
       this.ticketbookings = [];
       this.OKTicketBookings = [];
       this.newTicketBookings = [];
+      this.getAllticketbooking();
     },
     newTicketBookings: function(val) {
       this.checkTicketWherePrinted();
@@ -136,7 +137,7 @@ export default {
 
     getAllemployee() {
       api
-        .get("/employee" + this.employee.id)
+        .get("/employee/" + this.employee.id)
         .then(response => {
           this.employee = response.data;
 
