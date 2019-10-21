@@ -10,7 +10,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public
 interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findById(long id);
-    //Customer findByUsername(String username);
+    //select * from customer where customer_id = '....'
     Customer findByUsername(String username);
+    //
     Customer findByUsernameAndPassword(String username, String password);
 }

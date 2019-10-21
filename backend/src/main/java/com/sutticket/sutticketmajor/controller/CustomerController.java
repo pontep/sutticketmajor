@@ -73,7 +73,7 @@ public class CustomerController {
     @PathVariable long career_id,
     @PathVariable long sex_id) {
     
-
+    //Customer newCustomer = new Customer();
     RangeAge rangeage = rangeagerepository.findById(rangeAge_id);
     Career career = careerrepository.findById(career_id);
     Sex sex = sexrepository.findById(sex_id);

@@ -10,6 +10,7 @@ import lombok.NonNull;
 @Entity
 @Table(name = "ticketbooking")
 public class TicketBooking{
+    
     @Id
     @SequenceGenerator(name="ticketbooking_seq",sequenceName="ticketbooking_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ticketbooking_seq")

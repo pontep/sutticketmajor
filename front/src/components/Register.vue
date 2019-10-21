@@ -62,7 +62,6 @@
               </v-card-text>
               <v-card-actions>
                 <div class="flex-grow-1"></div>
-
                 <v-btn color="success" @click="Save">Register</v-btn>
                 <v-btn color="secondary" router-link to="/">back</v-btn>
               </v-card-actions>
@@ -73,6 +72,7 @@
     </v-content>
   </v-app>
 </template>
+
 <script>
 import api from "../http-common";
 
@@ -99,9 +99,9 @@ export default {
       selectedRangeAge: null,
       selectedsex: null,
       selectedCareer: null,
-      name: [],
-      username: [],
-      password: [],
+      // name: [],
+      // username: [],
+      // password: [],
       Sex: [],
       RangeAge: [],
       Career: []
